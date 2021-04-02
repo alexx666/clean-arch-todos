@@ -4,7 +4,6 @@ export default class RESTController {
     constructor(private useCase: InputPort) {}
 
     async doSomething(request: any) {
-        // TODO: map api request to use case input
-        await this.useCase.doSomething();
+        await this.useCase.doSomething(request.query);
     }
 }

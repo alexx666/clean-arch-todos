@@ -2,10 +2,13 @@ import Some from "../../core/do/some.entity";
 import Repository from "../../core/do/repository";
 
 export default class MockRepository implements Repository<Some> {
-    find(): Promise<Some[]> {
+    find(query: any): Promise<Some[]> {
+        const limit = Number(query.limit) || 20
 
-        const ids = [ "1", "2", "3", "4", "5" ]
+        const uniqueIds = Array(limit).keys()
+        const ids = Array.from(uniqueIds)
+        const idStrings = ids.map(id => String(id))
 
-        return Promise.resolve(ids.map(id => new Some(id)))
+        return Promise.resolve(idStrings.map(id => new Some(id)))
     }
 }

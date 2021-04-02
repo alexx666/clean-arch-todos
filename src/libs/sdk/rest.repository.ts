@@ -12,12 +12,13 @@ const httpRequest = (options: RequestOptions): Promise<IncomingMessage> => new P
 
 export default class RESTRepository implements Repository<Some> {
 
-    async find(): Promise<Some[]> {
+    async find(query: any): Promise<Some[]> {
+        const queryParams = Object.entries(query).map(e => e.join('=')).join('&')
 
         const req = await httpRequest({
             host: process.env.HOST,
             port: process.env.PORT,
-            path: `/do`,
+            path: `/do?${queryParams}`,
             method: "GET"
         });
 

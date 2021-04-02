@@ -16,6 +16,8 @@ async function doSomethingAction(cmd: any) {
 
 const doSomethingCommand = new Command();
 
-doSomethingCommand.name("do").action(doSomethingAction);
+doSomethingCommand.name("do")
+    .option("-l, --limit <limit>", "number of items to fetch", "20")
+    .action(cmd => doSomethingAction(cmd));
 
 export default doSomethingCommand;
