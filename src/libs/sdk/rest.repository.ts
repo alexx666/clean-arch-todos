@@ -1,0 +1,28 @@
+import Repository from "../../core/do/repository";
+import Some from "../../core/do/some.entity";
+
+import { ClientRequest, RequestOptions, IncomingMessage } from "http";
+
+const httpRequest = (options: RequestOptions): Promise<IncomingMessage> => new Promise((resolve, reject) => {
+    const req = new ClientRequest(options);
+    req.on("response", (res: IncomingMessage) => resolve(res))
+    req.on("error", (error: Error) => reject(error))
+    req.end()
+})
+
+export default class RESTRepository implements Repository<Some> {
+
+    async find(): Promise<Some[]> {
+
+        const req = await httpRequest({
+            host: process.env.HOST,
+            port: process.env.PORT,
+            path: `/do`,
+            method: "GET"
+        });
+
+        const response = JSON.parse(req.read().toString());
+
+        return response.data.map((i: any) => new Some(i.id));
+    }
+}

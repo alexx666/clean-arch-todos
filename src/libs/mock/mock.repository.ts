@@ -1,10 +1,11 @@
-import Some from "../do/some.entity";
-import Repository from "../do/repository";
+import Some from "../../core/do/some.entity";
+import Repository from "../../core/do/repository";
 
 export default class MockRepository implements Repository<Some> {
-    find(_: any): Promise<Some> {
-        return Promise.resolve({
-            id: "lmao"
-        })
+    find(): Promise<Some[]> {
+
+        const ids = [ "1", "2", "3", "4", "5" ]
+
+        return Promise.resolve(ids.map(id => new Some(id)))
     }
 }

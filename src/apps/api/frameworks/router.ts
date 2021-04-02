@@ -1,5 +1,5 @@
 import MockRepository from "../../../libs/mock/mock.repository";
-import DoSomething from "../../../libs/do/interactor";
+import DoSomething from "../../../core/do/interactor";
 import Response from "../adapters/response.presenter";
 import RESTController from "../adapters/rest.controller";
 

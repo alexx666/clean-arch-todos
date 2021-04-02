@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import "./config"
+
 import { program } from "commander";
 import doSomething from "./command";
 

@@ -1,11 +1,11 @@
 import { Command } from "commander";
-import MockRepository from "../../../libs/mock/mock.repository";
 
-import DoSomething from "../../../libs/do/interactor";
+import DoSomething from "../../../core/do/interactor";
+import RESTRepository from "../../../libs/sdk/rest.repository";
 import CLIController from "../adapters/cli.controller";
 import Console from "../adapters/logger.presenter";
 
-const repository = new MockRepository()
+const repository = new RESTRepository()
 const logger = new Console()
 const useCase = new DoSomething(logger, repository);
 const controller = new CLIController(useCase);
