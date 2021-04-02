@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:cli": "node dist/frameworks/cli/cli.js",
-    "start:api": "node dist/frameworks/rest/api.js",
+    "start:cli": "node dist/apps/cli/frameworks/main",
+    "start:api": "node dist/apps/api/frameworks/main",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "tsc -b --clean",
     "prebuild": "npm run clean",

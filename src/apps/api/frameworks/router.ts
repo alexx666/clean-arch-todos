@@ -1,9 +1,9 @@
-import RESTController from "../../adapters/controllers/rest.controller";
-import Repository from "../../adapters/gateways/repository";
-import Response from "../../adapters/presenters/response";
-import DoSomething from "../../use-cases/do-something/interactor";
+import MockRepository from "../../../libs/mock/mock.repository";
+import DoSomething from "../../../libs/do/interactor";
+import Response from "../adapters/response.presenter";
+import RESTController from "../adapters/rest.controller";
 
-const repository = new Repository()
+const repository = new MockRepository()
 
 export default async function doSomethingHandler(req: any, res: any, next: any) {
     const response = new Response(res)
