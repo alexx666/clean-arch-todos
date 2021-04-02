@@ -1,7 +1,7 @@
 import { Command } from "commander";
 
-import DoSomething from "../../../core/do/interactor";
-import RESTRepository from "../../../libs/sdk/rest.repository";
+import DoSomething from "../../../libs/do/interactor";
+import RESTRepository from "../adapters/rest.repository";
 import CLIController from "../adapters/cli.controller";
 import Console from "../adapters/logger.presenter";
 

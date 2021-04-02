@@ -1,4 +1,4 @@
-import Presenter from "../../../core/do/presenter";
+import Presenter from "../../../libs/do/presenter";
 
 export default class Response implements Presenter {
 

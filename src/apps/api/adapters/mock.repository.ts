@@ -1,5 +1,5 @@
-import Some from "../../core/do/some.entity";
-import Repository from "../../core/do/repository";
+import Some from "../../../libs/do/some.entity";
+import Repository from "../../../libs/do/repository";
 
 export default class MockRepository implements Repository<Some> {
     find(query: any): Promise<Some[]> {

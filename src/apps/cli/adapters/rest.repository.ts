@@ -1,5 +1,5 @@
-import Repository from "../../core/do/repository";
-import Some from "../../core/do/some.entity";
+import Repository from "../../../libs/do/repository";
+import Some from "../../../libs/do/some.entity";
 
 import { ClientRequest, RequestOptions, IncomingMessage } from "http";
 

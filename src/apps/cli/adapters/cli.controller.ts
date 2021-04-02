@@ -1,4 +1,4 @@
-import InputPort from "../../../core/do/input.port";
+import InputPort from "../../../libs/do/input.port";
 
 export default class CLIController {
     constructor(private useCase: InputPort) {}
