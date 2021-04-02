@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
-import "./config"
-
 import { program } from "commander";
-import doSomething from "./command";
 
-program.addCommand(doSomething);
+process.env.HOST = "localhost";
+process.env.PORT = String(3000);
+
+import todos from "./todo.command";
+
+program.addCommand(todos);
 
 program.parse(process.argv)
