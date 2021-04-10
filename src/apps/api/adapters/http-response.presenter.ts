@@ -1,11 +1,19 @@
-import Presenter from "../../../libs/todos/use-cases/presenter";
+import { Response } from "express";
 
-export default class HTTPResponsePresenter implements Presenter {
+import Presenter from "../../../libs/core/presenter";
+import { FindOutput } from "../../../libs/todos/use-cases/list-todos.io";
 
-    constructor(private response: any) {}
+export default class HTTPResponsePresenter implements Presenter<FindOutput, Error> {
 
-    present(data: any) {
-        return this.response.json({ data })
+    constructor(private response: Response) {}
+
+    presentResult(result: FindOutput) {
+        this.response.json(result)
+    }
+
+    // TODO: use error codes
+    presentError(error: Error) {
+        this.response.status(500).json({ message: error.message })
     }
 
 }

@@ -1,9 +1,9 @@
-import InputPort from "../../../libs/todos/use-cases/input.port";
+import Interactor from "../../../libs/core/interactor";
 
 export default class CLITodoController {
-    constructor(private useCase: InputPort) {}
+    constructor(private useCase: Interactor) {}
 
-    async list(cmd: any) {
-        await this.useCase.list({ limit: cmd.limit });
+    list(cmd: any) {
+        this.useCase.execute({ limit: cmd.limit })
     }
 }

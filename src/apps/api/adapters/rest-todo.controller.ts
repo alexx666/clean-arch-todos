@@ -1,9 +1,11 @@
-import InputPort from "../../../libs/todos/use-cases/input.port";
+import { Request } from "express";
+
+import Interactor from "../../../libs/core/interactor";
 
 export default class RESTTodoController {
-    constructor(private useCase: InputPort) {}
+    constructor(private useCase: Interactor) {}
 
-    async list(request: any) {
-        await this.useCase.list(request.query);
+    list(request: Request) {
+        this.useCase.execute(request.query)
     }
 }

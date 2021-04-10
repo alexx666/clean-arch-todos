@@ -1,15 +1,15 @@
 import { Command } from "commander";
 
-import TodoService from "../../../libs/todos/use-cases/interactor";
+import ListTodos from "../../../libs/todos/use-cases/list-todos.interactor";
 import RESTRepository from "../adapters/rest-todo.repository";
 import CLITodoController from "../adapters/cli-todo.controller";
-import ConsolePresenter from "../adapters/console.presenter";
 import NodeHTTPClient from "./node-http-client";
+import ConsolePresenter from "../adapters/console.presenter";
 
 const httpClient = new NodeHTTPClient()
+const presenter = new ConsolePresenter();
 const repository = new RESTRepository(httpClient)
-const logger = new ConsolePresenter()
-const useCase = new TodoService(logger, repository);
+const useCase = new ListTodos(repository, presenter);
 const controller = new CLITodoController(useCase);
 
 const todosCommand = new Command("todos");
@@ -18,6 +18,6 @@ todosCommand.command("list")
     .alias("ls")
     .description("List todos")
     .option("-l, --limit <limit>", "number of items to fetch", "20")
-    .action(async cmd => await controller.list(cmd));
+    .action(cmd => controller.list(cmd));
 
 export default todosCommand;

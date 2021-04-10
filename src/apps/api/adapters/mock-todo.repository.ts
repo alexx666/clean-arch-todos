@@ -1,5 +1,5 @@
 import Todo from "../../../libs/todos/entities/todo.entity";
-import Repository from "../../../libs/todos/use-cases/repository";
+import Repository from "../../../libs/core/repository";
 
 export default class MockTodoRepository implements Repository<Todo> {
     find(query: any): Promise<Todo[]> {

@@ -1,4 +1,4 @@
-import Repository from "../../../libs/todos/use-cases/repository";
+import Repository from "../../../libs/core/repository";
 import Todo from "../../../libs/todos/entities/todo.entity";
 
 export interface Request {
@@ -38,6 +38,6 @@ export default class RESTRepository implements Repository<Todo> {
 
         const body = JSON.parse(response.body!);
 
-        return body.data.map((i: any) => new Todo(i.id));
+        return body.todos.map((i: any) => new Todo(i.id));
     }
 }
