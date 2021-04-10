@@ -1,14 +1,14 @@
 import { Command } from "commander";
 
 import HTTPTodoRepository from "../adapters/http.repository";
-import CLITodoController from "./todo.controller";
+import TodoController from "./todo.controller";
 import QueryTodos from "../../../core/todos/use-cases/query-todos/query-todos.interactor.impl";
 import ConsolePresenter from "./console.presenter";
 
 const presenter = new ConsolePresenter()
 const repository = new HTTPTodoRepository()
-const useCase = new QueryTodos(repository, presenter);
-const controller = new CLITodoController(useCase);
+const queryTodos = new QueryTodos(repository, presenter);
+const controller = new TodoController(queryTodos);
 
 const todosCommand = new Command("todos");
 

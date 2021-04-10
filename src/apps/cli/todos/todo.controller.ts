@@ -1,9 +1,9 @@
 import QueryTodosInteractor from "../../../core/todos/use-cases/query-todos/query-todos.interactor";
 
-export default class CLITodoController {
-    constructor(private todos: QueryTodosInteractor) {}
+export default class TodoController {
+    constructor(private queryTodos: QueryTodosInteractor) {}
 
     list(cmd: any) {
-        this.todos.list({ limit: cmd.limit })
+        this.queryTodos.list({ limit: cmd.limit })
     }
 }
