@@ -2,10 +2,11 @@
 
 import { program } from "commander";
 
-process.env.HOST = "localhost";
-process.env.PORT = String(3000);
+import { config } from "dotenv";
 
-import todos from "./todo.command";
+config();
+
+import todos from "./todos/todo.command";
 
 program.addCommand(todos);
 
