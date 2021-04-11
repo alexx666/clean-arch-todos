@@ -1,13 +1,11 @@
 import { Command } from "commander";
 
-import HTTPTodoRepository from "../adapters/http.repository";
+import RestTodoGateway from "../../geteways/http.todos";
 import TodoController from "./todo.controller";
-import QueryTodos from "../../../core/todos/use-cases/query-todos/query-todos.interactor.impl";
-import ConsolePresenter from "./console.presenter";
+import ListTodos from "../../todos/interactors/list-todos.impl";
 
-const presenter = new ConsolePresenter()
-const repository = new HTTPTodoRepository()
-const queryTodos = new QueryTodos(repository, presenter);
+const repository = new RestTodoGateway()
+const queryTodos = new ListTodos(repository);
 const controller = new TodoController(queryTodos);
 
 const todosCommand = new Command("todos");

@@ -1,9 +1,8 @@
 import { ClientRequest, IncomingMessage, RequestOptions } from "http";
 
-import Repository from "../../../core/repository";
-import Todo from "../../../core/todos/entities/todo.entity";
+import { Todo, TodoGateway } from "../todos/entities/todo";
 
-export default class HTTPTodoRepository implements Repository<Todo> {
+export default class RestTodoGateway implements TodoGateway {
 
     async find(query: any): Promise<Todo[]> {
         const queryParams = Object.entries(query).map(e => e.join('=')).join('&')

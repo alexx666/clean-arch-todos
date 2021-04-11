@@ -1,0 +1,17 @@
+export interface ListTodosRequest {
+    limit: number
+}
+
+export interface ListTodosResponse {
+    items: any[];
+    count: number;
+}
+
+export interface IListTodos {
+    /**
+     * Lists all todos that satisfy the query
+     * @param input ListTodosInput
+     * @returns Promise which when resolved will provide a ListTodosOutput
+     */
+    execute(input: ListTodosRequest): Promise<ListTodosResponse>;
+}
