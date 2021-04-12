@@ -1,4 +1,7 @@
-export default interface EntityGateway<T> {
+export interface ReadableGateway<T> {
     find(query: any): Promise<T[]>;
+}
+
+export interface WritableGateway<T> {
     save(item: T): Promise<T>;
 }

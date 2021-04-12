@@ -1,20 +1,24 @@
+import { WritableGateway } from "../../core/entity.gateway";
 import { CreateTodoRequest, CreateTodoResponse, ICreateTodo } from "../boundry/create-todo";
-
-import { TodoGateway, Todo } from "../entities/todo";
+import { Todo } from "../entities/todo";
 
 export default class CreateTodo implements ICreateTodo {
 
-    constructor(private gateway: TodoGateway) {}
+    constructor(private gateway: WritableGateway<Todo>) {}
 
     async execute(request: CreateTodoRequest): Promise<CreateTodoResponse> {
 
-        const { description: requestDescription } = request;
+        const {
+            id: requestId,
+            description: requestDescription,
+            timestamp: requiestTimestamp
+        } = request;
 
-        const requestTimestamp = new Date(); // irrelevant for the CLI
+        const generatedTimestamp = requiestTimestamp ? new Date(requiestTimestamp) : new Date();
 
-        const generatedId = Buffer.from(requestTimestamp.toISOString()).toString("base64"); // irrelevant for the CLI
+        const generatedId = requestId || Buffer.from(generatedTimestamp.toISOString()).toString("base64");
 
-        const todo = new Todo(generatedId, requestDescription, new Date());
+        const todo = new Todo(generatedId, requestDescription, generatedTimestamp);
 
         const { id, description, timestamp } = await this.gateway.save(todo);
 

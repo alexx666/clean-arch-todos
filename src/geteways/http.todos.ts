@@ -1,6 +1,6 @@
 import { ClientRequest, IncomingMessage, RequestOptions } from "http";
-
-import { Todo, TodoGateway } from "../todos/entities/todo";
+import { ReadableGateway, WritableGateway } from "../core/entity.gateway";
+import { Todo } from "../todos/entities/todo";
 
 interface RestListTodoResponse {
     count: number;
@@ -17,11 +17,15 @@ interface RestCreateErrorResponse {
     error: string
 }
 
-export default class RestTodoGateway implements TodoGateway {
+export default class RestTodoGateway implements ReadableGateway<Todo>, WritableGateway<Todo> {
 
     async save(todo: Todo): Promise<Todo> {
 
-        const requestBody = Buffer.from(JSON.stringify({ description: todo.description }))
+        const requestBody = Buffer.from(JSON.stringify({
+            description: todo.description,
+            id: todo.id,
+            timestamp: todo.timestamp.toISOString()
+        }))
 
         const options: RequestOptions = {
             host: String(process.env.HOST),

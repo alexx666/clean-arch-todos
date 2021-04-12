@@ -1,4 +1,5 @@
-import { TodoGateway, Todo } from "../todos/entities/todo";
+import { ReadableGateway, WritableGateway } from "../core/entity.gateway";
+import { Todo } from "../todos/entities/todo";
 
 interface FindQuery {
     limit: number;
@@ -9,7 +10,7 @@ interface TodoDocument {
     timestamp: string;
 }
 
-export default class InMemoryTodoGateway implements TodoGateway {
+export default class InMemoryTodoGateway implements ReadableGateway<Todo>, WritableGateway<Todo> {
 
     private documents: Map<string, TodoDocument>;
 

@@ -3,7 +3,9 @@ export interface ICreateTodo {
 }
 
 export interface CreateTodoRequest {
+    id?: string;
     description: string;
+    timestamp?: string;
 }
 
 export interface CreateTodoResponse {

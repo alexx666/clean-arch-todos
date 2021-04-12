@@ -1,5 +1,3 @@
-import EntityGateway from "../../core/entity.gateway";
-
 export class Todo {
     constructor(public readonly id: string, public readonly description: string, public readonly timestamp: Date) {
         if (!id) throw new Error("ValidationError: Id not provided!")
@@ -7,5 +5,3 @@ export class Todo {
         if (!timestamp) throw new Error("ValidationError: Timestamp not provided!")
     }
 }
-
-export interface TodoGateway extends EntityGateway<Todo> {}
