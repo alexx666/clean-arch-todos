@@ -1,4 +1,4 @@
-import { ReadableGateway } from "../../core/entity.gateway";
+import { ReadableGateway } from "../../shared/entity.gateway";
 import { ListTodos, ListTodosRequest, ListTodosResponse } from "../boundry/list-todos";
 import { Todo } from "../entities/todo";
 

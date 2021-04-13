@@ -4,4 +4,5 @@ export interface ReadableGateway<T> {
 
 export interface WritableGateway<T> {
     save(item: T): Promise<T>;
+    delete(id: string): Promise<T>;
 }

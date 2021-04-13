@@ -5,11 +5,11 @@ export interface CreateTodo {
 export interface CreateTodoRequest {
     id?: string;
     description: string;
-    timestamp?: string;
+    due: string;
 }
 
 export interface CreateTodoResponse {
     id: string;
     description: string;
-    timestamp: string;
+    due: string;
 }

@@ -1,6 +1,6 @@
 import { ClientRequest, IncomingMessage, RequestOptions } from "http";
-import { ReadableGateway, WritableGateway } from "../core/entity.gateway";
-import { Todo } from "../todos/entities/todo";
+import { ReadableGateway, WritableGateway } from "../modules/shared/entity.gateway";
+import { Todo } from "../modules/todos/entities/todo";
 
 interface RestListTodoResponse {
     count: number;
@@ -9,7 +9,7 @@ interface RestListTodoResponse {
 
 interface RestTodoResponse {
     id: string,
-    timestamp: string,
+    due: string,
     description: string;
 }
 
@@ -17,14 +17,42 @@ interface RestCreateErrorResponse {
     error: string
 }
 
+interface RestDeleteTodoResponse {
+    item: RestTodoResponse;
+}
+
 export default class RestTodoGateway implements ReadableGateway<Todo>, WritableGateway<Todo> {
 
-    async save(todo: Todo): Promise<Todo> {
+    public async delete(identifier: string): Promise<Todo> {
+        const options: RequestOptions = {
+            host: String(process.env.HOST),
+            port: Number(process.env.PORT),
+            path: `/todos/${identifier}`,
+            method: "DELETE"
+        }
+
+        const response = await new Promise<IncomingMessage>((resolve, reject) => {
+            const req = new ClientRequest(options);
+            req.on("response", (message: IncomingMessage) => resolve(message))
+            req.on("error", (error: Error) => reject(error))
+            req.end()
+        })
+
+        const responseBody = JSON.parse(response.read());
+
+        if (response.statusCode !== 200) throw new Error((responseBody as RestCreateErrorResponse).error);
+
+        const { item } = responseBody as RestDeleteTodoResponse;
+
+        return new Todo(item.id, item.description, new Date(item.due))
+    }
+
+    public async save(todo: Todo): Promise<Todo> {
 
         const requestBody = Buffer.from(JSON.stringify({
             description: todo.description,
             id: todo.id,
-            timestamp: todo.timestamp.toISOString()
+            due: todo.due.toISOString()
         }))
 
         const options: RequestOptions = {
@@ -50,12 +78,12 @@ export default class RestTodoGateway implements ReadableGateway<Todo>, WritableG
 
         if (response.statusCode !== 200) throw new Error((responseBody as RestCreateErrorResponse).error);
 
-        const { id, timestamp, description } = responseBody as RestTodoResponse;
+        const { id, due, description } = responseBody as RestTodoResponse;
 
-        return new Todo(id, description, new Date(timestamp))
+        return new Todo(id, description, new Date(due))
     }
 
-    async find(query: any): Promise<Todo[]> {
+    public async find(query: any): Promise<Todo[]> {
         const queryParams = Object.entries(query).map(e => e.join('=')).join('&')
 
         const options: RequestOptions = {
@@ -74,6 +102,6 @@ export default class RestTodoGateway implements ReadableGateway<Todo>, WritableG
 
         const body: RestListTodoResponse = JSON.parse(response.read());
 
-        return body.items.map(i => new Todo(i.id, i.description, new Date(i.timestamp)));
+        return body.items.map(i => new Todo(i.id, i.description, new Date(i.due)));
     }
 }
