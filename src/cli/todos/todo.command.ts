@@ -2,12 +2,12 @@ import { Command } from "commander";
 
 import RestTodoGateway from "../../geteways/http.todos";
 import TodoController from "./todo.controller";
-import ListTodos from "../../todos/interactors/list-todos.impl";
-import CreateTodo from "../../todos/interactors/create-todo.impl";
+import ListTodosImpl from "../../todos/impl/list-todos.impl";
+import CreateTodoImpl from "../../todos/impl/create-todo.impl";
 
 const repository = new RestTodoGateway()
-const listTodos = new ListTodos(repository);
-const createTodo = new CreateTodo(repository);
+const listTodos = new ListTodosImpl(repository);
+const createTodo = new CreateTodoImpl(repository);
 const controller = new TodoController(listTodos, createTodo);
 
 const todosCommand = new Command("todos");

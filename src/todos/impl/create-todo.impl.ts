@@ -1,8 +1,8 @@
 import { WritableGateway } from "../../core/entity.gateway";
-import { CreateTodoRequest, CreateTodoResponse, ICreateTodo } from "../boundry/create-todo";
+import { CreateTodoRequest, CreateTodoResponse, CreateTodo } from "../boundry/create-todo";
 import { Todo } from "../entities/todo";
 
-export default class CreateTodo implements ICreateTodo {
+export default class CreateTodoImpl implements CreateTodo {
 
     constructor(private gateway: WritableGateway<Todo>) {}
 

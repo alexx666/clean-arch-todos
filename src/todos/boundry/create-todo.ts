@@ -1,4 +1,4 @@
-export interface ICreateTodo {
+export interface CreateTodo {
     execute(request: CreateTodoRequest): Promise<CreateTodoResponse>;
 }
 

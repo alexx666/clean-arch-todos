@@ -1,8 +1,8 @@
-import { CreateTodoRequest, ICreateTodo } from "../../todos/boundry/create-todo";
-import { IListTodos, ListTodosRequest } from "../../todos/boundry/list-todos";
+import { CreateTodoRequest, CreateTodo } from "../../todos/boundry/create-todo";
+import { ListTodos, ListTodosRequest } from "../../todos/boundry/list-todos";
 
 export default class TodoController {
-    constructor(private listTodos: IListTodos, private createTodo: ICreateTodo) {}
+    constructor(private listTodos: ListTodos, private createTodo: CreateTodo) {}
 
     async list(cmd: any) {
         try {

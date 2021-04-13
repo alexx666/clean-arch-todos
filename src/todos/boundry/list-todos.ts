@@ -7,7 +7,7 @@ export interface ListTodosResponse {
     count: number;
 }
 
-export interface IListTodos {
+export interface ListTodos {
     /**
      * Lists all todos that satisfy the query
      * @param input ListTodosInput

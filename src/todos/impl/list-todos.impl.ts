@@ -1,8 +1,8 @@
 import { ReadableGateway } from "../../core/entity.gateway";
-import { IListTodos, ListTodosRequest, ListTodosResponse } from "../boundry/list-todos";
+import { ListTodos, ListTodosRequest, ListTodosResponse } from "../boundry/list-todos";
 import { Todo } from "../entities/todo";
 
-export default class ListTodos implements IListTodos {
+export default class ListTodosImpl implements ListTodos {
 
     constructor(private gateway: ReadableGateway<Todo>) {}
 
