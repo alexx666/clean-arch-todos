@@ -2,13 +2,13 @@ import Express, { Response } from "express";
 
 import { config } from "dotenv";
 
-import todoRouter from "./routers/todo.router";
+import todoRouter from "./routers/todos";
 
 config();
 
 const API = Express();
 
-API.use("/todos", todoRouter)
+API.use(todoRouter)
 
 API.use("*", (err: Error, _1: any, res: Response, _2: any) => res.status(500).json({ error: err.message }))
 
