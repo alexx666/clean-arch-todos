@@ -29,4 +29,3 @@ export default new Command("list")
             console.error("Error:", error.message);
         }
     });
-
