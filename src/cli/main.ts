@@ -6,7 +6,7 @@ import { config } from "dotenv";
 
 config();
 
-import todos from "./commands/todo.command";
+import todos from "./commands/todos";
 
 program.addCommand(todos);
 
