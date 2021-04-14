@@ -6,6 +6,7 @@
     "start:cli": "node dist/cli/main",
     "start:api": "node dist/api/main",
     "test": "jest",
+		"test:watch": "npm t -- --watch",
     "clean": "tsc -b --clean",
     "prebuild": "npm run clean",
     "build": "tsc -b",
