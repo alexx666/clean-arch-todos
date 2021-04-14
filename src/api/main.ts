@@ -1,8 +1,8 @@
-import Express, { NextFunction, Request, Response } from "express";
+import Express, { Response } from "express";
 
 import { config } from "dotenv";
 
-import todoRouter from "./todos/todo.router";
+import todoRouter from "./routers/todo.router";
 
 config();
 
