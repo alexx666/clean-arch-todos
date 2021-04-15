@@ -3,13 +3,10 @@ export interface CreateTodo {
 }
 
 export interface CreateTodoRequest {
-    id?: string;
     description: string;
     due: string;
 }
 
-export interface CreateTodoResponse {
+export interface CreateTodoResponse extends CreateTodoRequest {
     id: string;
-    description: string;
-    due: string;
 }

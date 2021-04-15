@@ -51,7 +51,6 @@ export default class RestTodoGateway implements ReadableGateway<Todo>, WritableG
 
         const requestBody = Buffer.from(JSON.stringify({
             description: todo.description,
-            id: todo.id,
             due: todo.due.toISOString()
         }))
 

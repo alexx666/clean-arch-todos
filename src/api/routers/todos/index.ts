@@ -2,6 +2,7 @@ import { Router } from "express";
 
 // Gatway Implementations
 import InMemoryTodoGateway from "../../../providers/todo-in-memory.gateway";
+import V4UuidGenerator from "../../../providers/v4-uuid";
 
 // Use Case Implementations
 import CreateTodoImpl from "../../../modules/todos/impl/create-todo.impl";
@@ -13,8 +14,9 @@ import createRouter from "./create.router";
 import deleteRouter from "./delete.router";
 
 const repository = new InMemoryTodoGateway()
+const uuidGenerator = new V4UuidGenerator()
 
-export const createTodo = new CreateTodoImpl(repository);
+export const createTodo = new CreateTodoImpl(repository, uuidGenerator);
 export const deleteTodo = new DeleteTodoImpl(repository);
 export const listTodos = new ListTodosImpl(repository);
 

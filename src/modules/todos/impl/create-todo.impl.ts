@@ -5,19 +5,16 @@ import { Todo } from "../entities/todo";
 
 export default class CreateTodoImpl implements CreateTodo {
 
-    constructor(private gateway: WritableGateway<Todo>, private uuidGenerator?: UUDIGenerator) {}
+    constructor(private gateway: WritableGateway<Todo>, private uuidGenerator: UUDIGenerator) {}
 
     async execute(request: CreateTodoRequest): Promise<CreateTodoResponse> {
 
         const {
-            id: requestId,
             description: requestDescription,
             due: requestDue,
         } = request;
 
-        if (!requestId && !this.uuidGenerator) throw new Error("No way to generate ID. Provide ID in request or a UUID generator service!")
-
-        const generatedId = requestId || this.uuidGenerator!.generate()
+        const generatedId = this.uuidGenerator.generate()
 
         const todo = new Todo(generatedId, requestDescription, new Date(requestDue));
 
