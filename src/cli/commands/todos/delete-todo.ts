@@ -1,20 +1,10 @@
 // Frameworks
 import { Command } from "commander";
 
-// Gatway Implementations
-import RestTodoGateway from "../../../providers/todo-http.gateway";
+import { DeleteTodo, DeleteTodoRequest } from "../../../modules/todos/boundry/delete-todo";
 
-// Use Case Implementations
-import DeleteTodoImpl from "../../../modules/todos/impl/delete-todo.impl";
-
-// Request/Response models
-import { DeleteTodoRequest } from "../../../modules/todos/boundry/delete-todo";
-
-const repository = new RestTodoGateway()
-
-const deleteTodo = new DeleteTodoImpl(repository);
-
-export default new Command("delete")
+export default function (deleteTodo: DeleteTodo) {
+	return new Command("delete")
     .alias("rm")
     .description("Delete todo")
     .requiredOption("--id <id>", "todo ID")
@@ -29,3 +19,4 @@ export default new Command("delete")
             console.error("Error:", error.message);
         }
     });
+}

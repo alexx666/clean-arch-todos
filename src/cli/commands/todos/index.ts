@@ -1,15 +1,31 @@
 // Frameworks
 import { Command } from "commander";
 
+// Use Case implementations
+import CreateTodoImpl from "../../../modules/todos/impl/create-todo.impl";
+import DeleteTodoImpl from "../../../modules/todos/impl/delete-todo.impl";
+import ListTodosImpl from "../../../modules/todos/impl/list-todos.impl";
+
+// Providers
+import RestTodoGateway from "../../../providers/todo-http.gateway";
+import V4UuidGenerator from "../../../providers/v4-uuid";
+
 // Subcommands
-import createTodo from "./create-todo";
-import deleteTodo from "./delete-todo";
-import listTodos from "./list-todos";
+import listCmd from "./list-todos";
+import createCmd from "./create-todo";
+import deleteCmd from "./delete-todo";
+
+const todoGateway = new RestTodoGateway()
+const uuidGenerator = new V4UuidGenerator()
+
+const listTodos = new ListTodosImpl(todoGateway)
+const createTodo = new CreateTodoImpl(todoGateway, uuidGenerator)
+const deleteTodo = new DeleteTodoImpl(todoGateway)
 
 const todosCommand = new Command("todos");
 
-todosCommand.addCommand(listTodos)
-todosCommand.addCommand(createTodo)
-todosCommand.addCommand(deleteTodo)
+todosCommand.addCommand(listCmd(listTodos))
+todosCommand.addCommand(createCmd(createTodo))
+todosCommand.addCommand(deleteCmd(deleteTodo))
 
 export default todosCommand;
