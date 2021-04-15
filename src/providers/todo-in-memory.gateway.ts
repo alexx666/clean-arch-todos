@@ -3,6 +3,7 @@ import { Todo } from "../modules/todos/entities/todo";
 
 interface FindQuery {
     limit: number;
+		skip: number;
 }
 
 interface TodoDocument {
@@ -37,9 +38,9 @@ export default class InMemoryTodoGateway implements ReadableGateway<Todo>, Writa
     }
 
     public async find(query: FindQuery): Promise<Todo[]> {
-        const limit = Number(query.limit) || 20
+        const { limit, skip } = query;
 
-        const keys = Array.from(this.documents.keys()).filter((_, i) => i < limit)
+        const keys = Array.from(this.documents.keys()).filter((_, i) => i >= skip && i < limit + skip)
 
         const docs = keys.map(key => this.documents.get(key)!);
 

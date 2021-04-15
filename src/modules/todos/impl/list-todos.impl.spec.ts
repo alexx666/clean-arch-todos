@@ -3,6 +3,8 @@ import { Todo } from "../entities/todo";
 
 import ListTodosImpl from "./list-todos.impl"
 
+const request = { limit: 1, skip: 1 }
+
 describe("[ListTodos] Success Cases", () => {
 
 	const todo = new Todo("id", "first", new Date())
@@ -16,7 +18,7 @@ describe("[ListTodos] Success Cases", () => {
 	it("should return a the mocked todo in a valid ListTodosResponse object", async () => {
 		expect.assertions(1);
 
-		const result = await listTodos.execute({ limit: 1 })
+		const result = await listTodos.execute(request)
 
 		expect(result).toEqual({ items: [todo], count: 1 });
 	})
@@ -35,7 +37,7 @@ describe("[ListTodos] Fail Cases", () => {
 	it("should return throw an error with the gateways message", async () => {
 		expect.assertions(1);
 		try {
-			await listTodos.execute({ limit: 1 })
+			await listTodos.execute(request)
 		} catch (error) {
 			expect(error.message).toEqual(errorMessage)
 		}

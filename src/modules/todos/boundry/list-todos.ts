@@ -1,5 +1,6 @@
 export interface ListTodosRequest {
     limit: number
+		skip: number
 }
 
 export interface ListTodosResponse {
