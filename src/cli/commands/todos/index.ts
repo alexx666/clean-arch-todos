@@ -7,8 +7,8 @@ import DeleteTodoImpl from "../../../modules/todos/impl/delete-todo.impl";
 import ListTodosImpl from "../../../modules/todos/impl/list-todos.impl";
 
 // Providers
-import RestTodoGateway from "../../../providers/todo-http.gateway";
-import V4UuidGenerator from "../../../providers/v4-uuid";
+import RestTodoGateway from "../../../providers/todo-http/todo-http.gateway";
+import V4UuidGenerator from "../../../providers/uuid/v4-uuid";
 
 // Subcommands
 import listCmd from "./list-todos";

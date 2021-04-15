@@ -16,11 +16,11 @@ describe("[DeleteTodo] Success Cases", () => {
 	const deleteTodo: DeleteTodoImpl = new DeleteTodoImpl(mockSuccessGateway);
 
 	it("should return a the mocked todo in a valid DeleteTodoResponse object", async () => {
-		expect.assertions(1);
 
 		const result = await deleteTodo.execute({ id: randomId })
 
 		expect(result).toEqual({ item: todo });
+		expect.assertions(1);
 	})
 })
 
@@ -36,11 +36,11 @@ describe("[DeleteTodo] Fail Cases", () => {
 	const deleteTodo: DeleteTodoImpl = new DeleteTodoImpl(mockFailureGateway);
 
 	it("should return throw an error with the gateways message", async () => {
-		expect.assertions(1);
 		try {
 			await deleteTodo.execute({ id: randomId })
 		} catch (error) {
 			expect(error.message).toEqual(errorMessage)
+			expect.assertions(1);
 		}
 	})
 })

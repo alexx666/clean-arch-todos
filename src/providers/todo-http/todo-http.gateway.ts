@@ -1,6 +1,6 @@
 import { ClientRequest, IncomingMessage, RequestOptions } from "http";
-import { ReadableGateway, WritableGateway } from "../modules/shared/entity.gateway";
-import { Todo } from "../modules/todos/entities/todo";
+import { ReadableGateway, WritableGateway } from "../../modules/shared/entity.gateway";
+import { Todo } from "../../modules/todos/entities/todo";
 
 interface RestListTodoResponse {
     count: number;

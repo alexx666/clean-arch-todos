@@ -16,11 +16,10 @@ describe("[ListTodos] Success Cases", () => {
 	const listTodos: ListTodosImpl = new ListTodosImpl(mockSuccessGateway);
 
 	it("should return a the mocked todo in a valid ListTodosResponse object", async () => {
-		expect.assertions(1);
-
 		const result = await listTodos.execute(request)
 
 		expect(result).toEqual({ items: [todo], count: 1 });
+		expect.assertions(1);
 	})
 })
 
@@ -35,11 +34,11 @@ describe("[ListTodos] Fail Cases", () => {
 	const listTodos: ListTodosImpl = new ListTodosImpl(mockFailureGateway);
 
 	it("should return throw an error with the gateways message", async () => {
-		expect.assertions(1);
 		try {
 			await listTodos.execute(request)
 		} catch (error) {
 			expect(error.message).toEqual(errorMessage)
+			expect.assertions(1);
 		}
 	})
 })

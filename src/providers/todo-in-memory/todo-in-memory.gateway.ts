@@ -1,23 +1,15 @@
-import { ReadableGateway, WritableGateway } from "../modules/shared/entity.gateway";
-import { Todo } from "../modules/todos/entities/todo";
+import { ReadableGateway, WritableGateway } from "../../modules/shared/entity.gateway";
+import { Todo } from "../../modules/todos/entities/todo";
+import TodoDocument from "./todo-document";
 
 interface FindQuery {
     limit: number;
 		skip: number;
 }
 
-interface TodoDocument {
-    description: string,
-    due: string;
-}
-
 export default class InMemoryTodoGateway implements ReadableGateway<Todo>, WritableGateway<Todo> {
 
-    private documents: Map<string, TodoDocument>;
-
-    constructor() {
-        this.documents = new Map<string, TodoDocument>()
-    }
+    constructor(private documents: Map<string, TodoDocument> = new Map<string, TodoDocument>()) {}
 
     public async delete(id: string): Promise<Todo> {
         if (!this.documents.has(id)) throw new Error("Todo does not exist!");
@@ -32,7 +24,7 @@ export default class InMemoryTodoGateway implements ReadableGateway<Todo>, Writa
     public async save(todo: Todo): Promise<Todo> {
         if (this.documents.has(todo.id)) throw new Error("Todo already exists!");
 
-        this.documents.set(todo.id, { description: todo.description, due: todo.due.toISOString() });
+        this.documents.set(todo.id, TodoDocument.fromTodo(todo));
 
         return todo;
     }
@@ -44,6 +36,6 @@ export default class InMemoryTodoGateway implements ReadableGateway<Todo>, Writa
 
         const docs = keys.map(key => this.documents.get(key)!);
 
-        return docs.map((d, i) => new Todo(keys[i], d.description, new Date(d.due)))
+        return docs.map((d, i) => d.toEntity(keys[i]))
     }
 }

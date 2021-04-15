@@ -1,8 +1,8 @@
 import { Router } from "express";
 
 // Gatway Implementations
-import InMemoryTodoGateway from "../../../providers/todo-in-memory.gateway";
-import V4UuidGenerator from "../../../providers/v4-uuid";
+import InMemoryTodoGateway from "../../../providers/todo-in-memory/todo-in-memory.gateway";
+import V4UuidGenerator from "../../../providers/uuid/v4-uuid";
 
 // Use Case Implementations
 import CreateTodoImpl from "../../../modules/todos/impl/create-todo.impl";

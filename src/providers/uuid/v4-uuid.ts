@@ -1,4 +1,4 @@
-import UUDIGenerator from "../modules/shared/uuid-generator";
+import UUDIGenerator from "../../modules/shared/uuid-generator";
 
 import { v4 } from "uuid";
 

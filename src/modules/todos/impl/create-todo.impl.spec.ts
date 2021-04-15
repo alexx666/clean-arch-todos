@@ -27,8 +27,6 @@ describe("[CreateTodo] Success Cases", () => {
 	const createTodo: CreateTodoImpl = new CreateTodoImpl(mockSuccessGateway, mockUUIDGenerator);
 
 	it("should return a the mocked todo in a valid CreateTodoResponse object", async () => {
-		expect.assertions(1);
-
 		const insufficientRequest: any = { ...request };
 
 		delete insufficientRequest.id
@@ -36,6 +34,7 @@ describe("[CreateTodo] Success Cases", () => {
 		const response = await createTodo.execute(insufficientRequest)
 
 		expect(response).toEqual({ ...insufficientRequest, id: "generatedId" });
+		expect.assertions(1);
 	})
 })
 
@@ -44,11 +43,11 @@ describe("[CreateTodo] Fail Cases", () => {
 	const createTodo: CreateTodoImpl = new CreateTodoImpl(mockFailureGateway, mockUUIDGenerator);
 
 	it("should return throw an error with the gateways message", async () => {
-		expect.assertions(1);
 		try {
 			await createTodo.execute(request)
 		} catch (error) {
 			expect(error.message).toEqual(errorMessage)
+			expect.assertions(1);
 		}
 	})
 })

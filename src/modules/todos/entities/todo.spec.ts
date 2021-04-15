@@ -17,7 +17,7 @@ describe("[Todo] Test Cases", () => {
 		}
 	})
 
-	it("should throw en error because of a missing ID", () => {
+	it("should throw en error because of a missing Description", () => {
 		try {
 			const _ = new Todo("id", notDefined, new Date())
 		} catch (error) {
