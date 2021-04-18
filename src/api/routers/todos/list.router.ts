@@ -4,21 +4,17 @@ import { ListTodos, ListTodosRequest } from "../../../modules/todos/boundry/list
 
 import Link from "../hateoas";
 
-function convertToQueryParams(obj: any) {
-	return Object.entries(obj).map(e => e.join('=')).join('&')
-}
-
 export default function(listTodos: ListTodos) {
 	const listRouter = Router()
 
-	listRouter.get("/todos", async (req: Request, res: Response, next: NextFunction) => {
+	listRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
 			try {
 
-					const URI = `http://${process.env.HOST}:${process.env.PORT}/todos`
+					const { baseUrl, query, protocol, hostname, originalUrl } = req;
 
 					const request: ListTodosRequest = {
-						limit: Number(req.query.limit) || 20,
-						marker: String(req.query.marker)
+						limit: Number(query.limit) || 20,
+						marker: String(query.marker)
 					}
 
 					const { items, count } = await listTodos.execute(request)
@@ -26,18 +22,18 @@ export default function(listTodos: ListTodos) {
 					const links: Link[] = [
 							{
 							rel: "self",
-							href: `${URI}?${convertToQueryParams(req.query)}`
+							href: `${protocol}://${hostname}${originalUrl}`
 						}
 					];
 
 					if (request.limit <= count) {
-						const nextPage: any = { limit: req.query.limit };
+						const nextPage: any = { limit: query.limit };
 
 						if (count > 0) nextPage.marker = items[count - 1].id
 
 						links.push({
 							rel: "next",
-							href: `${URI}?${convertToQueryParams(nextPage)}`
+							href: `${protocol}://${hostname}${baseUrl}?${Object.entries(nextPage).map(e => e.join('=')).join('&')}`
 						})
 					}
 

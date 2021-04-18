@@ -5,7 +5,7 @@ import { DeleteTodo, DeleteTodoRequest } from "../../../modules/todos/boundry/de
 export default function(deleteTodo: DeleteTodo) {
 	const deleteRouter = Router()
 
-	deleteRouter.delete("/todos/:id", async (req: Request, res: Response, next: NextFunction) => {
+	deleteRouter.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
 			try {
 					const request: DeleteTodoRequest = { id: req.params.id };
 					const response = await deleteTodo.execute(request);

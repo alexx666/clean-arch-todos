@@ -6,7 +6,7 @@ import { CreateTodo, CreateTodoRequest } from "../../../modules/todos/boundry/cr
 export default function(createTodo: CreateTodo) {
 	const createRouter = Router()
 
-	createRouter.post("/todos", json(), async (req: Request, res: Response, next: NextFunction) => {
+	createRouter.post("/", json(), async (req: Request, res: Response, next: NextFunction) => {
 			try {
 					const request = req.body as CreateTodoRequest;
 					const response = await createTodo.execute(request);

@@ -8,7 +8,7 @@ config();
 
 const API = Express();
 
-API.use(todoRouter)
+API.use("/todos", todoRouter)
 
 API.use("*", (err: Error, _1: any, res: Response, _2: any) => res.status(500).json({ error: err.message }))
 
