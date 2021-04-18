@@ -5,9 +5,9 @@
   "scripts": {
     "start:cli": "node dist/cli/main",
     "start:api": "node dist/api/main",
-		"start:api:watch": "nodemon",
+		"watch:api": "nodemon",
     "test": "jest",
-    "test:watch": "npm t -- --watch",
+    "watch:test": "npm t -- --watch",
     "clean": "tsc -b --clean",
     "prebuild": "npm run clean",
     "build": "tsc -b",

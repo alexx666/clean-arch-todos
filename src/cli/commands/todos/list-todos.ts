@@ -9,7 +9,7 @@ export default function (listTodos: ListTodos) {
     .alias("ls")
     .description("List todos")
     .option("--limit <limit>", "number of items to fetch", "20")
-    .option("--skip <skip>", "number of items to skip", "0")
+    .option("--marker <marker>", "cursor next show all items after this one", "0")
     .action(async cmd => {
         try {
             const request: ListTodosRequest = {
@@ -22,6 +22,7 @@ export default function (listTodos: ListTodos) {
             console.table(response.items)
         } catch (error) {
             console.error("Error:", error.message);
+						console.debug(error.stack)
         }
     });
 }
