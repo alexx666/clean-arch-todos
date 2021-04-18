@@ -5,7 +5,7 @@ import InMemoryTodoGateway from "./todo-in-memory.gateway";
 describe("[InMemoryTodoGateway] Initialization", () => {
 	it("should create an in memory todo gateway without any todos", async () => {
 		const inMemTodoGW = new InMemoryTodoGateway()
-		const todos = await inMemTodoGW.find({ limit: 10, skip: 0 })
+		const todos = await inMemTodoGW.find({ limit: 10 })
 		expect(todos.length).toEqual(0)
 		expect.assertions(1)
 	})
@@ -26,24 +26,23 @@ describe("[InMemoryTodoGateway] Test Cases", () => {
 	})
 
 	it("should return all items in map as todos", async () => {
-		const todos = await inMemTodoGW.find({ limit: 10, skip: 0 })
+		const todos = await inMemTodoGW.find({ limit: 10 })
 		expect(todos.length).toEqual(3)
 		expect.assertions(1)
 	})
 
 	it("should return second todo", async () => {
-		expect.assertions(2)
-		const todos = await inMemTodoGW.find({ limit: 1, skip: 1 })
+		const todos = await inMemTodoGW.find({ limit: 1, marker: "1" })
 		expect(todos.length).toEqual(1)
 		expect(todos[0].id).toEqual("2")
+		expect.assertions(2)
 	})
 
 	it("should add a new todo and return it", async () => {
-		const todo = await inMemTodoGW.save(new Todo("4", "forth", new Date()));
-		const todos = await inMemTodoGW.find({ limit: 1, skip: 3 })
-		expect(todos.length).toEqual(1)
-		expect(todos[0]).toEqual(todo)
-		expect.assertions(2)
+		const newTodo = new Todo("4", "forth", new Date())
+		const savedTodo = await inMemTodoGW.save(newTodo);
+		expect(savedTodo).toEqual(newTodo)
+		expect.assertions(1)
 	})
 
 	it("should throw an error because the todo already exist", async () => {
@@ -57,7 +56,7 @@ describe("[InMemoryTodoGateway] Test Cases", () => {
 
 	it("should remove a todo and return its value", async () => {
 		const todo = await inMemTodoGW.delete("3");
-		const todos = await inMemTodoGW.find({ limit: 10, skip: 0 })
+		const todos = await inMemTodoGW.find({ limit: 10 })
 		expect(todos).not.toContain(todo)
 		expect(todos.length).toEqual(2)
 		expect.assertions(2)

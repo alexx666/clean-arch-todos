@@ -9,7 +9,7 @@ export default function(listTodos: ListTodos) {
 			try {
 					const request: ListTodosRequest = {
 						limit: Number(req.query.limit) || 20,
-						skip: Number(req.query.skip) || 0
+						marker: String(req.query.marker)
 					}
 
 					const response = await listTodos.execute(request)

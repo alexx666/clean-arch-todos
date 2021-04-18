@@ -4,7 +4,7 @@ import TodoDocument from "./todo-document";
 
 interface FindQuery {
     limit: number;
-		skip: number;
+		marker?: string;
 }
 
 export default class InMemoryTodoGateway implements ReadableGateway<Todo>, WritableGateway<Todo> {
@@ -30,12 +30,16 @@ export default class InMemoryTodoGateway implements ReadableGateway<Todo>, Writa
     }
 
     public async find(query: FindQuery): Promise<Todo[]> {
-        const { limit, skip } = query;
+        const { limit, marker } = query;
 
-        const keys = Array.from(this.documents.keys()).filter((_, i) => i >= skip && i < limit + skip)
+        const keys = Array.from(this.documents.keys())
 
-        const docs = keys.map(key => this.documents.get(key)!);
+				// TODO: apply filter/sort
 
-        return docs.map((d, i) => d.toEntity(keys[i]))
+				const offset = marker ? keys.indexOf(marker) + 1 : 0;
+
+				const filteredKeys = keys.filter((_, i) => i >= offset && i < limit + offset);
+
+        return filteredKeys.map(key => this.documents.get(key)!.toEntity(key));
     }
 }

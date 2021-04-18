@@ -1,6 +1,6 @@
 export interface ListTodosRequest {
     limit: number
-		skip: number
+		marker?: string
 }
 
 export interface ListTodosResponse {

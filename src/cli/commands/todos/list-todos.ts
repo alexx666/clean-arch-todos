@@ -14,7 +14,7 @@ export default function (listTodos: ListTodos) {
         try {
             const request: ListTodosRequest = {
 							limit: Number(cmd.limit),
-							skip: Number(cmd.skip)
+							marker: String(cmd.marker)
 						}
 
             const response = await listTodos.execute(request)
