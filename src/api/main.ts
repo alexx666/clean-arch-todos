@@ -4,9 +4,13 @@ import { config } from "dotenv";
 
 import todoRouter from "./routers/todos";
 
+import morgan from "morgan";
+
 config();
 
 const API = Express();
+
+API.use(morgan("combined"));
 
 API.use("/todos", todoRouter)
 

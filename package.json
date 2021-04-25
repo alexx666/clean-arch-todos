@@ -5,7 +5,7 @@
   "scripts": {
     "start:cli": "node dist/cli/main",
     "start:api": "node dist/api/main",
-		"watch:api": "nodemon",
+    "watch:api": "nodemon",
     "test": "jest",
     "watch:test": "npm t -- --watch",
     "clean": "tsc -b --clean",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/express": "^4.17.11",
     "@types/jest": "^26.0.22",
+    "@types/morgan": "^1.9.2",
     "@types/node": "^14.14.37",
     "@types/uuid": "^8.3.0",
     "jest": "^26.6.3",
@@ -36,6 +37,7 @@
     "commander": "^7.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "uuid": "^8.3.2"
   }
 }
