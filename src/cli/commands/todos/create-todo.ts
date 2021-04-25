@@ -8,11 +8,18 @@ export default function (createTodo: CreateTodo) {
 	return new Command("create")
     .alias("mk")
     .description("Create todo")
+    .requiredOption("-l, --list-name <listName>", "todo list name")
     .requiredOption("-d, --description <description>", "todo description")
-    .requiredOption("-t, --due <due>", "todo due date in ISO format")
+    .requiredOption("-s, --start <start>", "todo start date in ISO format")
+    .requiredOption("-e, --end <end>", "todo end date in ISO format")
     .action(async cmd => {
         try {
-            const request: CreateTodoRequest = { description: cmd.description, due: cmd.due };
+            const request: CreateTodoRequest = {
+							listName: cmd.listName,
+							description: cmd.description,
+							start: cmd.start,
+							end: cmd.end
+						};
 
             const result = await createTodo.execute(request);
 

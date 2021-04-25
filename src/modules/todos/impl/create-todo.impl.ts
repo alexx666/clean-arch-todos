@@ -1,25 +1,27 @@
-import { WritableGateway } from "../../shared/entity.gateway";
+import { Gateway } from "../../shared/entity.gateway";
 import UUDIGenerator from "../../shared/uuid-generator";
 import { CreateTodoRequest, CreateTodoResponse, CreateTodo } from "../boundry/create-todo";
-import { Todo } from "../entities/todo";
+import List from "../entities/list";
+import Todo from "../entities/todo";
 
 export default class CreateTodoImpl implements CreateTodo {
 
-    constructor(private gateway: WritableGateway<Todo>, private uuidGenerator: UUDIGenerator) {}
+    constructor(private repository: Gateway<Todo>, private uuidGenerator: UUDIGenerator) {}
 
     async execute(request: CreateTodoRequest): Promise<CreateTodoResponse> {
 
-        const {
-            description: requestDescription,
-            due: requestDue,
-        } = request;
+        const { description, start, end, listName } = request;
 
-        const generatedId = this.uuidGenerator.generate()
+				const listSize = await this.repository.count({ listName });
 
-        const todo = new Todo(generatedId, requestDescription, new Date(requestDue));
+				const list = new List(listName, listSize);
 
-        const { id, description, due } = await this.gateway.save(todo);
+        const todo = new Todo(this.uuidGenerator.generate(), list.name, description, new Date(start), new Date(end));
 
-        return { id, description, due: due.toISOString() };
+				list.add(todo);
+
+        const { id } = await this.repository.save(todo);
+
+        return { id };
     }
 }

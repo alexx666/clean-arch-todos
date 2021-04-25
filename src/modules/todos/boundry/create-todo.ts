@@ -4,9 +4,11 @@ export interface CreateTodo {
 
 export interface CreateTodoRequest {
     description: string;
-    due: string;
+    start: string;
+		end: string;
+		listName: string;
 }
 
-export interface CreateTodoResponse extends CreateTodoRequest {
+export interface CreateTodoResponse {
     id: string;
 }

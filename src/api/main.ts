@@ -12,7 +12,7 @@ const API = Express();
 
 API.use(morgan("combined"));
 
-API.use("/todos", todoRouter)
+API.use("/lists/:name/todos", todoRouter)
 
 API.use("*", (err: Error, _1: any, res: Response, _2: any) => res.status(500).json({ error: err.message }))
 

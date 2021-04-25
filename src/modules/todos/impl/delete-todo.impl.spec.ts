@@ -1,10 +1,11 @@
 import { WritableGateway } from "../../shared/entity.gateway";
-import { Todo } from "../entities/todo";
+import Todo from "../entities/todo";
 
 import DeleteTodoImpl from "./delete-todo.impl"
 
 const randomId = "randomId";
-const todo = new Todo(randomId, "test description", new Date())
+const listName = "my list";
+const todo = new Todo(randomId, listName, "test description", new Date(), new Date())
 
 describe("[DeleteTodo] Success Cases", () => {
 
@@ -17,9 +18,16 @@ describe("[DeleteTodo] Success Cases", () => {
 
 	it("should return a the mocked todo in a valid DeleteTodoResponse object", async () => {
 
-		const result = await deleteTodo.execute({ id: randomId })
+		const result = await deleteTodo.execute({ id: randomId, listName })
 
-		expect(result).toEqual({ item: todo });
+		expect(result).toEqual({
+			item: {
+				id: todo.id,
+				description: todo.description,
+				start: todo.start.toISOString(),
+				end: todo.end.toISOString()
+			}
+		});
 		expect.assertions(1);
 	})
 })
@@ -37,7 +45,7 @@ describe("[DeleteTodo] Fail Cases", () => {
 
 	it("should return throw an error with the gateways message", async () => {
 		try {
-			await deleteTodo.execute({ id: randomId })
+			await deleteTodo.execute({ id: randomId, listName })
 		} catch (error) {
 			expect(error.message).toEqual(errorMessage)
 			expect.assertions(1);

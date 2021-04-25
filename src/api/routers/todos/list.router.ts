@@ -5,25 +5,25 @@ import { ListTodos, ListTodosRequest } from "../../../modules/todos/boundry/list
 import Link from "../hateoas";
 
 export default function(listTodos: ListTodos) {
-	const listRouter = Router()
+	const listRouter = Router({ mergeParams: true })
 
 	listRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
 			try {
 
-					const { baseUrl, query, protocol, hostname, originalUrl } = req;
+					const { baseUrl, query, protocol, hostname, originalUrl, params } = req;
 
 					const request: ListTodosRequest = {
+						listName: String(params.name),
 						limit: Number(query.limit) || 20,
 						marker: String(query.marker)
 					}
 
-					const { items, count } = await listTodos.execute(request)
+					const response = await listTodos.execute(request)
+
+					const { items, count } = response;
 
 					const links: Link[] = [
-							{
-							rel: "self",
-							href: `${protocol}://${hostname}${originalUrl}`
-						}
+						{ rel: "self", href: `${protocol}://${hostname}${originalUrl}` }
 					];
 
 					if (request.limit <= count) {
@@ -31,13 +31,12 @@ export default function(listTodos: ListTodos) {
 
 						if (count > 0) nextPage.marker = items[count - 1].id
 
-						links.push({
-							rel: "next",
-							href: `${protocol}://${hostname}${baseUrl}?${Object.entries(nextPage).map(e => e.join('=')).join('&')}`
-						})
+						const nextQueryParams = Object.entries(nextPage).map(e => e.join('=')).join('&')
+
+						links.push({ rel: "next", href: `${protocol}://${hostname}${baseUrl}?${encodeURI(nextQueryParams)}`})
 					}
 
-					res.status(200).json({ items, count, links });
+					res.status(200).json({ ...response, links });
 			} catch (error) {
 					next(error)
 			}

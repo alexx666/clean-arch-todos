@@ -7,10 +7,11 @@ export default function (deleteTodo: DeleteTodo) {
 	return new Command("delete")
     .alias("rm")
     .description("Delete todo")
+    .requiredOption("-l, --list-name <list>", "List name")
     .requiredOption("--id <id>", "todo ID")
     .action(async cmd => {
         try {
-            const request: DeleteTodoRequest = { id: cmd.id };
+            const request: DeleteTodoRequest = { listName: cmd.listName, id: cmd.id };
 
             const { item } = await deleteTodo.execute(request);
 

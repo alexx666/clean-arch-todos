@@ -20,7 +20,7 @@ export const createTodo = new CreateTodoImpl(repository, uuidGenerator);
 export const deleteTodo = new DeleteTodoImpl(repository);
 export const listTodos = new ListTodosImpl(repository);
 
-const todoRouter = Router()
+const todoRouter = Router({ mergeParams: true })
 
 todoRouter.use(listRouter(listTodos))
 todoRouter.use(createRouter(createTodo))

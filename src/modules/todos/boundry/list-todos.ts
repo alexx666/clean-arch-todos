@@ -1,11 +1,21 @@
 export interface ListTodosRequest {
-    limit: number
-		marker?: string
+		listName: string;
+    limit: number;
+		marker?: string;
 }
 
 export interface ListTodosResponse {
-    items: any[];
+    items: TodoItem[];
+		listName: string;
     count: number;
+}
+
+export interface TodoItem {
+	id: string;
+	start: string;
+	end: string;
+	expired: boolean;
+	description: string;
 }
 
 export interface ListTodos {

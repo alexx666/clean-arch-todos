@@ -15,7 +15,10 @@ import listCmd from "./list-todos";
 import createCmd from "./create-todo";
 import deleteCmd from "./delete-todo";
 
-const todoGateway = new RestTodoGateway()
+// config
+import config from "../../config";
+
+const todoGateway = new RestTodoGateway(config)
 const uuidGenerator = new V4UuidGenerator()
 
 const listTodos = new ListTodosImpl(todoGateway)

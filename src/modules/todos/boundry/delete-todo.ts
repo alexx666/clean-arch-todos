@@ -3,9 +3,17 @@ export interface DeleteTodo {
 }
 
 export interface DeleteTodoRequest {
+		listName: string;
     id: string;
 }
 
 export interface DeleteTodoResponse {
-    item: any
+    item: TodoItem
+}
+
+export interface TodoItem {
+	id: string;
+	start: string;
+	end: string;
+	description: string;
 }

@@ -1,18 +1,26 @@
-import { Todo } from "../../modules/todos/entities/todo";
+import Todo from "../../modules/todos/entities/todo";
 
 export default class TodoDocument {
 
 	public static fromTodo(todo: Todo): TodoDocument {
-		if (!todo) throw new Error("ValidationError: No todo provided!")
-		return new TodoDocument(todo.description, todo.due.toISOString());
+		if (!todo) throw new Error("ValidationError: No todo provided!");
+
+		return new TodoDocument(
+			todo.list,
+			todo.description,
+			todo.start.toISOString(),
+			todo.end.toISOString(),
+		);
 	}
 
-  constructor(public readonly description: string, public readonly due: string) {
-		if (!description) throw new Error("ValidationError: Description not provided!")
-		if (!due) throw new Error("ValidationError: Due date not provided!")
-	}
+  constructor(
+		public readonly listName: string,
+		public readonly description: string,
+		public readonly start: string,
+		public readonly end: string,
+	) {}
 
 	public toEntity(id: string): Todo {
-		return new Todo(id, this.description, new Date(this.due));
+		return new Todo(id, this.listName, this.description, new Date(this.start), new Date(this.end));
 	}
 }
