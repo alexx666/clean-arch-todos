@@ -1,17 +1,27 @@
-import { ReadableGateway } from "../../shared/entity.gateway";
-import Todo from "../entities/todo";
+import ListPolicy from "../../entities/list-policy/list-policy";
+import List from "../../entities/list/list";
+import Todo from "../../entities/todo/todo";
 
-import ListTodosImpl from "./list-todos.impl"
+import { ListRepository } from "../../repository/list.repository";
+import { ListTodosImpl } from "./list-todos"
 
 const request = { listName: "my list", limit: 1, skip: 1 }
 
 describe("[ListTodos] Success Cases", () => {
 
-	const todo = new Todo("id", "my list", "first", new Date(), new Date())
+	const todo = new Todo("first", new Date(), new Date())
 
-	const mockSuccessGateway: ReadableGateway<Todo> = {
-		find: (_: any) => Promise.resolve([todo]),
-		count: (_: any) => Promise.resolve(1)
+	const todos = new Set<Todo>();
+
+	todos.add(todo);
+
+	const policy = new ListPolicy()
+
+	const list = new List("test list", policy, todos);
+
+	const mockSuccessGateway: ListRepository = {
+		get: (_: string) => Promise.resolve(list),
+		save: (_: List) => Promise.resolve()
 	}
 
 	const listTodos: ListTodosImpl = new ListTodosImpl(mockSuccessGateway);
@@ -22,13 +32,14 @@ describe("[ListTodos] Success Cases", () => {
 		expect(result).toEqual({
 			items: [
 				{
-					id: todo.id,
+					id: 0,
 					end: todo.end.toISOString(),
 					start: todo.start.toISOString(),
 					description: todo.description,
 					expired: todo.isExpired
 				}
-			], count: 1, listName: "my list" });
+			], count: 1, listName: "my list"
+		});
 		expect.assertions(1);
 	})
 })
@@ -37,9 +48,9 @@ describe("[ListTodos] Fail Cases", () => {
 
 	const errorMessage = "Unexpected error!"
 
-	const mockFailureGateway: ReadableGateway<Todo> = {
-		find: (_: any) => Promise.reject(new Error(errorMessage)),
-		count: (_: any) => Promise.reject(new Error(errorMessage))
+	const mockFailureGateway: ListRepository = {
+		get: (_: string) => Promise.reject(new Error(errorMessage)),
+		save: (_: List) => Promise.reject(new Error(errorMessage))
 	}
 
 	const listTodos: ListTodosImpl = new ListTodosImpl(mockFailureGateway);

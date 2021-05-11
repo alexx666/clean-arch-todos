@@ -1,28 +1,19 @@
-// Frameworks
 import { Command } from "commander";
 
-// Use Case implementations
-import CreateTodoImpl from "../../../modules/todos/impl/create-todo.impl";
-import DeleteTodoImpl from "../../../modules/todos/impl/delete-todo.impl";
-import ListTodosImpl from "../../../modules/todos/impl/list-todos.impl";
+import InMemoryTodoGateway from "../../../modules/todos/repository/in-memory/in-memory.repository";
 
-// Providers
-import RestTodoGateway from "../../../providers/todo-http/todo-http.gateway";
-import V4UuidGenerator from "../../../providers/uuid/v4-uuid";
-
-// Subcommands
 import listCmd from "./list-todos";
 import createCmd from "./create-todo";
 import deleteCmd from "./delete-todo";
 
-// config
-import config from "../../config";
+import { CreateTodoImpl } from "../../../modules/todos/boundry/create-todo/create-todo";
+import { DeleteTodoImpl } from "../../../modules/todos/boundry/delete-todo/delete-todo";
+import { ListTodosImpl } from "../../../modules/todos/boundry/list-todos/list-todos";
 
-const todoGateway = new RestTodoGateway(config)
-const uuidGenerator = new V4UuidGenerator()
+const todoGateway = new InMemoryTodoGateway()
 
 const listTodos = new ListTodosImpl(todoGateway)
-const createTodo = new CreateTodoImpl(todoGateway, uuidGenerator)
+const createTodo = new CreateTodoImpl(todoGateway)
 const deleteTodo = new DeleteTodoImpl(todoGateway)
 
 const todosCommand = new Command("todos");

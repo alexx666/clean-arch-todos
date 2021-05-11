@@ -1,20 +1,20 @@
 import { Router, NextFunction, Request, Response } from "express";
 import { json } from "body-parser";
 
-import { CreateTodo, CreateTodoRequest } from "../../../modules/todos/boundry/create-todo";
+import { CreateTodo, CreateTodoRequest } from "../../../modules/todos/boundry/create-todo/create-todo";
 
-export default function(createTodo: CreateTodo) {
+export default function (createTodo: CreateTodo) {
 	const createRouter = Router({ mergeParams: true })
 
 	createRouter.post("/", json(), async (req: Request, res: Response, next: NextFunction) => {
-			try {
-					const request: CreateTodoRequest = { ...req.body, listName: decodeURI(req.params.name) };
-					const response = await createTodo.execute(request);
+		try {
+			const request: CreateTodoRequest = { ...req.body, listName: decodeURI(req.params.name) };
+			const response = await createTodo.execute(request);
 
-					res.status(200).json(response);
-			} catch (error) {
-					next(error);
-			}
+			res.status(200).json(response);
+		} catch (error) {
+			next(error);
+		}
 	})
 
 	return createRouter;

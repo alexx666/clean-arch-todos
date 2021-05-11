@@ -10,29 +10,13 @@ const id = "id";
 describe("[Todo] Test Cases", () => {
 
 	it("should create a todo successfully", () => {
-		const todo = new Todo(id, listName, description, start, end)
+		const todo = new Todo(description, start, end)
 		expect(todo).toBeDefined()
-	})
-
-	it("should throw en error because of a missing ID", () => {
-		try {
-			const _ = new Todo(notDefined, listName, description, start, end)
-		} catch (error) {
-			expect(error.message).toEqual("ValidationError: Id not provided!")
-		}
-	})
-
-	it("should throw en error because of a missing ListName", () => {
-		try {
-			const _ = new Todo(id, listName, notDefined, start, end)
-		} catch (error) {
-			expect(error.message).toEqual("ValidationError: Description not provided!")
-		}
 	})
 
 	it("should throw en error because of a missing Description", () => {
 		try {
-			const _ = new Todo(id, notDefined, description, start, end)
+			const _ = new Todo(description, start, end)
 		} catch (error) {
 			expect(error.message).toEqual("ValidationError: List not provided!")
 		}
@@ -40,7 +24,7 @@ describe("[Todo] Test Cases", () => {
 
 	it("should throw en error because of a missing Start date", () => {
 		try {
-			const _ = new Todo(id, listName, description, notDefined, end)
+			const _ = new Todo(description, notDefined, end)
 		} catch (error) {
 			expect(error.message).toEqual("ValidationError: todo Timeline not defined!")
 		}
@@ -48,7 +32,7 @@ describe("[Todo] Test Cases", () => {
 
 	it("should throw en error because of a missing End date", () => {
 		try {
-			const _ = new Todo(id, listName, description, start, notDefined)
+			const _ = new Todo(description, start, notDefined)
 		} catch (error) {
 			expect(error.message).toEqual("ValidationError: todo Timeline not defined!")
 		}
