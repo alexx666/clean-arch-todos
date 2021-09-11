@@ -1,6 +1,6 @@
 import { Router, NextFunction, Request, Response } from "express";
 
-import { DeleteTodo, DeleteTodoRequest } from "../../../modules/todos/boundry/delete-todo/delete-todo";
+import { DeleteTodo, DeleteTodoRequest } from "../../../libs/todos/boundry/delete-todo/delete-todo";
 
 export default function (deleteTodo: DeleteTodo) {
 	const deleteRouter = Router({ mergeParams: true })

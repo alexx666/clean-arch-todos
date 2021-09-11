@@ -1,20 +1,18 @@
 import { Router } from "express";
 
-import InMemoryTodoGateway from "../../../modules/todos/repository/in-memory/in-memory.repository";
-
 import listRouter from "./list.router";
 import createRouter from "./create.router";
 import deleteRouter from "./delete.router";
 
-import { CreateTodoImpl } from "../../../modules/todos/boundry/create-todo/create-todo";
-import { DeleteTodoImpl } from "../../../modules/todos/boundry/delete-todo/delete-todo";
-import { ListTodosImpl } from "../../../modules/todos/boundry/list-todos/list-todos";
+import { CreateTodoImpl } from "../../../libs/todos/boundry/create-todo/create-todo";
+import { DeleteTodoImpl } from "../../../libs/todos/boundry/delete-todo/delete-todo";
+import { ListTodosImpl } from "../../../libs/todos/boundry/list-todos/list-todos";
 
-const repository = new InMemoryTodoGateway()
+import { todoGateway } from "../../db";
 
-export const createTodo = new CreateTodoImpl(repository);
-export const deleteTodo = new DeleteTodoImpl(repository);
-export const listTodos = new ListTodosImpl(repository);
+export const createTodo = new CreateTodoImpl(todoGateway);
+export const deleteTodo = new DeleteTodoImpl(todoGateway);
+export const listTodos = new ListTodosImpl(todoGateway);
 
 const todoRouter = Router({ mergeParams: true })
 

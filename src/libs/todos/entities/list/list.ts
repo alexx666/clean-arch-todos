@@ -1,10 +1,11 @@
+import Name from "../../value-objects/list-name";
 import ListPolicy from "../list-policy/list-policy";
 import Todo from "../todo/todo";
 
 export default class List {
 
 	constructor(
-		public readonly name: string,
+		public readonly name: Name,
 		private policy: ListPolicy = new ListPolicy(10),
 		private todos: Set<Todo> = new Set<Todo>(),
 	) { }

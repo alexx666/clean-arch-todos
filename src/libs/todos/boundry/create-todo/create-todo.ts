@@ -28,6 +28,6 @@ export class CreateTodoImpl implements CreateTodo {
 
 		list.add(todo);
 
-		await this.repository.save(list);
+		await this.repository.update(list);
 	}
 }
