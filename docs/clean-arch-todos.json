@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/lists/{{listName}}/todos?limit={{limit}}",
+					"raw": "{{url}}/lists/{{listName}}/todos",
 					"host": [
 						"{{url}}"
 					],
@@ -23,7 +23,8 @@
 					"query": [
 						{
 							"key": "limit",
-							"value": "{{limit}}"
+							"value": "{{limit}}",
+							"disabled": true
 						},
 						{
 							"key": "marker",
@@ -82,8 +83,34 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "3060961b-6afc-466b-9032-715ea52dc199"
+							"value": "0"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{listName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/lists",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"lists"
 					]
 				}
 			},
