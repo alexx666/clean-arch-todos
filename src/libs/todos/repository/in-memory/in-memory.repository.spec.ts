@@ -1,9 +1,10 @@
 import ListPolicy from "../../entities/list-policy/list-policy";
 import List from "../../entities/list/list";
 import Todo from "../../entities/todo/todo";
+import Name from "../../value-objects/list-name";
 import InMemoryTodoGateway from "./in-memory.repository";
 
-const listName = "my list";
+const listName = Name.create("my list");
 const start = new Date()
 const end = new Date(Date.now() + 3600)
 
@@ -25,14 +26,14 @@ describe("[InMemoryTodoGateway] Test Cases", () => {
 	})
 
 	it("should return matching list", async () => {
-		const result = await inMemTodoGW.get(listName)
+		const result = await inMemTodoGW.get(listName.value)
 		expect(result).toEqual(list)
 		expect.assertions(1)
 	})
 
 	it("should throw an error because the todo already exist", async () => {
 		try {
-			await inMemTodoGW.save(list);
+			await inMemTodoGW.create(list);
 		} catch (error) {
 			expect(error.message).toEqual("List already exists!");
 			expect.assertions(1)

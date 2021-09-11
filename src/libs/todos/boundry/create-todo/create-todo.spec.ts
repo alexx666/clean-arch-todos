@@ -4,12 +4,13 @@ import Todo from "../../entities/todo/todo";
 
 import { CreateTodoImpl } from "../create-todo/create-todo";
 import { ListRepository } from "../../repository/list.repository";
+import Name from "../../value-objects/list-name";
 
 const errorMessage = "Todo already exists!"
 const now = new Date(Date.now() + 3600)
-const listName = "my list";
+const listName = Name.create("my list");
 const request = {
-	listName,
+	listName: listName.value,
 	description: "test description",
 	start: now.toISOString(),
 	end: now.toISOString()
@@ -23,12 +24,14 @@ const list = new List(listName, policy, todos)
 
 const mockSuccessGateway: ListRepository = {
 	get: (_: string) => Promise.resolve(list),
-	save: (_: List) => Promise.resolve(),
+	create: (_: List) => Promise.resolve(),
+	update: (_: List) => Promise.resolve(),
 }
 
 const mockFailureGateway: ListRepository = {
 	get: (_: string) => Promise.reject(new Error(errorMessage)),
-	save: (_: List) => Promise.reject(new Error(errorMessage)),
+	create: (_: List) => Promise.reject(new Error(errorMessage)),
+	update: (_: List) => Promise.reject(new Error(errorMessage)),
 }
 
 describe("[CreateTodo] Success Cases", () => {

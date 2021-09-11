@@ -3,6 +3,7 @@ import List from "../../entities/list/list";
 import Todo from "../../entities/todo/todo";
 
 import { ListRepository } from "../../repository/list.repository";
+import Name from "../../value-objects/list-name";
 import { ListTodosImpl } from "./list-todos"
 
 const request = { listName: "my list", limit: 1, skip: 1 }
@@ -17,11 +18,12 @@ describe("[ListTodos] Success Cases", () => {
 
 	const policy = new ListPolicy()
 
-	const list = new List("test list", policy, todos);
+	const list = new List(Name.create("test list"), policy, todos);
 
 	const mockSuccessGateway: ListRepository = {
 		get: (_: string) => Promise.resolve(list),
-		save: (_: List) => Promise.resolve()
+		create: (_: List) => Promise.resolve(),
+		update: (_: List) => Promise.resolve()
 	}
 
 	const listTodos: ListTodosImpl = new ListTodosImpl(mockSuccessGateway);
@@ -50,7 +52,8 @@ describe("[ListTodos] Fail Cases", () => {
 
 	const mockFailureGateway: ListRepository = {
 		get: (_: string) => Promise.reject(new Error(errorMessage)),
-		save: (_: List) => Promise.reject(new Error(errorMessage))
+		create: (_: List) => Promise.reject(new Error(errorMessage)),
+		update: (_: List) => Promise.reject(new Error(errorMessage))
 	}
 
 	const listTodos: ListTodosImpl = new ListTodosImpl(mockFailureGateway);
