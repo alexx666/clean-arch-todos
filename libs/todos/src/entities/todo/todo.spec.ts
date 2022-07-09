@@ -18,7 +18,7 @@ describe("[Todo] Test Cases", () => {
 		try {
 			const _ = new Todo(description, start, end)
 		} catch (error) {
-			expect(error.message).toEqual("ValidationError: List not provided!")
+			expect((error as Error).message).toEqual("ValidationError: List not provided!")
 		}
 	})
 
@@ -26,7 +26,7 @@ describe("[Todo] Test Cases", () => {
 		try {
 			const _ = new Todo(description, notDefined, end)
 		} catch (error) {
-			expect(error.message).toEqual("ValidationError: todo Timeline not defined!")
+			expect((error as Error).message).toEqual("ValidationError: todo Timeline not defined!")
 		}
 	})
 
@@ -34,7 +34,7 @@ describe("[Todo] Test Cases", () => {
 		try {
 			const _ = new Todo(description, start, notDefined)
 		} catch (error) {
-			expect(error.message).toEqual("ValidationError: todo Timeline not defined!")
+			expect((error as Error).message).toEqual("ValidationError: todo Timeline not defined!")
 		}
 	})
 

@@ -1,0 +1,44 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "**/README.md"
+      - "docs/**"
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened
+      - synchronize
+    paths-ignore:
+      - "**/README.md"
+      - "docs/**"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test

@@ -35,7 +35,7 @@ describe("[InMemoryTodoGateway] Test Cases", () => {
 		try {
 			await inMemTodoGW.create(list);
 		} catch (error) {
-			expect(error.message).toEqual("List already exists!");
+			expect((error as Error).message).toEqual("List already exists!");
 			expect.assertions(1)
 		}
 	})

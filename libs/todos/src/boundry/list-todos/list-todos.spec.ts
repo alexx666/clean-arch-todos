@@ -62,7 +62,7 @@ describe("[ListTodos] Fail Cases", () => {
 		try {
 			await listTodos.execute(request)
 		} catch (error) {
-			expect(error.message).toEqual(errorMessage)
+			expect((error as Error).message).toEqual(errorMessage)
 			expect.assertions(1);
 		}
 	})
