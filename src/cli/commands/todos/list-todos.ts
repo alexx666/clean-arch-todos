@@ -2,7 +2,7 @@
 import { Command } from "commander";
 
 // Request/Response models
-import { ListTodos, ListTodosRequest } from "../../../libs/todos/boundry/list-todos/list-todos";
+import { ListTodos, ListTodosRequest } from "../../../../libs/todos/src/boundry/list-todos/list-todos";
 
 export default function (listTodos: ListTodos) {
 	return new Command("list")

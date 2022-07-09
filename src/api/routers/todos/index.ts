@@ -4,9 +4,9 @@ import listRouter from "./list.router";
 import createRouter from "./create.router";
 import deleteRouter from "./delete.router";
 
-import { CreateTodoImpl } from "../../../libs/todos/boundry/create-todo/create-todo";
-import { DeleteTodoImpl } from "../../../libs/todos/boundry/delete-todo/delete-todo";
-import { ListTodosImpl } from "../../../libs/todos/boundry/list-todos/list-todos";
+import { CreateTodoImpl } from "../../../../libs/todos/src/boundry/create-todo/create-todo";
+import { DeleteTodoImpl } from "../../../../libs/todos/src/boundry/delete-todo/delete-todo";
+import { ListTodosImpl } from "../../../../libs/todos/src/boundry/list-todos/list-todos";
 
 import { todoGateway } from "../../db";
 
