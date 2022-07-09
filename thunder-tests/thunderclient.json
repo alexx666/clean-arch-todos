@@ -4,24 +4,17 @@
     "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
     "containerId": "",
     "name": "ListTodos",
-    "url": "{{url}}/lists/{{listName}}/todos",
+    "url": "{{url}}/lists/{listName}/todos",
     "method": "GET",
     "sortNum": 10000,
     "created": "2022-07-09T13:37:59.489Z",
-    "modified": "2022-07-09T13:37:59.489Z",
+    "modified": "2022-07-09T13:57:22.657Z",
     "headers": [],
     "params": [
       {
-        "name": "limit",
-        "value": "{{limit}}",
-        "isDisabled": true,
-        "isPath": false
-      },
-      {
-        "name": "marker",
-        "value": "3060961b-6afc-466b-9032-715ea52dc199",
-        "isDisabled": true,
-        "isPath": false
+        "name": "listName",
+        "value": "{{listName}}",
+        "isPath": true
       }
     ],
     "tests": []
@@ -31,16 +24,22 @@
     "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
     "containerId": "",
     "name": "CreateTodo",
-    "url": "{{url}}/lists/{{listName}}/todos",
+    "url": "{{url}}/lists/{listName}/todos",
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-07-09T13:37:59.490Z",
-    "modified": "2022-07-09T13:37:59.490Z",
+    "modified": "2022-07-09T13:57:03.882Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "listName",
+        "value": "{{listName}}",
+        "isPath": true
+      }
+    ],
     "body": {
       "type": "json",
-      "raw": "{\n    \"description\": \"{{description}}\",\n    \"start\": \"{{#date}}\",\n    \"end\": \"{{#date}}\"\n}",
+      "raw": "{\n    \"description\": \"{{description}}\",\n    \"start\": \"{{#dateISO}}\",\n    \"end\": \"{{#dateISO}}\"\n}",
       "form": []
     },
     "tests": []
@@ -50,13 +49,24 @@
     "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
     "containerId": "",
     "name": "DeleteTodo",
-    "url": "{{url}}/lists/{{listName}}/todos/{{#number, 0, 5}}",
+    "url": "{{url}}/lists/{listName}/todos/{id}",
     "method": "DELETE",
     "sortNum": 30000,
     "created": "2022-07-09T13:37:59.491Z",
-    "modified": "2022-07-09T13:37:59.491Z",
+    "modified": "2022-07-09T13:56:52.015Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "listName",
+        "value": "{{listName}}",
+        "isPath": true
+      },
+      {
+        "name": "id",
+        "value": "{{#number, 0, 5}}",
+        "isPath": true
+      }
+    ],
     "tests": []
   },
   {
