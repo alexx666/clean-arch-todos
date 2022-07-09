@@ -4,9 +4,6 @@
 	"private": true,
 	"description": "Todo app example using clean architecture...sort of.",
 	"scripts": {
-		"start:cli": "node apps/cli/dist/main",
-		"start:api": "node apps/api/dist/main",
-		"watch:api": "nodemon",
 		"test": "jest",
 		"watch:test": "npm t -- --watch",
 		"clean": "tsc -b --clean tsconfig.build.json",
@@ -25,7 +22,6 @@
 		"@types/jest": "^26.0.22",
 		"@types/node": "^14.14.37",
 		"jest": "^26.6.3",
-		"nodemon": "^2.0.7",
 		"ts-jest": "^26.5.4",
 		"ts-node": "^9.1.1",
 		"tslint": "^6.1.3",
