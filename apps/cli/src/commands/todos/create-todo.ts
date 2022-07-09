@@ -1,6 +1,6 @@
 import { Command } from "commander";
 
-import { CreateTodo, CreateTodoRequest } from "../../../../../libs/todos/src/boundry/create-todo/create-todo";
+import { CreateTodo, CreateTodoRequest } from "@alexx666/todos";
 
 export default function (createTodo: CreateTodo) {
 	return new Command("create")

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "TODOs Rest API",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/alexx666/clean-arch-todos/issues"
   },
-  "homepage": "https://github.com/alexx666/clean-arch-todos#readme"
+  "homepage": "https://github.com/alexx666/clean-arch-todos#readme",
+  "dependencies": {
+    "@alexx666/todos": "^1.0.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3"
+  }
 }

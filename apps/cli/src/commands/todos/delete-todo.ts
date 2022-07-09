@@ -1,6 +1,6 @@
 import { Command } from "commander";
 
-import { DeleteTodo, DeleteTodoRequest } from "../../../../../libs/todos/src/boundry/delete-todo/delete-todo";
+import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos";
 
 export default function (deleteTodo: DeleteTodo) {
 	return new Command("delete")

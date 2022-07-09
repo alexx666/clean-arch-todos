@@ -4,9 +4,7 @@ import listCmd from "./list-todos";
 import createCmd from "./create-todo";
 import deleteCmd from "./delete-todo";
 
-import { CreateTodoImpl } from "../../../../../libs/todos/src/boundry/create-todo/create-todo";
-import { DeleteTodoImpl } from "../../../../../libs/todos/src/boundry/delete-todo/delete-todo";
-import { ListTodosImpl } from "../../../../../libs/todos/src/boundry/list-todos/list-todos";
+import { CreateTodoImpl, DeleteTodoImpl, ListTodosImpl } from "@alexx666/todos";
 
 import { todoGateway } from "../../db";
 

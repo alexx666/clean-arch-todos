@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "TODOs CLI app",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/alexx666/clean-arch-todos/issues"
   },
-  "homepage": "https://github.com/alexx666/clean-arch-todos#readme"
+  "homepage": "https://github.com/alexx666/clean-arch-todos#readme",
+  "dependencies": {
+    "@alexx666/todos": "^1.0.0",
+    "commander": "^9.3.0",
+    "dotenv": "^16.0.1"
+  }
 }

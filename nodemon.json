@@ -1,6 +1,11 @@
 {
-	"watch": ["src/"],
+	"watch": [
+		"apps/api",
+		"libs/"
+	],
 	"ext": "ts",
-	"ignore": ["src/**/*.spec.ts"],
-	"exec": "ts-node src/api/main.ts"
+	"ignore": [
+		"src/**/*.spec.ts"
+	],
+	"exec": "ts-node apps/api/src/main.ts"
 }

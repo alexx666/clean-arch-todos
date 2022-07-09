@@ -1,3 +1,3 @@
-import InMemoryTodoGateway from "../libs/todos/repository/in-memory/in-memory.repository";
+import { InMemoryTodoGateway } from "@alexx666/todos";
 
 export const todoGateway = new InMemoryTodoGateway();

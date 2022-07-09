@@ -1,26 +1,27 @@
 {
-  "name": "@alexx666/todos",
-  "version": "1.0.0",
-  "description": "TODOs core business logic",
-  "main": "index.js",
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alexx666/clean-arch-todos.git"
-  },
-  "keywords": [
-    "TODOs",
-    "clean-arch",
-    "typescript",
-    "nodejs"
-  ],
-  "author": "alexx666",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/alexx666/clean-arch-todos/issues"
-  },
-  "homepage": "https://github.com/alexx666/clean-arch-todos#readme"
+	"name": "@alexx666/todos",
+	"version": "1.0.0",
+	"description": "TODOs core business logic",
+	"main": "dist/index",
+	"types": "typings/index",
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/alexx666/clean-arch-todos.git"
+	},
+	"keywords": [
+		"TODOs",
+		"clean-arch",
+		"typescript",
+		"nodejs"
+	],
+	"author": "alexx666",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/alexx666/clean-arch-todos/issues"
+	},
+	"homepage": "https://github.com/alexx666/clean-arch-todos#readme"
 }

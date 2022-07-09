@@ -1,6 +1,6 @@
 import { Router, NextFunction, Request, Response } from "express";
 
-import { ListTodos, ListTodosRequest } from "../../../../../libs/todos/src/boundry/list-todos/list-todos";
+import { ListTodos, ListTodosRequest } from "@alexx666/todos";
 
 export default function (listTodos: ListTodos) {
 	const listRouter = Router({ mergeParams: true })
