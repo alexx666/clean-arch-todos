@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { CreateList, CreateListRequest } from "../../../../libs/todos/src/boundry/create-list/create-list";
+import { CreateList, CreateListRequest } from "../../../../../libs/todos/src/boundry/create-list/create-list";
 
 export default function (createList: CreateList) {
 	return new Command("create")
