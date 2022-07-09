@@ -10,17 +10,12 @@ export default function (listTodos: ListTodos) {
 		.description("List todos")
 		.requiredOption("-n, --list-name <list>", "List name")
 		.action(async cmd => {
-			try {
-				const request: ListTodosRequest = {
-					listName: String(cmd.name),
-				}
-
-				const response = await listTodos.execute(request)
-
-				console.table(response.items)
-			} catch (error) {
-				console.error("Error:", error.message);
-				console.debug(error.stack)
+			const request: ListTodosRequest = {
+				listName: String(cmd.name),
 			}
+
+			const response = await listTodos.execute(request)
+
+			console.table(response.items)
 		});
 }

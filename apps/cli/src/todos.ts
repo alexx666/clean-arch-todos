@@ -9,8 +9,17 @@ config();
 import lists from "./commands/lists";
 import todos from "./commands/todos";
 
-program
-	.addCommand(lists)
-	.addCommand(todos)
+async function start(args: string[]) {
+	program
+		.addCommand(lists)
+		.addCommand(todos)
 
-program.parse(process.argv)
+	try {
+		await program.parseAsync(args)
+	} catch (error) {
+		console.error("Error:", (error as Error).message);
+		console.debug((error as Error).stack)
+	}
+}
+
+start(process.argv);
