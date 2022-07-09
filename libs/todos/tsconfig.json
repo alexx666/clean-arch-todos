@@ -4,5 +4,11 @@
 		"outDir": "dist",
 		"rootDir": "src",
 		"declarationDir": "typings",
-	}
+	},
+	"exclude": [
+		"**/*.spec.ts",
+		"test",
+		"dist",
+		"typings",
+	]
 }

@@ -9,5 +9,11 @@
 		{
 			"path": "../../libs/todos"
 		}
+	],
+	"exclude": [
+		"**/*.spec.ts",
+		"test",
+		"dist",
+		"typings",
 	]
 }
