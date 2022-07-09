@@ -2,10 +2,15 @@
 	"name": "@alexx666/todo-cli",
 	"version": "1.0.0",
 	"description": "TODOs CLI app",
-	"main": "index.js",
+	"bin": {
+		"todos": "dist/todos.js"
+	},
+	"files": [
+		"dist"
+	],
 	"scripts": {
-		"start": "node dist/main",
-		"debug": "node --inspect dist/main",
+		"start": "node dist/todos",
+		"debug": "node --inspect dist/todos",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {

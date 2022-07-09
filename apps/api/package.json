@@ -1,8 +1,12 @@
 {
 	"name": "@alexx666/todo-api",
+	"private": true,
 	"version": "1.0.0",
 	"description": "TODOs Rest API",
-	"main": "index.js",
+	"main": "dist/main.js",
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"start": "node dist/main",
 		"debug": "node --inspect dist/main",
