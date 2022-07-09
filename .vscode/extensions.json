@@ -1,6 +1,10 @@
 {
-    "recommendations": [
-        "editorconfig.editorconfig",
-        "sonarsource.sonarlint-vscode"
-    ]
+	"recommendations": [
+		"editorconfig.editorconfig",
+		"mikestead.dotenv",
+		"eamodio.gitlens",
+		"mhutchie.git-graph",
+		"rangav.vscode-thunder-client",
+		"hediet.vscode-drawio"
+	]
 }

@@ -1,0 +1,81 @@
+[
+  {
+    "_id": "7d800872-185f-49a0-8bcd-f4c9bc5a0f7f",
+    "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
+    "containerId": "",
+    "name": "ListTodos",
+    "url": "{{url}}/lists/{{listName}}/todos",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-07-09T13:37:59.489Z",
+    "modified": "2022-07-09T13:37:59.489Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "limit",
+        "value": "{{limit}}",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "marker",
+        "value": "3060961b-6afc-466b-9032-715ea52dc199",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "f50bfd19-f22e-4974-b6f7-cc09fae5dc26",
+    "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
+    "containerId": "",
+    "name": "CreateTodo",
+    "url": "{{url}}/lists/{{listName}}/todos",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-07-09T13:37:59.490Z",
+    "modified": "2022-07-09T13:37:59.490Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"description\": \"{{description}}\",\n    \"start\": \"{{#date}}\",\n    \"end\": \"{{#date}}\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "e0ce4e32-8097-4a52-8068-931d350a8c50",
+    "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
+    "containerId": "",
+    "name": "DeleteTodo",
+    "url": "{{url}}/lists/{{listName}}/todos/{{#number, 0, 5}}",
+    "method": "DELETE",
+    "sortNum": 30000,
+    "created": "2022-07-09T13:37:59.491Z",
+    "modified": "2022-07-09T13:37:59.491Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "c90f00a6-444d-4861-abfe-cc46428e21ec",
+    "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
+    "containerId": "",
+    "name": "CreateList",
+    "url": "{{url}}/lists",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2022-07-09T13:37:59.492Z",
+    "modified": "2022-07-09T13:37:59.492Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"{{listName}}\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

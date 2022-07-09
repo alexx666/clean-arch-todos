@@ -1,9 +1,11 @@
 {
-    "editor.formatOnSave": true,
-		"editor.codeActionsOnSave": {
-			"source.fixAll.tslint": true
-		},
-		"files.associations": {
-			"tslint.json": "jsonc"
-		}
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.tslint": true
+	},
+	"files.associations": {
+		"tslint.json": "jsonc"
+	},
+	"thunder-client.saveToWorkspace": true,
+	"thunder-client.followRedirects": true
 }

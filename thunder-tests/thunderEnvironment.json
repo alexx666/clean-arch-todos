@@ -1,0 +1,28 @@
+[
+  {
+    "_id": "784d2384-43e1-4b7c-8363-56bf992f34f2",
+    "name": "dev",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2022-07-09T13:38:06.739Z",
+    "modified": "2022-07-09T13:38:06.741Z",
+    "data": [
+      {
+        "name": "listName",
+        "value": "my-list"
+      },
+      {
+        "name": "description",
+        "value": "my item"
+      },
+      {
+        "name": "limit",
+        "value": "5"
+      },
+      {
+        "name": "url",
+        "value": "http://localhost:3000"
+      }
+    ]
+  }
+]
