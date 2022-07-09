@@ -1,6 +1,6 @@
 import { Router, NextFunction, Request, Response } from "express";
 import { json } from "body-parser";
-import { CreateList, CreateListRequest } from "../../../../libs/todos/src/boundry/create-list/create-list";
+import { CreateList, CreateListRequest } from "../../../../../libs/todos/src/boundry/create-list/create-list";
 
 export default function (createTodo: CreateList) {
 	const createRouter = Router({ mergeParams: true })
