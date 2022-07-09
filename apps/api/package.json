@@ -23,7 +23,7 @@
 	},
 	"homepage": "https://github.com/alexx666/clean-arch-todos#readme",
 	"dependencies": {
-		"@alexx666/todos": "^1.0.0",
+		"@alexx666/todos": "*",
 		"dotenv": "^16.0.1",
 		"express": "^4.18.1",
 		"morgan": "^1.10.0"

@@ -4,7 +4,10 @@
 	"description": "TODOs core business logic",
 	"main": "dist/index",
 	"types": "typings/index",
-	"devDependencies": {},
+	"files": [
+		"dist",
+		"typings"
+	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
