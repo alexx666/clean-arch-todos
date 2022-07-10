@@ -10,7 +10,7 @@ export interface ListTodosResponse {
 	count: number;
 }
 
-interface TodoItem {
+export interface TodoItem {
 	id: number;
 	start: string;
 	end: string;

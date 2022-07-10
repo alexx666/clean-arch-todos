@@ -58,6 +58,7 @@
 		"apps/cli"
 	],
 	"dependencies": {
+		"@alexx666/todos": "*",
 		"@angular/animations": "~14.0.0",
 		"@angular/common": "~14.0.0",
 		"@angular/compiler": "~14.0.0",
