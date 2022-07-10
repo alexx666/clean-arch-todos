@@ -1,0 +1,6 @@
+<div *ngIf="loading$ | async">
+    <p>Loading...</p>
+</div>
+<div>
+    <div *ngFor="let item of items$ | async">{{ item }}</div>
+</div>

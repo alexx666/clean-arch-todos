@@ -6,10 +6,13 @@ import listRouter from "./routers/lists";
 import todoRouter from "./routers/todos";
 
 import morgan from "morgan";
+import cors from "cors";
 
 config();
 
 const API = Express();
+
+API.use(cors())
 
 API.use(morgan("combined"));
 
