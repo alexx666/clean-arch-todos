@@ -15,9 +15,7 @@ export const selectLoading = createSelector(
 	(state) => state.loading
 );
 
-// view model selector
-export const selectTodosListPageViewModel = createSelector(
-	selectTodos,
-	selectLoading,
-	(books, loading) => ({ books, loading })
+export const selectSearchTerm = createSelector(
+	selectTodosState,
+	(state) => state.searchTerm
 );

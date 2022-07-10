@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
+import { BehaviorSubject, debounceTime, filter, Subscription } from 'rxjs';
 
 import { loadTodos } from '../state/todos.actions';
 import { selectLoading, selectTodos } from '../state/todos.selector';
@@ -11,15 +12,29 @@ import { TodoFeatureState } from '../state/todos.state';
 	styleUrls: ['./todos.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent implements OnInit, OnDestroy {
+
+	listName$ = new BehaviorSubject("");
 
 	loading$ = this.store.select(selectLoading);
 	items$ = this.store.select(selectTodos);
 
-	constructor(private readonly store: Store<TodoFeatureState>) { }
+	private subscription: Subscription;
 
-	ngOnInit(): void {
-		this.store.dispatch(loadTodos());
+	constructor(private readonly store: Store<TodoFeatureState>) {
+		this.subscription = this.listName$.pipe(
+			debounceTime(300),
+			filter((value) => value !== ""),
+		).subscribe((listName) => this.store.dispatch(loadTodos({ listName })));
 	}
 
+	ngOnInit(): void { }
+
+	ngOnDestroy(): void {
+		this.subscription.unsubscribe();
+	}
+
+	onSearchChange(term: any) {
+		this.listName$.next(term.target.value);
+	}
 }
