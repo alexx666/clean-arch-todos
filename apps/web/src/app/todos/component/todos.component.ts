@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 
-import { loadTodos } from './state/todos.actions';
-import { selectLoading, selectTodos } from './state/todos.selector';
-import { TodoFeatureState } from './state/todos.state';
+import { loadTodos } from '../state/todos.actions';
+import { selectLoading, selectTodos } from '../state/todos.selector';
+import { TodoFeatureState } from '../state/todos.state';
 
 @Component({
 	selector: 'app-todos',
