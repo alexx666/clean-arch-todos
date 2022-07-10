@@ -11,7 +11,8 @@
     "build": "tsc -b tsconfig.build.json",
     "build:watch": "npm run build -- -w",
     "build:docs": "typedoc",
-    "registry": "verdaccio -c verdaccio.yml"
+    "registry": "verdaccio -c verdaccio.yml",
+    "postinstall": "ngcc --properties es2020 browser module main"
   },
   "files": [
     "dist",
@@ -21,10 +22,28 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@angular-devkit/build-angular": "~14.0.0",
+    "@angular-eslint/eslint-plugin": "~14.0.0",
+    "@angular-eslint/eslint-plugin-template": "~14.0.0",
+    "@angular-eslint/template-parser": "~14.0.0",
+    "@angular/cli": "~14.0.0",
+    "@angular/compiler-cli": "~14.0.0",
+    "@angular/language-service": "~14.0.0",
     "@nrwl/angular": "^14.4.2",
+    "@nrwl/cypress": "14.4.2",
+    "@nrwl/eslint-plugin-nx": "14.4.2",
+    "@nrwl/jest": "14.4.2",
+    "@nrwl/linter": "14.4.2",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "cypress": "^9.1.0",
+    "eslint": "~8.15.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-cypress": "^2.10.3",
     "jest": "^26.6.3",
+    "jest-preset-angular": "~11.1.2",
     "nx": "14.4.2",
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
@@ -37,5 +56,18 @@
     "libs/todos",
     "apps/api",
     "apps/cli"
-  ]
+  ],
+  "dependencies": {
+    "@angular/animations": "~14.0.0",
+    "@angular/common": "~14.0.0",
+    "@angular/compiler": "~14.0.0",
+    "@angular/core": "~14.0.0",
+    "@angular/forms": "~14.0.0",
+    "@angular/platform-browser": "~14.0.0",
+    "@angular/platform-browser-dynamic": "~14.0.0",
+    "@angular/router": "~14.0.0",
+    "rxjs": "~7.4.0",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.11.4"
+  }
 }

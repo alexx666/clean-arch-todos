@@ -1,10 +1,12 @@
 {
-	"recommendations": [
-		"editorconfig.editorconfig",
-		"mikestead.dotenv",
-		"eamodio.gitlens",
-		"mhutchie.git-graph",
-		"rangav.vscode-thunder-client",
-		"hediet.vscode-drawio"
-	]
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "mikestead.dotenv",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "rangav.vscode-thunder-client",
+    "hediet.vscode-drawio",
+    "firsttris.vscode-jest-runner",
+    "dbaeumer.vscode-eslint"
+  ]
 }
