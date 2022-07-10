@@ -15,5 +15,5 @@ export const todosFeature = createFeature({
 	name: todosFeatureKey,
 	reducer: createReducer(initialState,
 		on(loadTodos, (state, { listName }) => ({ ...state, loading: true, searchTerm: listName })),
-		on(todosLoaded, (state, { items }) => ({ ...state, items: [...state.items, ...items], loading: false })))
+		on(todosLoaded, (state, { items }) => ({ ...state, items, loading: false })))
 });

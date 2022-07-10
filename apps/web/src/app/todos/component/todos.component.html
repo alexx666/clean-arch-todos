@@ -1,7 +1,20 @@
 <input type="text" (input)="onSearchChange($event)">
-<div *ngIf="loading$ | async">
-    <p>Loading...</p>
-</div>
-<div>
-    <div *ngFor="let item of items$ | async">{{ item }}</div>
+<div *ngIf="{ loading: loading$ | async, items: items$ | async } as state">
+    <p *ngIf="state.loading">Loading...</p>
+    <table *ngIf="state.items?.length && !state.loading">
+        <tr>
+            <th>id</th>
+            <th>description</th>
+            <th>start</th>
+            <th>end</th>
+            <th>is expired</th>
+        </tr>
+        <tr *ngFor="let item of state.items">
+            <td>{{ item.id }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.start }}</td>
+            <td>{{ item.end }}</td>
+            <td>{{ item.expired }}</td>
+        </tr>
+    </table>
 </div>

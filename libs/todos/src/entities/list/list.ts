@@ -12,7 +12,7 @@ export default class List {
 
 	public add(todo: Todo) {
 		if (!this.policy.isAllowedToAdd(this)) throw new Error("ListError: List has maximum number of allowed todos");
-		if (todo.isExpired) throw new Error("ListError: Can't add an expired todo to list");
+		// if (todo.isExpired) throw new Error("ListError: Can't add an expired todo to list");
 
 		this.todos.add(todo);
 	}
