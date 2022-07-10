@@ -1,0 +1,25 @@
+{
+	"extends": "nx/presets/npm.json",
+	"tasksRunnerOptions": {
+		"default": {
+			"runner": "nx/tasks-runners/default",
+			"options": {
+				"cacheableOperations": [
+					"debug",
+					"test"
+				]
+			}
+		}
+	},
+	"targetDefaults": {},
+	"affected": {
+		"defaultBase": "master"
+	},
+	"workspaceLayout": {
+		"appsDir": "apps",
+		"libsDir": "libs"
+	},
+	"cli": {
+		"defaultCollection": "@nrwl/angular"
+	}
+}
