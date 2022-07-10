@@ -10,7 +10,9 @@ export class TodoEffects {
 
 	loadTodos$ = createEffect(() => this.actions$.pipe(
 		ofType(loadTodos),
-		mergeMap(() => this.todoService.getTodos('my-list').pipe(
+		mergeMap(() => this.todoService.getTodos({
+			listName: 'my-list' // FIXME: hardcoded
+		}).pipe(
 			map((todos) => todosLoaded({ items: todos })),
 			catchError((_) => EMPTY)
 		))
