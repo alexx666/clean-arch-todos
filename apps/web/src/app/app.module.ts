@@ -9,6 +9,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { TodosFeatureModule } from './todos/state/todos.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './material.module';
+
 
 @NgModule({
 	declarations: [
@@ -16,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 		TodosComponent,
 	],
 	imports: [
+		MaterialModule,
 		BrowserModule,
 		RouterModule.forRoot([], { initialNavigation: 'enabledBlocking' }),
 		HttpClientModule,

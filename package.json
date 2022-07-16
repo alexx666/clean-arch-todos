@@ -29,6 +29,7 @@
 		"@angular/cli": "~14.0.0",
 		"@angular/compiler-cli": "~14.0.0",
 		"@angular/language-service": "~14.0.0",
+		"@angular/material": "github:angular/material2-builds",
 		"@nrwl/angular": "^14.4.2",
 		"@nrwl/cypress": "14.4.2",
 		"@nrwl/eslint-plugin-nx": "14.4.2",
@@ -60,6 +61,7 @@
 	"dependencies": {
 		"@alexx666/todos": "*",
 		"@angular/animations": "~14.0.0",
+		"@angular/cdk": "github:angular/cdk-builds",
 		"@angular/common": "~14.0.0",
 		"@angular/compiler": "~14.0.0",
 		"@angular/core": "~14.0.0",

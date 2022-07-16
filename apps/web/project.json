@@ -19,7 +19,7 @@
           "apps/web/src/assets"
         ],
         "styles": [
-          "apps/web/src/styles.css"
+          "apps/web/src/styles.scss"
         ],
         "scripts": []
       },

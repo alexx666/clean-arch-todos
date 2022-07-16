@@ -1,7 +1,13 @@
-<input type="text" (input)="onSearchChange($event)">
-<div *ngIf="{ loading: loading$ | async, items: items$ | async } as state">
-    <p *ngIf="state.loading">Loading...</p>
-    <table *ngIf="state.items?.length && !state.loading">
+<div>
+
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>List name</mat-label>
+            <input matInput type="text" (input)="onSearchChange($event)">
+        </mat-form-field>
+    </form>
+
+    <!-- <table *ngIf="state.items?.length && !state.loading">
         <tr>
             <th>id</th>
             <th>description</th>
@@ -16,5 +22,36 @@
             <td>{{ item.end }}</td>
             <td>{{ item.expired }}</td>
         </tr>
+    </table> -->
+
+    <table mat-table [dataSource]="items$" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="start">
+            <th mat-header-cell *matHeaderCellDef> Start </th>
+            <td mat-cell *matCellDef="let element"> {{element.start}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="end">
+            <th mat-header-cell *matHeaderCellDef> End </th>
+            <td mat-cell *matCellDef="let element"> {{element.end}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expired">
+            <th mat-header-cell *matHeaderCellDef> Expired </th>
+            <td mat-cell *matCellDef="let element"> {{element.expired}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>

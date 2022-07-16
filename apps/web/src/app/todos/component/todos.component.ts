@@ -9,12 +9,14 @@ import { TodoFeatureState } from '../state/todos.state';
 @Component({
 	selector: 'app-todos',
 	templateUrl: './todos.component.html',
-	styleUrls: ['./todos.component.css'],
+	styleUrls: ['./todos.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodosComponent implements OnInit, OnDestroy {
 
 	listName$ = new BehaviorSubject("");
+
+	displayedColumns: string[] = ['id', 'description', 'start', 'end', 'expired'];
 
 	loading$ = this.store.select(selectLoading);
 	items$ = this.store.select(selectTodos);
