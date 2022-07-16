@@ -28,7 +28,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-07-09T13:37:59.490Z",
-    "modified": "2022-07-09T13:57:03.882Z",
+    "modified": "2022-07-16T13:51:24.687Z",
     "headers": [],
     "params": [
       {
@@ -39,7 +39,7 @@
     ],
     "body": {
       "type": "json",
-      "raw": "{\n    \"description\": \"{{description}}\",\n    \"start\": \"{{#dateISO}}\",\n    \"end\": \"{{#dateISO}}\"\n}",
+      "raw": "{\n    \"description\": \"{{#string}}\",\n    \"start\": \"{{#dateISO}}\",\n    \"end\": \"{{#dateISO}}\"\n}",
       "form": []
     },
     "tests": []

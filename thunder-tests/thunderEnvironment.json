@@ -5,15 +5,11 @@
     "default": true,
     "sortNum": 10000,
     "created": "2022-07-09T13:38:06.739Z",
-    "modified": "2022-07-09T13:38:06.741Z",
+    "modified": "2022-07-16T13:51:50.511Z",
     "data": [
       {
         "name": "listName",
         "value": "my-list"
-      },
-      {
-        "name": "description",
-        "value": "my item"
       },
       {
         "name": "limit",
