@@ -19,3 +19,8 @@ export const selectSearchTerm = createSelector(
 	selectTodosState,
 	(state) => state.searchTerm
 );
+
+export const selectError = createSelector(
+	selectTodosState,
+	(state) => state.error,
+)
