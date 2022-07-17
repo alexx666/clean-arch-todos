@@ -16,6 +16,9 @@ API.use(morgan("combined"));
 API.use("/lists", listRouter)
 API.use("/lists/:name/todos", todoRouter)
 
-API.use("*", (err: Error, _1: any, res: Response, _2: any) => res.status(500).json({ error: err.message }))
+API.use("*", (err: Error, _1: any, res: Response, _2: any) => {
+    res.status(500).json({ error: err.message });
+    console.debug(err.stack);
+})
 
 API.listen(process.env.PORT, () => console.log("Server listening on port", process.env.PORT));

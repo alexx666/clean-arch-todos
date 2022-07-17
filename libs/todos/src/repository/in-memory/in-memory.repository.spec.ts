@@ -5,17 +5,20 @@ import Name from "../../value-objects/list-name";
 import InMemoryTodoGateway from "./in-memory.repository";
 
 const listName = Name.create("my list");
-const start = new Date()
-const end = new Date(Date.now() + 3600)
+const startDate = new Date()
+const endDate = new Date(Date.now() + 3600)
 
 describe("[InMemoryTodoGateway] Test Cases", () => {
 
 	let inMemTodoGW: InMemoryTodoGateway;
 
-	const todos = new Set<Todo>()
-		.add(new Todo("first", start, end))
-		.add(new Todo("second", start, end))
-		.add(new Todo("third", start, end))
+	const todos = new Array<Todo>();
+
+	todos.push(
+		new Todo({ id: "uuid-1", description: "first", startDate, endDate }),
+		new Todo({ id: "uuid-2", description: "second", startDate, endDate }),
+		new Todo({ id: "uuid-3", description: "third", startDate, endDate })
+	)
 
 	const list = new List(listName, new ListPolicy(), todos)
 

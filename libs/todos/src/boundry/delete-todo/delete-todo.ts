@@ -6,15 +6,16 @@ export interface DeleteTodo {
 
 export interface DeleteTodoRequest {
 	listName: string;
-	id: number;
+	id: string;
 }
 
 export interface DeleteTodoResponse {
 	item: TodoItem
 }
 
+// FIXME: interface similar to TodoParameters
 interface TodoItem {
-	id: number;
+	id: string;
 	start: string;
 	end: string;
 	description: string;
@@ -35,8 +36,8 @@ export class DeleteTodoImpl implements DeleteTodo {
 		const item = {
 			id,
 			description: deletedTodo.description,
-			start: deletedTodo.start.toISOString(),
-			end: deletedTodo.end.toISOString()
+			start: deletedTodo.startDate.toISOString(),
+			end: deletedTodo.endDate.toISOString()
 		}
 
 		return { item };

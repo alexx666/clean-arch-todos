@@ -5,7 +5,7 @@
 	"description": "Todo app example using clean architecture...sort of.",
 	"scripts": {
 		"test": "jest --passWithNoTests -c jest.projects.json",
-		"watch:test": "npm t -- --watch",
+		"test:watch": "npm t -- --watch",
 		"clean": "tsc -b --clean tsconfig.build.json",
 		"prebuild": "npm run clean",
 		"build": "tsc -b tsconfig.build.json",

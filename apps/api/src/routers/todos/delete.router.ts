@@ -7,7 +7,7 @@ export default function (deleteTodo: DeleteTodo) {
 
 	deleteRouter.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const request: DeleteTodoRequest = { listName: req.params.name, id: Number(req.params.id) };
+			const request: DeleteTodoRequest = { listName: req.params.name, id: req.params.id };
 			const response = await deleteTodo.execute(request);
 
 			res.status(200).json(response);
