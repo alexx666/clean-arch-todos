@@ -1,4 +1,7 @@
-export default {
-	host: String(process.env.HOST),
-	port: Number(process.env.PORT)
+export interface Config {
+	apiUrl: string;
+}
+
+export const config: Config = {
+	apiUrl: String(process.env.API_URL),
 }

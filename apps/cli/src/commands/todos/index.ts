@@ -8,9 +8,9 @@ import { ListTodosImpl } from "../../boundry/list-todos/list-todos";
 import { CreateTodoImpl } from "../../boundry/create-todo/create-todo";
 import { DeleteTodoImpl } from "../../boundry/delete-todo/delete-todo";
 
-import config from "../../config";
-import { UuidV4 } from "@alexx666/todos";
+import { config } from "../../config";
 
+import { UuidV4 } from "@alexx666/todos";
 
 const listTodos = new ListTodosImpl(config)
 const createTodo = new CreateTodoImpl(config, new UuidV4())

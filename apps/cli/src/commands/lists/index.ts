@@ -2,7 +2,7 @@ import { Command } from "commander";
 
 import { CreateListImpl } from "../../boundry/create-list/create-list";
 
-import config from "../../config";
+import { config } from "../../config";
 
 import createCmd from "./create-list";
 

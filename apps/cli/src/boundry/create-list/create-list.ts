@@ -1,43 +1,22 @@
 import { CreateList, CreateListRequest } from "@alexx666/todos";
-import { IncomingMessage, request } from "http";
+
+import { Config } from "../../config";
+import Request from "../../utils/request";
 
 export class CreateListImpl implements CreateList {
 
-	constructor(private readonly config: { host: string, port: number }) { }
+	constructor(private readonly config: Config) { }
 
-	public async execute(input: CreateListRequest): Promise<void> {
-		const options = {
-			host: this.config.host,
-			port: this.config.port,
+	public execute(input: CreateListRequest): Promise<void> {
+		const request = new Request<void>({
+			url: `${this.config.apiUrl}/lists`,
 			method: "POST",
-			path: `/lists`,
 			headers: {
 				'Content-Type': 'application/json',
-			}
-		};
+			},
+			body: JSON.stringify({ name: input.listName })
+		})
 
-		const body = {
-			name: input.listName
-		}
-
-		return new Promise((resolve, reject) => {
-
-			// TODO: handle errors based on status code
-			const handler = (res: IncomingMessage) => {
-				res.setEncoding('utf8');
-
-				res.on("data", (data) => resolve(JSON.parse(data)));
-
-				res.on("error", reject);
-			}
-
-			const req = request(options, handler);
-
-			req.on("error", reject);
-
-			req.write(JSON.stringify(body));
-
-			req.end();
-		});
+		return request.send()
 	}
 }
