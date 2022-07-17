@@ -10,6 +10,7 @@ export * from "./entities/todo/todo";
 export * from "./repository/list.repository";
 
 export { default as InMemoryTodoGateway } from "./repository/in-memory/in-memory.repository";
+export { default as HttpClientTodoGateway } from "./repository/http-client/http-client.repository";
 
 export * from "./value-objects/list-name";
 

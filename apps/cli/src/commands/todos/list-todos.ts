@@ -11,7 +11,7 @@ export default function (listTodos: ListTodos) {
 		.requiredOption("-n, --list-name <list>", "List name")
 		.action(async cmd => {
 			const request: ListTodosRequest = {
-				listName: String(cmd.name),
+				listName: String(cmd.listName),
 			}
 
 			const response = await listTodos.execute(request)
