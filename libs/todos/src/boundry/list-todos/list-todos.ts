@@ -11,7 +11,7 @@ export interface ListTodosResponse {
 }
 
 export interface TodoItem {
-	id: number;
+	id: string;
 	start: string;
 	end: string;
 	expired: boolean;
@@ -30,10 +30,10 @@ export class ListTodosImpl implements ListTodos {
 		const list = await this.todos.get(input.listName)
 
 		const items = list.items.map((t, i) => ({
-			id: i,
+			id: t.id,
 			description: t.description,
-			start: t.start.toISOString(),
-			end: t.end.toISOString(),
+			start: t.startDate.toISOString(),
+			end: t.endDate.toISOString(),
 			expired: t.isExpired,
 		}))
 

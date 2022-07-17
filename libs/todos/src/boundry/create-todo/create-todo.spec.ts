@@ -5,6 +5,7 @@ import Todo from "../../entities/todo/todo";
 import { CreateTodoImpl } from "../create-todo/create-todo";
 import { ListRepository } from "../../repository/list.repository";
 import Name from "../../value-objects/list-name";
+import UuidV4 from "../../util/uuid-v4";
 
 const errorMessage = "Todo already exists!"
 const now = new Date(Date.now() + 3600)
@@ -16,7 +17,7 @@ const request = {
 	end: now.toISOString()
 }
 
-const todos = new Set<Todo>();
+const todos = new Array<Todo>();
 
 const policy = new ListPolicy();
 
@@ -34,21 +35,26 @@ const mockFailureGateway: ListRepository = {
 	update: (_: List) => Promise.reject(new Error(errorMessage)),
 }
 
+const providers = {
+	repository: mockSuccessGateway,
+	uuidProvider: new UuidV4(),
+}
+
 describe("[CreateTodo] Success Cases", () => {
 
-	const createTodo: CreateTodoImpl = new CreateTodoImpl(mockSuccessGateway);
+	const createTodo: CreateTodoImpl = new CreateTodoImpl(providers);
 
 	it("should return a the mocked todo in a valid CreateTodoResponse object", async () => {
 		await createTodo.execute(request)
 
-		expect(todos.size).toEqual(1);
+		expect(todos.length).toEqual(1);
 		expect.assertions(1);
 	})
 })
 
 describe("[CreateTodo] Fail Cases", () => {
 
-	const createTodo: CreateTodoImpl = new CreateTodoImpl(mockFailureGateway);
+	const createTodo: CreateTodoImpl = new CreateTodoImpl(providers);
 
 	it("should return throw an error with the gateways message", async () => {
 		try {

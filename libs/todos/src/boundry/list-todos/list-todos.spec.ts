@@ -10,11 +10,11 @@ const request = { listName: "my list", limit: 1, skip: 1 }
 
 describe("[ListTodos] Success Cases", () => {
 
-	const todo = new Todo("first", new Date(), new Date())
+	const todo = new Todo({ id: "uuid-1", description: "first", startDate: new Date(), endDate: new Date() })
 
-	const todos = new Set<Todo>();
+	const todos = new Array<Todo>();
 
-	todos.add(todo);
+	todos.push(todo);
 
 	const policy = new ListPolicy()
 
@@ -34,9 +34,9 @@ describe("[ListTodos] Success Cases", () => {
 		expect(result).toEqual({
 			items: [
 				{
-					id: 0,
-					end: todo.end.toISOString(),
-					start: todo.start.toISOString(),
+					id: todo.id,
+					end: todo.endDate.toISOString(),
+					start: todo.startDate.toISOString(),
 					description: todo.description,
 					expired: todo.isExpired
 				}

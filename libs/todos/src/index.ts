@@ -12,3 +12,6 @@ export * from "./repository/list.repository";
 export { default as InMemoryTodoGateway } from "./repository/in-memory/in-memory.repository";
 
 export * from "./value-objects/list-name";
+
+export { default as UuidProvider } from "./util/uuid";
+export { default as UuidV4 } from "./util/uuid-v4";

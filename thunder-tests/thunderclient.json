@@ -28,7 +28,7 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-07-09T13:37:59.490Z",
-    "modified": "2022-07-16T13:51:24.687Z",
+    "modified": "2022-07-17T08:25:58.324Z",
     "headers": [],
     "params": [
       {
@@ -39,7 +39,7 @@
     ],
     "body": {
       "type": "json",
-      "raw": "{\n    \"description\": \"{{#string}}\",\n    \"start\": \"{{#dateISO}}\",\n    \"end\": \"{{#dateISO}}\"\n}",
+      "raw": "{\n    \"id\": \"{{#guid}}\",\n    \"description\": \"{{#string}}\",\n    \"start\": \"{{#dateISO}}\",\n    \"end\": \"{{#dateISO}}\"\n}",
       "form": []
     },
     "tests": []
