@@ -18,7 +18,7 @@ export class TodosComponent implements OnInit, OnDestroy {
 
 	listName$ = new BehaviorSubject("");
 
-	displayedColumns: string[] = ['select', 'id', 'description', 'start', 'end', 'expired', 'delete'];
+	displayedColumns: string[] = ['select', 'description', 'start', 'end', 'expired', 'delete'];
 
 	loading$ = this.store.select(selectLoading);
 	items$ = this.store.select(selectTodos);
