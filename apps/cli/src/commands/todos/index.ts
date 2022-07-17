@@ -4,18 +4,17 @@ import listCmd from "./list-todos";
 import createCmd from "./create-todo";
 import deleteCmd from "./delete-todo";
 
-import { CreateTodoImpl, DeleteTodoImpl, ListTodosImpl, UuidV4 } from "@alexx666/todos";
+import { ListTodosImpl } from "../../boundry/list-todos/list-todos";
+import { CreateTodoImpl } from "../../boundry/create-todo/create-todo";
+import { DeleteTodoImpl } from "../../boundry/delete-todo/delete-todo";
 
-import { todoGateway } from "../../db";
+import config from "../../config";
+import { UuidV4 } from "@alexx666/todos";
 
-const listTodos = new ListTodosImpl(todoGateway)
 
-const createTodo = new CreateTodoImpl({
-    repository: todoGateway,
-    uuidProvider: new UuidV4(),
-})
-
-const deleteTodo = new DeleteTodoImpl(todoGateway)
+const listTodos = new ListTodosImpl(config)
+const createTodo = new CreateTodoImpl(config, new UuidV4())
+const deleteTodo = new DeleteTodoImpl(config)
 
 const todosCommand = new Command("todos");
 
