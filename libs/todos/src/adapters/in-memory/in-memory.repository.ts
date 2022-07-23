@@ -1,5 +1,5 @@
 import List from "../../entities/list/list";
-import { ListRepository } from "../list.repository";
+import { ListRepository } from "../../ports/list.repository";
 
 export default class InMemoryTodoGateway implements ListRepository {
 

@@ -1,5 +1,5 @@
 import List from "../../entities/list/list";
-import { ListRepository } from "../../repository/list.repository";
+import { ListRepository } from "../../ports/list.repository";
 import Name from "../../value-objects/list-name";
 
 export interface CreateList {

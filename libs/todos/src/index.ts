@@ -1,17 +1,17 @@
-export * from "./boundry/create-list/create-list";
-export * from "./boundry/create-todo/create-todo";
-export * from "./boundry/delete-todo/delete-todo";
-export * from "./boundry/list-todos/list-todos";
+export * from "./commands/create-list/create-list";
+export * from "./commands/create-todo/create-todo";
+export * from "./commands/delete-todo/delete-todo";
+export * from "./queries/list-todos/list-todos";
 
 export * from "./entities/list/list";
 export * from "./entities/list-policy/list-policy";
 export * from "./entities/todo/todo";
 
-export * from "./repository/list.repository";
+export * from "./ports/list.repository";
 
-export { default as InMemoryTodoGateway } from "./repository/in-memory/in-memory.repository";
+export { default as InMemoryTodoGateway } from "./adapters/in-memory/in-memory.repository";
 
 export * from "./value-objects/list-name";
 
-export { default as UuidProvider } from "./util/uuid";
-export { default as UuidV4 } from "./util/uuid-v4";
+export { default as UuidProvider } from "./ports/uuid";
+export { default as UuidV4 } from "./adapters/uuid-v4";

@@ -1,4 +1,4 @@
-import { ListRepository } from "../../repository/list.repository";
+import { ListRepository } from "../../ports/list.repository";
 
 export interface ListTodosRequest {
 	listName: string;

@@ -3,9 +3,9 @@ import List from "../../entities/list/list";
 import Todo from "../../entities/todo/todo";
 
 import { CreateTodoImpl } from "../create-todo/create-todo";
-import { ListRepository } from "../../repository/list.repository";
+import { ListRepository } from "../../ports/list.repository";
 import Name from "../../value-objects/list-name";
-import UuidV4 from "../../util/uuid-v4";
+import UuidV4 from "../../adapters/uuid-v4";
 
 const errorMessage = "Todo already exists!"
 const now = new Date(Date.now() + 3600)

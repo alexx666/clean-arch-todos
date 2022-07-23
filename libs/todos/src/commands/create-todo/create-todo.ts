@@ -1,6 +1,6 @@
 import Todo from "../../entities/todo/todo";
-import { ListRepository } from "../../repository/list.repository";
-import UuidProvider from "../../util/uuid";
+import { ListRepository } from "../../ports/list.repository";
+import UuidProvider from "../../ports/uuid";
 
 export interface CreateTodo {
 	execute(request: CreateTodoRequest): Promise<void>;
