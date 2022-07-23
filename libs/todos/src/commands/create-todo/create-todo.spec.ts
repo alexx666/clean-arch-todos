@@ -1,11 +1,11 @@
 import ListPolicy from "../../entities/list-policy/list-policy";
 import List from "../../entities/list/list";
 import Todo from "../../entities/todo/todo";
-
+import CryptoUuid from "../../adapters/uuid/crypro-uuid";
 import { CreateTodoImpl } from "../create-todo/create-todo";
-import { ListRepository } from "../../ports/list.repository";
 import Name from "../../value-objects/list-name";
-import UuidV4 from "../../adapters/uuid-v4";
+import ListRepository from "../../ports/list.repository";
+import InMemoryPublisher from "../../adapters/publisher/in-memory/in-memory.publisher";
 
 const errorMessage = "Todo already exists!"
 const now = new Date(Date.now() + 3600)
@@ -37,7 +37,8 @@ const mockFailureGateway: ListRepository = {
 
 const providers = {
 	repository: mockSuccessGateway,
-	uuidProvider: new UuidV4(),
+	uuidProvider: new CryptoUuid(),
+	publisher: new InMemoryPublisher()
 }
 
 describe("[CreateTodo] Success Cases", () => {

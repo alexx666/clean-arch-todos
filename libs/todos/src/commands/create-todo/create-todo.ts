@@ -1,6 +1,8 @@
 import Todo from "../../entities/todo/todo";
-import { ListRepository } from "../../ports/list.repository";
+import EventPublisher from "../../ports/event.publisher";
+import ListRepository from "../../ports/list.repository";
 import UuidProvider from "../../ports/uuid";
+import CommandConfig from "../command.config";
 
 export interface CreateTodo {
 	execute(request: CreateTodoRequest): Promise<void>;
@@ -14,19 +16,26 @@ export interface CreateTodoRequest {
 	listName: string;
 }
 
-interface CreateTodoConfig {
-	repository: ListRepository;
-	uuidProvider: UuidProvider;
+export const TODO_CREATED = "TodoCreated";
+
+export interface TodoCreated {
+	listName: string;
+	id: string;
+	description: string;
+	startDate: Date;
+	endDate: Date;
 }
 
 export class CreateTodoImpl implements CreateTodo {
 
 	private repository: ListRepository;
 	private uuidProvider: UuidProvider;
+	private publisher: EventPublisher;
 
-	constructor(config: CreateTodoConfig) {
-		this.repository = config.repository;
+	constructor(config: CommandConfig) {
+		this.publisher = config.publisher;
 		this.uuidProvider = config.uuidProvider;
+		this.repository = config.repository;
 	}
 
 	async execute(request: CreateTodoRequest): Promise<void> {
@@ -48,5 +57,16 @@ export class CreateTodoImpl implements CreateTodo {
 		list.add(todo);
 
 		await this.repository.update(list);
+
+		const details: TodoCreated = {
+			...todo,
+			listName,
+		}
+
+		await this.publisher.publish({
+			id: this.uuidProvider.generate(),
+			type: TODO_CREATED,
+			details,
+		});
 	}
 }

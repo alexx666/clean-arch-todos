@@ -1,7 +1,9 @@
+import InMemoryPublisher from "../../adapters/publisher/in-memory/in-memory.publisher";
+import CryptoUuid from "../../adapters/uuid/crypro-uuid";
 import ListPolicy from "../../entities/list-policy/list-policy";
 import List from "../../entities/list/list";
 import Todo from "../../entities/todo/todo";
-import { ListRepository } from "../../ports/list.repository";
+import ListRepository from "../../ports/list.repository";
 import Name from "../../value-objects/list-name";
 
 import { DeleteTodoImpl } from "./delete-todo"
@@ -20,7 +22,13 @@ describe("[DeleteTodo] Success Cases", () => {
 		update: (_: List) => Promise.resolve(),
 	}
 
-	const deleteTodo: DeleteTodoImpl = new DeleteTodoImpl(mockSuccessGateway);
+	const providers = {
+		repository: mockSuccessGateway,
+		uuidProvider: new CryptoUuid(),
+		publisher: new InMemoryPublisher()
+	}
+
+	const deleteTodo: DeleteTodoImpl = new DeleteTodoImpl(providers);
 
 	it("should return a the mocked todo in a valid DeleteTodoResponse object", async () => {
 

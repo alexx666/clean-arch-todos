@@ -10,10 +10,10 @@ import { DeleteTodoImpl } from "../../boundry/delete-todo/delete-todo";
 
 import { config } from "../../config";
 
-import { UuidV4 } from "@alexx666/todos";
+import { CryptoUuid } from "@alexx666/todos";
 
 const listTodos = new ListTodosImpl(config)
-const createTodo = new CreateTodoImpl(config, new UuidV4())
+const createTodo = new CreateTodoImpl(config, new CryptoUuid())
 const deleteTodo = new DeleteTodoImpl(config)
 
 const todosCommand = new Command("todos");

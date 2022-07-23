@@ -4,16 +4,12 @@ import listRouter from "./list.router";
 import createRouter from "./create.router";
 import deleteRouter from "./delete.router";
 
-import { CreateTodoImpl, DeleteTodoImpl, ListTodosImpl, UuidV4 } from "@alexx666/todos";
+import { CreateTodoImpl, DeleteTodoImpl, ListTodosImpl } from "@alexx666/todos";
 
-import { todoGateway } from "../../db";
+import { providers, todoGateway } from "../../di";
 
-export const createTodo = new CreateTodoImpl({
-    repository: todoGateway,
-    uuidProvider: new UuidV4(),
-});
-
-export const deleteTodo = new DeleteTodoImpl(todoGateway);
+export const createTodo = new CreateTodoImpl(providers);
+export const deleteTodo = new DeleteTodoImpl(providers);
 export const listTodos = new ListTodosImpl(todoGateway);
 
 const todoRouter = Router({ mergeParams: true })

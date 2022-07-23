@@ -1,7 +1,7 @@
-import ListPolicy from "../../entities/list-policy/list-policy";
-import List from "../../entities/list/list";
-import Todo from "../../entities/todo/todo";
-import Name from "../../value-objects/list-name";
+import ListPolicy from "../../../entities/list-policy/list-policy";
+import List from "../../../entities/list/list";
+import Todo from "../../../entities/todo/todo";
+import Name from "../../../value-objects/list-name";
 import InMemoryTodoGateway from "./in-memory.repository";
 
 const listName = Name.create("my list");
