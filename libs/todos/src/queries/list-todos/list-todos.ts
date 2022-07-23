@@ -1,4 +1,4 @@
-import ListRepository from "../../ports/list.repository";
+import TodoDao from "../../ports/todo.dao";
 
 export interface ListTodosRequest {
 	listName: string;
@@ -24,19 +24,15 @@ export interface ListTodos {
 
 export class ListTodosImpl implements ListTodos {
 
-	constructor(private todos: ListRepository) { }
+	constructor(private todos: TodoDao) { }
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
-		const list = await this.todos.get(input.listName)
+		const items = await this.todos.find(input.listName);
 
-		const items = list.items.map((t, i) => ({
-			id: t.id,
-			description: t.description,
-			start: t.startDate.toISOString(),
-			end: t.endDate.toISOString(),
-			expired: t.isExpired,
-		}))
-
-		return { items, count: list.size, listName: input.listName }
+		return {
+			items,
+			count: items.length,
+			listName: input.listName
+		}
 	}
 }

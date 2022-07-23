@@ -9,7 +9,7 @@ export * from "./entities/todo/todo";
 
 export * from "./ports/list.repository";
 
-export { default as InMemoryTodoGateway } from "./adapters/repository/in-memory/in-memory.repository";
+export { default as InMemoryTodoRepository } from "./adapters/repository/in-memory/in-memory.repository";
 
 export * from "./value-objects/list-name";
 
@@ -18,8 +18,6 @@ export { default as CryptoUuid } from "./adapters/uuid/crypro-uuid";
 
 export { default as EventPublisher } from "./ports/event.publisher";
 export { default as InMemoryPublisher } from "./adapters/publisher/in-memory/in-memory.publisher";
-export { default as InMemoryEventStore } from "./adapters/publisher/in-memory/in-memory.store";
 
-export { default as ListCreatedHandler } from "./events/list-created";
-export { default as TodoCreatedHandler } from "./events/todo-created";
-export { default as TodoDeletedHandler } from "./events/todo-deleted";
+export { default as TodoDao } from "./ports/todo.dao";
+export { default as InMemoryTodoDao } from "./adapters/dao/in-memory/in-memory.dao";

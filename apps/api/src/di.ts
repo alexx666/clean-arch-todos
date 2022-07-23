@@ -1,17 +1,11 @@
-import { CryptoUuid, InMemoryEventStore, InMemoryPublisher, InMemoryTodoGateway, ListCreatedHandler, LIST_CREATED, TodoCreatedHandler, TodoDeletedHandler, TODO_CREATED, TODO_DELETED } from "@alexx666/todos";
+import { CryptoUuid, InMemoryPublisher, InMemoryTodoDao, InMemoryTodoRepository } from "@alexx666/todos";
 
-const eventStore = new InMemoryEventStore();
+const eventStore: any[] = [];
 
-eventStore.subscribe(LIST_CREATED, new ListCreatedHandler());
-eventStore.subscribe(TODO_CREATED, new TodoCreatedHandler());
-eventStore.subscribe(TODO_DELETED, new TodoDeletedHandler());
-
-export const eventPublisher = new InMemoryPublisher(eventStore);
-export const todoGateway = new InMemoryTodoGateway();
-export const uuidProvider = new CryptoUuid();
+export const todoDao = new InMemoryTodoDao(eventStore);
 
 export const providers = {
-    repository: todoGateway,
-    uuidProvider,
-    publisher: eventPublisher,
+    repository: new InMemoryTodoRepository(eventStore),
+    uuidProvider: new CryptoUuid(),
+    publisher: new InMemoryPublisher(eventStore),
 };

@@ -1,12 +1,11 @@
 import Event from "../../../events/event";
 import EventPublisher from "../../../ports/event.publisher";
-import InMemoryEventStore from "./in-memory.store";
 
 export default class InMemoryPublisher implements EventPublisher {
 
-    constructor(private eventStore: InMemoryEventStore = new InMemoryEventStore()) { }
+    constructor(private readonly events: Event<any>[] = []) { }
 
     async publish<T>(event: Event<T>): Promise<void> {
-        await this.eventStore.notify(event);
+        this.events.push(event);
     }
 }
