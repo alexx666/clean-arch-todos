@@ -6,11 +6,11 @@ import deleteRouter from "./delete.router";
 
 import { CreateTodoImpl, DeleteTodoImpl, InMemoryListTodos } from "@alexx666/todos";
 
-import { providers } from "../../di";
+import { eventStore, providers } from "../../di";
 
 export const createTodo = new CreateTodoImpl(providers);
 export const deleteTodo = new DeleteTodoImpl(providers);
-export const listTodos = new InMemoryListTodos();
+export const listTodos = new InMemoryListTodos(eventStore);
 
 const todoRouter = Router({ mergeParams: true })
 

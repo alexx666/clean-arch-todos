@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { CreateListRequest, CreateTodoRequest, DeleteTodoRequest, DeleteTodoResponse, ListTodosRequest, ListTodosResponse } from "@alexx666/todos";
+import { CreateListRequest, CreateTodoRequest, DeleteTodoRequest, ListTodosRequest, ListTodosResponse } from "@alexx666/todos";
 
 @Injectable({
 	providedIn: 'root'
@@ -48,7 +48,7 @@ export class TodosService {
 	public deleteTodo(request: DeleteTodoRequest) {
 		const url = encodeURI(`${environment.url}/lists/${request.listName}/todos/${request.id}`);
 
-		return this.http.delete<DeleteTodoResponse>(url).pipe(
+		return this.http.delete<void>(url).pipe(
 			catchError((response) => { throw new Error(JSON.parse(response).error) })
 		);
 	}

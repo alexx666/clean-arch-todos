@@ -42,7 +42,7 @@ export class CreateTodoImpl implements CreateTodo {
 		const endDate = new Date(end);
 		const id = uuid ?? this.uuidProvider.generate();
 
-		const todo = new Todo({ id, description, startDate, endDate });
+		const todo = new Todo({ id, description, startDate, endDate, listName });
 
 		const list = await this.repository.findByName(listName);
 
@@ -51,7 +51,8 @@ export class CreateTodoImpl implements CreateTodo {
 		await this.publisher.publish({
 			id,
 			type: TODO_CREATED,
-			details: { ...todo, listName },
+			details: todo,
+			timestamp: Date.now(),
 		});
 
 		return { id }

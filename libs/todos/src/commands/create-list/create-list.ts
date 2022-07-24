@@ -44,6 +44,7 @@ export class CreateListImpl implements CreateList {
 			id,
 			type: LIST_CREATED,
 			details: newList,
+			timestamp: Date.now(),
 		});
 
 		return { id };

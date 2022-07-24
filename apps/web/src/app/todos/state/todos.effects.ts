@@ -19,7 +19,7 @@ export class TodoEffects {
 	deleteTodo$ = createEffect(() => this.actions$.pipe(
 		ofType(deleteTodo),
 		mergeMap(({ listName, id }) => this.todoService.deleteTodo({ listName, id }).pipe(
-			map(({ item }) => todoDeleted({ item })),
+			map(() => todoDeleted({ listName, id })),
 			catchError((error) => of(todoRequestErrored({ error: error.message }))),
 		)),
 	));

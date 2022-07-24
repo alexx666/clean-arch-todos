@@ -22,6 +22,6 @@ export default class ListPolicy {
 
 		const doesNotExceedLimit = this.maxTodos > list.size;
 
-		return this.allowDuplicates ? doesNotExceedLimit : (doesNotExceedLimit && containsItem);
+		return this.allowDuplicates ? doesNotExceedLimit : (doesNotExceedLimit && !containsItem);
 	}
 }

@@ -16,6 +16,7 @@ export interface TodoItem {
 	end: string;
 	expired: boolean;
 	description: string;
+	isDeleted: boolean;
 }
 
 // query handler

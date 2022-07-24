@@ -11,8 +11,8 @@ export default function (deleteTodo: DeleteTodo) {
 		.action(async cmd => {
 			const request: DeleteTodoRequest = { listName: cmd.listName, id: cmd.id };
 
-			const { item } = await deleteTodo.execute(request);
+			await deleteTodo.execute(request);
 
-			console.table(item)
+			console.log("Deleted todo:", cmd.id);
 		});
 }
