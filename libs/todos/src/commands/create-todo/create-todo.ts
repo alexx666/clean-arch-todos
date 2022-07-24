@@ -1,4 +1,5 @@
 import Todo from "../../entities/todo/todo";
+import TodoAdded from "../../events/todo-added";
 import EventPublisher from "../../ports/event.publisher";
 import ListRepository from "../../ports/list.repository";
 import UuidProvider from "../../ports/uuid";
@@ -19,8 +20,6 @@ export interface CreateTodoRequest {
 export interface CreateTodoResponse {
 	id: string;
 }
-
-export const TODO_CREATED = "TodoCreated";
 
 export class CreateTodoImpl implements CreateTodo {
 
@@ -48,13 +47,8 @@ export class CreateTodoImpl implements CreateTodo {
 
 		list.add(todo);
 
-		await this.publisher.publish({
-			id,
-			type: TODO_CREATED,
-			details: todo,
-			timestamp: Date.now(),
-		});
+		await this.publisher.publish(new TodoAdded(todo));
 
-		return { id }
+		return { id };
 	}
 }

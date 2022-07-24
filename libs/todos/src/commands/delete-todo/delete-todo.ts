@@ -1,6 +1,6 @@
+import TodoRemoved from "../../events/todo-removed";
 import EventPublisher from "../../ports/event.publisher";
 import ListRepository from "../../ports/list.repository";
-import UuidProvider from "../../ports/uuid";
 import CommandConfig from "../command.config";
 
 export interface DeleteTodo {
@@ -11,8 +11,6 @@ export interface DeleteTodoRequest {
 	listId: string;
 	id: string;
 }
-
-export const TODO_DELETED = "TodoDeleted";
 
 export class DeleteTodoImpl implements DeleteTodo {
 
@@ -32,11 +30,6 @@ export class DeleteTodoImpl implements DeleteTodo {
 
 		const deletedTodo = list.remove(id)
 
-		await this.publisher.publish({
-			id,
-			type: TODO_DELETED,
-			details: deletedTodo,
-			timestamp: Date.now()
-		});
+		await this.publisher.publish(new TodoRemoved(deletedTodo));
 	}
 }

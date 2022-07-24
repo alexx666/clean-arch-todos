@@ -1,7 +1,9 @@
 import { ListTodos, ListTodosRequest, ListTodosResponse, TodoItem } from "../../queries/list-todos";
 import { Todo } from "../../entities";
-import { TODO_CREATED, TODO_DELETED } from "../../commands";
+
 import Event from "../../events/event";
+import TodoAdded from "../../events/todo-added";
+import TodoRemoved from "../../events/todo-removed";
 
 
 export default class InMemoryListTodos implements ListTodos {
@@ -39,8 +41,8 @@ export default class InMemoryListTodos implements ListTodos {
 
             const todo = event.details;
 
-            switch (event.type) {
-                case TODO_CREATED:
+            switch (true) {
+                case event instanceof TodoAdded:
                     item.id = todo.id;
                     item.description = todo.description;
                     item.isDeleted = false;
@@ -50,7 +52,7 @@ export default class InMemoryListTodos implements ListTodos {
 
                     break;
 
-                case TODO_DELETED:
+                case event instanceof TodoRemoved:
                     item.id = todo.id;
                     item.description = todo.description;
                     item.isDeleted = true;

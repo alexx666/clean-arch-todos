@@ -1,4 +1,5 @@
 import List from "../../entities/list/list";
+import ListCreated from "../../events/list-created";
 import EventPublisher from "../../ports/event.publisher";
 import UuidProvider from "../../ports/uuid";
 import CommandConfig from "../command.config";
@@ -18,10 +19,6 @@ export interface CreateListResponse {
 	id: string;
 }
 
-export const LIST_CREATED = "ListCreated";
-
-export type ListCreatedEvent = CreateListRequest;
-
 export class CreateListImpl implements CreateList {
 
 	private uuidProvider: UuidProvider;
@@ -40,12 +37,7 @@ export class CreateListImpl implements CreateList {
 
 		const newList = new List({ id, name, allowDuplicates, maxTodos });
 
-		await this.publisher.publish({
-			id,
-			type: LIST_CREATED,
-			details: newList,
-			timestamp: Date.now(),
-		});
+		await this.publisher.publish(new ListCreated(newList));
 
 		return { id };
 	}
