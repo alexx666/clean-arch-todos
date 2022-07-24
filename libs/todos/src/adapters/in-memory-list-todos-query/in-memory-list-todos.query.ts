@@ -26,9 +26,11 @@ export default class InMemoryListTodos implements ListTodos {
                 StateBuilder.buildTodoStateFrom(groupedTodoEvents[id])
             ], []);
 
+        const active = items.filter(item => !item.isDeleted)
+
         return {
             items,
-            count: items.length,
+            count: active.length,
             listName,
         }
     }

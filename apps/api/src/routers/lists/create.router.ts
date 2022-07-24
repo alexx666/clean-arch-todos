@@ -15,9 +15,9 @@ export default function (createTodo: CreateList) {
 				allowDuplicates: req.body.allowDuplicates ?? false
 			};
 
-			const response = await createTodo.execute(request);
+			await createTodo.execute(request);
 
-			res.status(200).json(response);
+			res.status(201).json();
 		} catch (error) {
 			next(error);
 		}

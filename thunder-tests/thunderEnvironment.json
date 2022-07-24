@@ -5,7 +5,7 @@
     "default": true,
     "sortNum": 10000,
     "created": "2022-07-09T13:38:06.739Z",
-    "modified": "2022-07-24T14:58:09.532Z",
+    "modified": "2022-07-24T15:24:57.711Z",
     "data": [
       {
         "name": "listName",
@@ -20,12 +20,12 @@
         "value": "http://localhost:3000"
       },
       {
-        "name": "listName",
+        "name": "listId",
         "value": "291dde81-1c7c-4269-abf9-7c1168fd0577"
       },
       {
         "name": "todoId",
-        "value": "e46ab13a-c3d5-440d-9ad9-7f102cefea1e"
+        "value": "037b02f4-695b-47f2-8305-ee0f1a5c5a0e"
       }
     ]
   }
