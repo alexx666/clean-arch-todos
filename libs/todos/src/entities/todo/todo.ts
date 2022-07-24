@@ -5,7 +5,7 @@ interface TodoParameters {
 	description: string;
 	startDate: Date;
 	endDate: Date;
-	listId: string;
+	listName: string;
 }
 
 export default class Todo {
@@ -14,13 +14,13 @@ export default class Todo {
 	public readonly description: string;
 	public readonly startDate: Date;
 	public readonly endDate: Date;
-	public readonly listId: string;
+	public readonly listName: string;
 
 	constructor(params: TodoParameters) {
 
-		const { id, description, startDate, endDate, listId } = params;
+		const { id, description, startDate, endDate, listName } = params;
 
-		this.listId = listId;
+		this.listName = listName;
 
 		if (!id) throw new Error("ValidationError: ID not provided");
 

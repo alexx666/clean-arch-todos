@@ -1,12 +1,12 @@
 // query
 export interface ListTodosRequest {
-	listId: string;
+	listName: string;
 }
 
 // read model projection
 export interface ListTodosResponse {
 	items: TodoItem[];
-	listId: string;
+	listName: string;
 	count: number;
 }
 

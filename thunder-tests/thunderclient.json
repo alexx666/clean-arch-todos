@@ -56,7 +56,7 @@
     "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
     "containerId": "",
     "name": "DeleteTodo",
-    "url": "{{url}}/lists/{listId}/todos/{todoId}",
+    "url": "{{url}}/lists/{listName}/todos/{todoId}",
     "method": "DELETE",
     "sortNum": 30000,
     "created": "2022-07-09T13:37:59.491Z",
@@ -64,7 +64,7 @@
     "headers": [],
     "params": [
       {
-        "name": "listId",
+        "name": "listName",
         "value": "{{listName}}",
         "isPath": true
       },

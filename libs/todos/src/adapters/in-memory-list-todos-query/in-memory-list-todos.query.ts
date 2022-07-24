@@ -12,11 +12,11 @@ export default class InMemoryListTodos implements ListTodos {
 
     public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 
-        const listId = input.listId;
+        const listName = input.listName;
 
         const sortedTodoEvents = this.events
             .filter((event) => event.type.startsWith("Todo"))
-            .filter((event: Event<Todo>) => event.details.listId === listId)
+            .filter((event: Event<Todo>) => event.details.listName === listName)
             .sort((event1, event2) => event1.timestamp - event2.timestamp);
 
         const groupedTodoEvents = this.groupById(sortedTodoEvents);
@@ -30,7 +30,7 @@ export default class InMemoryListTodos implements ListTodos {
         return {
             items,
             count: items.length,
-            listId,
+            listName,
         }
     }
 

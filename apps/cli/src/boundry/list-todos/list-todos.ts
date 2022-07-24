@@ -9,7 +9,7 @@ export class ListTodosImpl implements ListTodos {
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 
 		const request = new Request<ListTodosResponse>({
-			url: `${this.config.apiUrl}/lists/${input.listId}/todos`,
+			url: `${this.config.apiUrl}/lists/${input.listName}/todos`,
 			method: "GET",
 			headers: {
 				'Content-Type': 'application/json',
