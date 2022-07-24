@@ -2,18 +2,32 @@ import Name from "../../value-objects/list-name";
 import ListPolicy from "../list-policy/list-policy";
 import Todo from "../todo/todo";
 
+interface ListParameters {
+	id: string;
+	name: string;
+	maxTodos: number;
+	allowDuplicates: boolean;
+	todos?: Array<Todo>;
+}
+
 export default class List {
 
-	constructor(
-		public readonly name: Name,
-		private policy: ListPolicy = new ListPolicy(10),
-		private todos: Array<Todo> = new Array(),
-	) { }
+	private uuid: string;
+	private name: Name;
+	private policy: ListPolicy;
+	private todos: Array<Todo>;
+
+	constructor(params: ListParameters) {
+		const { id, name, todos, maxTodos, allowDuplicates } = params;
+
+		this.uuid = id;
+		this.name = Name.create(name);
+		this.policy = new ListPolicy({ maxTodos, allowDuplicates });
+		this.todos = todos ?? new Array();
+	}
 
 	public add(todo: Todo) {
-		if (!this.policy.isAllowedToAdd(this)) throw new Error("ListError: List has maximum number of allowed todos");
-		// if (todo.isExpired) throw new Error("ListError: Can't add an expired todo to list");
-		if (this.todos.some(item => item.id === todo.id)) throw new Error("ListError: Duplicated ID for todo");
+		if (!this.policy.isAllowedToAdd(this, todo)) throw new Error("ListError: Todo does not conform to List policy");
 
 		this.todos.push(todo);
 	}
@@ -26,6 +40,14 @@ export default class List {
 		this.todos = this.todos.filter(todo => todo.id !== item.id);
 
 		return item;
+	}
+
+	public get id(): string {
+		return this.uuid;
+	}
+
+	public get listName(): string {
+		return this.name.value;
 	}
 
 	public get size(): number {

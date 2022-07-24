@@ -18,14 +18,6 @@ export interface CreateTodoRequest {
 
 export const TODO_CREATED = "TodoCreated";
 
-export interface TodoCreated {
-	listName: string;
-	id: string;
-	description: string;
-	startDate: Date;
-	endDate: Date;
-}
-
 export class CreateTodoImpl implements CreateTodo {
 
 	private repository: ListRepository;
@@ -44,9 +36,10 @@ export class CreateTodoImpl implements CreateTodo {
 
 		const startDate = new Date(start);
 		const endDate = new Date(end);
+		const entityId = id ?? this.uuidProvider.generate();
 
 		const todo = new Todo({
-			id: id ?? this.uuidProvider.generate(),
+			id: entityId,
 			description,
 			startDate,
 			endDate
@@ -56,17 +49,10 @@ export class CreateTodoImpl implements CreateTodo {
 
 		list.add(todo);
 
-		await this.repository.update(list);
-
-		const details: TodoCreated = {
-			...todo,
-			listName,
-		}
-
 		await this.publisher.publish({
-			id: this.uuidProvider.generate(),
+			id: entityId,
 			type: TODO_CREATED,
-			details,
+			details: { ...todo, listName },
 		});
 	}
 }

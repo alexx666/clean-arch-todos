@@ -8,7 +8,12 @@ export default function (createTodo: CreateList) {
 	createRouter.post("/", json(), async (req: Request, res: Response, next: NextFunction) => {
 
 		try {
-			const request: CreateListRequest = { listName: req.body.name };
+			const request: CreateListRequest = {
+				listName: req.body.name,
+				maxTodos: req.body.maxTodos ?? 10,
+				allowDuplicates: req.body.allowDuplicates ?? false
+			};
+
 			await createTodo.execute(request);
 
 			res.status(200).json();

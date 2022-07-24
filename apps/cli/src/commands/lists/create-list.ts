@@ -8,7 +8,9 @@ export default function (createList: CreateList) {
 		.requiredOption("-n, --list-name <list>", "List name")
 		.action((cmd) => {
 			const request: CreateListRequest = {
-				listName: String(cmd.listName)
+				listName: String(cmd.listName),
+				allowDuplicates: Boolean(cmd.allowDuplicates ?? false),
+				maxTodos: Number(cmd.maxTodos ?? 10),
 			}
 
 			createList.execute(request);
