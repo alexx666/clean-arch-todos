@@ -4,7 +4,7 @@ import UuidProvider from "../../ports/uuid";
 import CommandConfig from "../command.config";
 
 export interface CreateList {
-	execute(request: CreateListRequest): Promise<void>;
+	execute(request: CreateListRequest): Promise<CreateListResponse>;
 }
 
 export interface CreateListRequest {
@@ -12,6 +12,10 @@ export interface CreateListRequest {
 	listName: string;
 	allowDuplicates: boolean;
 	maxTodos: number;
+}
+
+export interface CreateListResponse {
+	id: string;
 }
 
 export const LIST_CREATED = "ListCreated";
@@ -28,7 +32,7 @@ export class CreateListImpl implements CreateList {
 		this.uuidProvider = config.uuidProvider;
 	}
 
-	public async execute(request: CreateListRequest): Promise<void> {
+	public async execute(request: CreateListRequest): Promise<CreateListResponse> {
 
 		const { id: uuid, listName: name, allowDuplicates, maxTodos } = request;
 
@@ -41,5 +45,7 @@ export class CreateListImpl implements CreateList {
 			type: LIST_CREATED,
 			details: newList,
 		});
+
+		return { id };
 	}
 }

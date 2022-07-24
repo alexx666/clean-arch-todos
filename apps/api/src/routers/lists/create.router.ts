@@ -9,14 +9,15 @@ export default function (createTodo: CreateList) {
 
 		try {
 			const request: CreateListRequest = {
+				id: req.body.id,
 				listName: req.body.name,
 				maxTodos: req.body.maxTodos ?? 10,
 				allowDuplicates: req.body.allowDuplicates ?? false
 			};
 
-			await createTodo.execute(request);
+			const response = await createTodo.execute(request);
 
-			res.status(200).json();
+			res.status(200).json(response);
 		} catch (error) {
 			next(error);
 		}
