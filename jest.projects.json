@@ -1,5 +1,8 @@
 {
 	"projects": [
 		"<rootDir>/*/*/jest.config.js"
+	],
+	"reporters": [
+		"default"
 	]
 }

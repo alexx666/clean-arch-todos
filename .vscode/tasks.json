@@ -1,0 +1,76 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "build:docs",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "Build Docs",
+            "detail": "typedoc"
+        },
+        {
+            "type": "npm",
+            "script": "serve",
+            "problemMatcher": [],
+            "label": "npm: serve",
+            "isBackground": true,
+            "detail": "npx nx serve",
+            "icon": {
+                "id": "dashboard",
+                "color": "terminal.ansiWhite"
+            }
+        },
+        {
+            "type": "npm",
+            "script": "start",
+            "path": "apps/api",
+            "problemMatcher": [],
+            "isBackground": true,
+            "label": "npm: start - apps/api",
+            "detail": "node dist/main",
+            "icon": {
+                "id": "server",
+                "color": "terminal.ansiCyan"
+            }
+        },
+        {
+            "type": "npm",
+            "script": "build:watch",
+            "group": "build",
+            "problemMatcher": [
+                "$tsc-watch"
+            ],
+            "isBackground": true,
+            "label": "npm: build:watch",
+            "detail": "npm run build -- -w",
+            "icon": {
+                "id": "tools",
+                "color": "terminal.ansiYellow"
+            }
+        },
+        {
+            "type": "npm",
+            "script": "test:watch",
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": [],
+            "label": "npm: test:watch",
+            "detail": "npm t -- --watch",
+            "icon": {
+                "id": "check-all",
+                "color": "terminal.ansiGreen"
+            }
+        },
+        {
+            "label": "Start All",
+            "dependsOn": [
+                "npm: build:watch",
+                "npm: test:watch",
+                "npm: serve",
+                "npm: start - apps/api"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

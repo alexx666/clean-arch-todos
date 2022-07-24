@@ -4,6 +4,7 @@
 	"private": true,
 	"description": "Todo app example using clean architecture...sort of.",
 	"scripts": {
+		"serve": "npx nx serve",
 		"test": "jest --passWithNoTests -c jest.projects.json",
 		"test:watch": "npm t -- --watch",
 		"clean": "tsc -b --clean tsconfig.build.json",
