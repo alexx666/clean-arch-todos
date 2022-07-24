@@ -8,12 +8,12 @@
     "method": "GET",
     "sortNum": 10000,
     "created": "2022-07-09T13:37:59.489Z",
-    "modified": "2022-07-24T13:46:02.965Z",
+    "modified": "2022-07-24T14:57:03.891Z",
     "headers": [],
     "params": [
       {
         "name": "id",
-        "value": "{{listId}}",
+        "value": "{{listName}}",
         "isPath": true
       }
     ],
@@ -28,12 +28,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-07-09T13:37:59.490Z",
-    "modified": "2022-07-24T13:47:39.584Z",
+    "modified": "2022-07-24T14:56:55.388Z",
     "headers": [],
     "params": [
       {
         "name": "id",
-        "value": "{{listId}}",
+        "value": "{{listName}}",
         "isPath": true
       }
     ],
@@ -60,12 +60,12 @@
     "method": "DELETE",
     "sortNum": 30000,
     "created": "2022-07-09T13:37:59.491Z",
-    "modified": "2022-07-24T13:48:35.029Z",
+    "modified": "2022-07-24T14:57:21.545Z",
     "headers": [],
     "params": [
       {
         "name": "listId",
-        "value": "{{listId}}",
+        "value": "{{listName}}",
         "isPath": true
       },
       {
@@ -85,7 +85,7 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2022-07-09T13:37:59.492Z",
-    "modified": "2022-07-24T13:37:34.302Z",
+    "modified": "2022-07-24T14:56:20.060Z",
     "headers": [],
     "params": [],
     "body": {
@@ -93,13 +93,6 @@
       "raw": "{\n    \"name\": \"{{listName}}\"\n}",
       "form": []
     },
-    "tests": [
-      {
-        "type": "set-env-var",
-        "custom": "json.id",
-        "action": "setto",
-        "value": "{{listId}}"
-      }
-    ]
+    "tests": []
   }
 ]

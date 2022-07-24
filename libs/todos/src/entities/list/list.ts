@@ -3,7 +3,6 @@ import ListPolicy from "../list-policy/list-policy";
 import Todo from "../todo/todo";
 
 interface ListParameters {
-	id: string;
 	name: string;
 	maxTodos: number;
 	allowDuplicates: boolean;
@@ -12,15 +11,13 @@ interface ListParameters {
 
 export default class List {
 
-	private uuid: string;
 	private name: Name;
 	private policy: ListPolicy;
 	private todos: Array<Todo>;
 
 	constructor(params: ListParameters) {
-		const { id, name, todos, maxTodos, allowDuplicates } = params;
+		const { name, todos, maxTodos, allowDuplicates } = params;
 
-		this.uuid = id;
 		this.name = Name.create(name);
 		this.policy = new ListPolicy({ maxTodos, allowDuplicates });
 		this.todos = todos ?? new Array();
@@ -40,10 +37,6 @@ export default class List {
 		this.todos = this.todos.filter(todo => todo.id !== item.id);
 
 		return item;
-	}
-
-	public get id(): string {
-		return this.uuid;
 	}
 
 	public get listName(): string {

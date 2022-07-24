@@ -11,7 +11,7 @@ export default class ListCreated implements Event<List> {
 
     constructor(list: List) {
         this.details = list;
-        this.id = list.id;
+        this.id = list.listName;
     }
 
 }
