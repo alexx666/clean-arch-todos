@@ -1,7 +1,7 @@
 import List from "../../entities/list/list";
 import ListCreated from "../../events/list-created";
 import EventPublisher from "../../ports/event.publisher";
-import CommandConfig from "../command.config";
+import CommandConfig from "../../ports/command.config";
 
 export interface CreateList {
 	execute(request: CreateListRequest): Promise<void>;

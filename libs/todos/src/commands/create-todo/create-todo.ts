@@ -3,7 +3,7 @@ import TodoAdded from "../../events/todo-added";
 import EventPublisher from "../../ports/event.publisher";
 import ListRepository from "../../ports/list.repository";
 import UuidProvider from "../../ports/uuid";
-import CommandConfig from "../command.config";
+import CommandConfig from "../../ports/command.config";
 
 export interface CreateTodo {
 	execute(request: CreateTodoRequest): Promise<CreateTodoResponse>;

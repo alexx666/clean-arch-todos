@@ -1,7 +1,7 @@
 import TodoRemoved from "../../events/todo-removed";
 import EventPublisher from "../../ports/event.publisher";
 import ListRepository from "../../ports/list.repository";
-import CommandConfig from "../command.config";
+import CommandConfig from "../../ports/command.config";
 
 export interface DeleteTodo {
 	execute(request: DeleteTodoRequest): Promise<void>;
