@@ -4,13 +4,13 @@ import listRouter from "./list.router";
 import createRouter from "./create.router";
 import deleteRouter from "./delete.router";
 
-import { CreateTodoImpl, DeleteTodoImpl, ListTodosImpl } from "@alexx666/todos";
+import { CreateTodoImpl, DeleteTodoImpl, InMemoryListTodos } from "@alexx666/todos";
 
-import { providers, todoDao } from "../../di";
+import { providers } from "../../di";
 
 export const createTodo = new CreateTodoImpl(providers);
 export const deleteTodo = new DeleteTodoImpl(providers);
-export const listTodos = new ListTodosImpl(todoDao);
+export const listTodos = new InMemoryListTodos();
 
 const todoRouter = Router({ mergeParams: true })
 

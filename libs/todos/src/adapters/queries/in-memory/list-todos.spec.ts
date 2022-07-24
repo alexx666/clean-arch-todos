@@ -1,10 +1,9 @@
-import ListPolicy from "../../entities/list-policy/list-policy";
-import List from "../../entities/list/list";
-import Todo from "../../entities/todo/todo";
-import ListRepository from "../../ports/list.repository";
-import Name from "../../value-objects/list-name";
-
-import { ListTodosImpl } from "./list-todos"
+import ListPolicy from "../../../entities/list-policy/list-policy";
+import List from "../../../entities/list/list";
+import Todo from "../../../entities/todo/todo";
+import ListRepository from "../../../ports/list.repository";
+import Name from "../../../value-objects/list-name";
+import InMemoryListTodos from "./list-todos.dao";
 
 const request = { listName: "my list", limit: 1, skip: 1 }
 
@@ -26,7 +25,7 @@ describe("[ListTodos] Success Cases", () => {
 		update: (_: List) => Promise.resolve()
 	}
 
-	const listTodos: ListTodosImpl = new ListTodosImpl(mockSuccessGateway);
+	const listTodos: InMemoryListTodos = new InMemoryListTodos(mockSuccessGateway);
 
 	it("should return a the mocked todo in a valid ListTodosResponse object", async () => {
 		const result = await listTodos.execute(request)

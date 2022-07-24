@@ -1,9 +1,9 @@
-import TodoDao from "../../ports/todo.dao";
-
+// query
 export interface ListTodosRequest {
 	listName: string;
 }
 
+// read model projection
 export interface ListTodosResponse {
 	items: TodoItem[];
 	listName: string;
@@ -18,21 +18,7 @@ export interface TodoItem {
 	description: string;
 }
 
+// query handler
 export interface ListTodos {
 	execute(input: ListTodosRequest): Promise<ListTodosResponse>;
-}
-
-export class ListTodosImpl implements ListTodos {
-
-	constructor(private todos: TodoDao) { }
-
-	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
-		const items = await this.todos.find(input.listName);
-
-		return {
-			items,
-			count: items.length,
-			listName: input.listName
-		}
-	}
 }
