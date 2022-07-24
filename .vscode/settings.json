@@ -9,6 +9,5 @@
 	"thunder-client.saveToWorkspace": true,
 	"thunder-client.followRedirects": true,
 	"hediet.vscode-drawio.codeLinkActivated": true,
-	"javascript.preferences.importModuleSpecifier": "project-relative",
-	"debug.javascript.autoAttachFilter": "onlyWithFlag",
+	"javascript.preferences.importModuleSpecifier": "project-relative"
 }
