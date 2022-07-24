@@ -8,7 +8,7 @@ export interface DeleteTodo {
 }
 
 export interface DeleteTodoRequest {
-	listName: string;
+	listId: string;
 	id: string;
 }
 
@@ -26,9 +26,9 @@ export class DeleteTodoImpl implements DeleteTodo {
 
 	public async execute(request: DeleteTodoRequest): Promise<void> {
 
-		const { listName, id } = request;
+		const { listId, id } = request;
 
-		const list = await this.repository.findByName(listName);
+		const list = await this.repository.findById(listId);
 
 		const deletedTodo = list.remove(id)
 

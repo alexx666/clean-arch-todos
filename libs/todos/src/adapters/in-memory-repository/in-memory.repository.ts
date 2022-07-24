@@ -6,13 +6,8 @@ export default class InMemoryTodoRepository implements ListRepository {
 
 	constructor(private readonly events: Event<List>[] = []) { }
 
-	// TODO: implement write model projection
 	public async findById(id: string): Promise<List> {
-		throw new Error("[InMemoryTodoRepository] Not implemented yet!");
-	}
-
-	public async findByName(name: string): Promise<List> {
-		const listEvent = this.events.find(event => event.details.listName === name);
+		const listEvent = this.events.find((event) => event.type.startsWith("List") && event.id === id);
 
 		if (!listEvent) throw new Error("[InMemoryTodoRepository] Error: List does not exist!");
 

@@ -17,7 +17,7 @@ API.use(cors())
 API.use(morgan("combined"));
 
 API.use("/lists", listRouter)
-API.use("/lists/:name/todos", todoRouter)
+API.use("/lists/:listId/todos", todoRouter)
 
 API.use("*", (err: Error, _1: Request, res: Response, _2: any) => {
     res.status(500).json({ error: err.message });

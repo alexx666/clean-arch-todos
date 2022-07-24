@@ -6,13 +6,13 @@ export default function (createTodo: CreateTodo) {
 	return new Command("create")
 		.alias("mk")
 		.description("Create todo")
-		.requiredOption("-n, --list-name <list>", "List name")
+		.requiredOption("-l, --list-id <list>", "List ID")
 		.requiredOption("-d, --description <description>", "todo description")
 		.requiredOption("-s, --start <start>", "todo start date in ISO format")
 		.requiredOption("-e, --end <end>", "todo end date in ISO format")
 		.action(async cmd => {
 			const request: CreateTodoRequest = {
-				listName: cmd.listName,
+				listId: cmd.listId,
 				description: cmd.description,
 				start: cmd.start,
 				end: cmd.end

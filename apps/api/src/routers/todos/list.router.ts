@@ -11,7 +11,7 @@ export default function (listTodos: ListTodos) {
 			const { protocol, hostname, originalUrl, params } = req;
 
 			const request: ListTodosRequest = {
-				listName: String(params.name)
+				listId: String(params.listId)
 			}
 
 			const response = await listTodos.execute(request)

@@ -9,7 +9,7 @@ export class CreateTodoImpl implements CreateTodo {
 	async execute(input: CreateTodoRequest): Promise<CreateTodoResponse> {
 
 		const request = new Request<CreateTodoResponse>({
-			url: `${this.config.apiUrl}/lists/${input.listName}/todos`,
+			url: `${this.config.apiUrl}/lists/${input.listId}/todos`,
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ export default function (createTodo: CreateTodo) {
 
 	createRouter.post("/", json(), async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const request: CreateTodoRequest = { ...req.body, listName: decodeURI(req.params.name) };
+			const request: CreateTodoRequest = { ...req.body, listId: decodeURI(req.params.listId) };
 			const response = await createTodo.execute(request);
 
 			res.status(200).json(response);

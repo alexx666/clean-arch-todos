@@ -13,7 +13,7 @@ export interface CreateTodoRequest {
 	description: string;
 	start: string;
 	end: string;
-	listName: string;
+	listId: string;
 }
 
 export interface CreateTodoResponse {
@@ -36,15 +36,15 @@ export class CreateTodoImpl implements CreateTodo {
 
 	async execute(request: CreateTodoRequest): Promise<CreateTodoResponse> {
 
-		const { id: uuid, description, start, end, listName } = request;
+		const { id: uuid, description, start, end, listId } = request;
 
 		const startDate = new Date(start);
 		const endDate = new Date(end);
 		const id = uuid ?? this.uuidProvider.generate();
 
-		const todo = new Todo({ id, description, startDate, endDate, listName });
+		const todo = new Todo({ id, description, startDate, endDate, listId });
 
-		const list = await this.repository.findByName(listName);
+		const list = await this.repository.findById(listId);
 
 		list.add(todo);
 

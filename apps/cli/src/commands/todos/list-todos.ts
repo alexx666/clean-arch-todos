@@ -8,10 +8,10 @@ export default function (listTodos: ListTodos) {
 	return new Command("list")
 		.alias("ls")
 		.description("List todos")
-		.requiredOption("-n, --list-name <list>", "List name")
+		.requiredOption("-l, --list-id <list>", "List ID")
 		.action(async cmd => {
 			const request: ListTodosRequest = {
-				listName: String(cmd.listName),
+				listId: String(cmd.listId),
 			}
 
 			const response = await listTodos.execute(request)

@@ -5,7 +5,7 @@
     "default": true,
     "sortNum": 10000,
     "created": "2022-07-09T13:38:06.739Z",
-    "modified": "2022-07-16T13:51:50.511Z",
+    "modified": "2022-07-24T13:48:51.799Z",
     "data": [
       {
         "name": "listName",
@@ -18,6 +18,14 @@
       {
         "name": "url",
         "value": "http://localhost:3000"
+      },
+      {
+        "name": "listId",
+        "value": "09272782-bacc-4826-ae97-17badac234b0"
+      },
+      {
+        "name": "todoId",
+        "value": "0063fec0-f544-4b70-8cac-2e7abec75943"
       }
     ]
   }

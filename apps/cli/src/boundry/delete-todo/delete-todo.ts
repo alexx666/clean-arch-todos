@@ -10,7 +10,7 @@ export class DeleteTodoImpl implements DeleteTodo {
 	public async execute(input: DeleteTodoRequest): Promise<void> {
 
 		const request = new Request<void>({
-			url: `${this.config.apiUrl}/lists/${input.listName}/todos/${input.id}`,
+			url: `${this.config.apiUrl}/lists/${input.listId}/todos/${input.id}`,
 			method: "DELETE",
 			headers: {
 				'Content-Type': 'application/json',

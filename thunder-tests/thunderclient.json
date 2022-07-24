@@ -4,16 +4,16 @@
     "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
     "containerId": "",
     "name": "ListTodos",
-    "url": "{{url}}/lists/{listName}/todos",
+    "url": "{{url}}/lists/{id}/todos",
     "method": "GET",
     "sortNum": 10000,
     "created": "2022-07-09T13:37:59.489Z",
-    "modified": "2022-07-09T13:57:22.657Z",
+    "modified": "2022-07-24T13:46:02.965Z",
     "headers": [],
     "params": [
       {
-        "name": "listName",
-        "value": "{{listName}}",
+        "name": "id",
+        "value": "{{listId}}",
         "isPath": true
       }
     ],
@@ -24,16 +24,16 @@
     "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
     "containerId": "",
     "name": "CreateTodo",
-    "url": "{{url}}/lists/{listName}/todos",
+    "url": "{{url}}/lists/{id}/todos",
     "method": "POST",
     "sortNum": 20000,
     "created": "2022-07-09T13:37:59.490Z",
-    "modified": "2022-07-17T08:25:58.324Z",
+    "modified": "2022-07-24T13:47:39.584Z",
     "headers": [],
     "params": [
       {
-        "name": "listName",
-        "value": "{{listName}}",
+        "name": "id",
+        "value": "{{listId}}",
         "isPath": true
       }
     ],
@@ -42,28 +42,35 @@
       "raw": "{\n    \"id\": \"{{#guid}}\",\n    \"description\": \"{{#string}}\",\n    \"start\": \"{{#dateISO}}\",\n    \"end\": \"{{#dateISO}}\"\n}",
       "form": []
     },
-    "tests": []
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.id",
+        "action": "setto",
+        "value": "{{todoId}}"
+      }
+    ]
   },
   {
     "_id": "e0ce4e32-8097-4a52-8068-931d350a8c50",
     "colId": "d4ea3655-0d74-4e23-bca1-6bc39ec594bc",
     "containerId": "",
     "name": "DeleteTodo",
-    "url": "{{url}}/lists/{listName}/todos/{id}",
+    "url": "{{url}}/lists/{listId}/todos/{todoId}",
     "method": "DELETE",
     "sortNum": 30000,
     "created": "2022-07-09T13:37:59.491Z",
-    "modified": "2022-07-09T13:56:52.015Z",
+    "modified": "2022-07-24T13:48:35.029Z",
     "headers": [],
     "params": [
       {
-        "name": "listName",
-        "value": "{{listName}}",
+        "name": "listId",
+        "value": "{{listId}}",
         "isPath": true
       },
       {
-        "name": "id",
-        "value": "{{#number, 0, 5}}",
+        "name": "todoId",
+        "value": "{{todoId}}",
         "isPath": true
       }
     ],
@@ -78,7 +85,7 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2022-07-09T13:37:59.492Z",
-    "modified": "2022-07-09T13:37:59.492Z",
+    "modified": "2022-07-24T13:37:34.302Z",
     "headers": [],
     "params": [],
     "body": {
@@ -86,6 +93,13 @@
       "raw": "{\n    \"name\": \"{{listName}}\"\n}",
       "form": []
     },
-    "tests": []
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.id",
+        "action": "setto",
+        "value": "{{listId}}"
+      }
+    ]
   }
 ]

@@ -6,13 +6,15 @@ export default function (createList: CreateList) {
 		.alias("mk")
 		.description("Creates new list")
 		.requiredOption("-n, --list-name <list>", "List name")
-		.action((cmd) => {
+		.action(async (cmd) => {
 			const request: CreateListRequest = {
 				listName: String(cmd.listName),
 				allowDuplicates: Boolean(cmd.allowDuplicates ?? false),
 				maxTodos: Number(cmd.maxTodos ?? 10),
 			}
 
-			createList.execute(request);
+			const result = await createList.execute(request);
+
+			console.table(result);
 		})
 }

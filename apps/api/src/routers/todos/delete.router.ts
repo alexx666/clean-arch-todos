@@ -5,9 +5,9 @@ import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos";
 export default function (deleteTodo: DeleteTodo) {
 	const deleteRouter = Router({ mergeParams: true })
 
-	deleteRouter.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
+	deleteRouter.delete("/:todoId", async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const request: DeleteTodoRequest = { listName: req.params.name, id: req.params.id };
+			const request: DeleteTodoRequest = { listId: req.params.listId, id: req.params.todoId };
 
 			await deleteTodo.execute(request);
 
