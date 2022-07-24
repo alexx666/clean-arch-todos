@@ -1,8 +1,8 @@
-import ListPolicy from "../../../entities/list-policy/list-policy";
-import List from "../../../entities/list/list";
-import Todo from "../../../entities/todo/todo";
-import ListRepository from "../../../ports/list.repository";
-import Name from "../../../value-objects/list-name";
+import ListPolicy from "../../entities/list-policy/list-policy";
+import List from "../../entities/list/list";
+import Todo from "../../entities/todo/todo";
+import ListRepository from "../../ports/list.repository";
+import Name from "../../value-objects/list-name";
 import InMemoryListTodos from "./list-todos.dao";
 
 const request = { listName: "my list", limit: 1, skip: 1 }

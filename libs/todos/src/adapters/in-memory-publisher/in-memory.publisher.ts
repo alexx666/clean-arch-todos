@@ -1,5 +1,5 @@
-import Event from "../../../events/event";
-import EventPublisher from "../../../ports/event.publisher";
+import Event from "../../events/event";
+import EventPublisher from "../../ports/event.publisher";
 
 export default class InMemoryPublisher implements EventPublisher {
 

@@ -44,7 +44,7 @@ export class CreateTodoImpl implements CreateTodo {
 
 		const todo = new Todo({ id, description, startDate, endDate });
 
-		const list = await this.repository.get(listName);
+		const list = await this.repository.findByName(listName);
 
 		list.add(todo);
 

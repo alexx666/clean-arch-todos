@@ -46,7 +46,7 @@ export class DeleteTodoImpl implements DeleteTodo {
 
 		const { listName, id } = request;
 
-		const list = await this.repository.get(listName);
+		const list = await this.repository.findByName(listName);
 
 		const deletedTodo = list.remove(id)
 
