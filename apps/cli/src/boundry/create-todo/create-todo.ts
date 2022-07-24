@@ -1,4 +1,4 @@
-import { CreateTodo, CreateTodoRequest, UuidProvider } from "@alexx666/todos";
+import { CreateTodo, CreateTodoRequest, CreateTodoResponse, UuidProvider } from "@alexx666/todos";
 import { Config } from "../../config";
 import Request from "../../utils/request";
 
@@ -6,9 +6,9 @@ export class CreateTodoImpl implements CreateTodo {
 
 	constructor(private readonly config: Config, private readonly uuidProvider: UuidProvider) { }
 
-	async execute(input: CreateTodoRequest): Promise<void> {
+	async execute(input: CreateTodoRequest): Promise<CreateTodoResponse> {
 
-		const request = new Request<void>({
+		const request = new Request<CreateTodoResponse>({
 			url: `${this.config.apiUrl}/lists/${input.listName}/todos`,
 			method: "POST",
 			headers: {

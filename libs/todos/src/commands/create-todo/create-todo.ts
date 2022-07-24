@@ -5,7 +5,7 @@ import UuidProvider from "../../ports/uuid";
 import CommandConfig from "../command.config";
 
 export interface CreateTodo {
-	execute(request: CreateTodoRequest): Promise<void>;
+	execute(request: CreateTodoRequest): Promise<CreateTodoResponse>;
 }
 
 export interface CreateTodoRequest {
@@ -14,6 +14,10 @@ export interface CreateTodoRequest {
 	start: string;
 	end: string;
 	listName: string;
+}
+
+export interface CreateTodoResponse {
+	id: string;
 }
 
 export const TODO_CREATED = "TodoCreated";
@@ -30,29 +34,26 @@ export class CreateTodoImpl implements CreateTodo {
 		this.repository = config.repository;
 	}
 
-	async execute(request: CreateTodoRequest): Promise<void> {
+	async execute(request: CreateTodoRequest): Promise<CreateTodoResponse> {
 
-		const { id, description, start, end, listName } = request;
+		const { id: uuid, description, start, end, listName } = request;
 
 		const startDate = new Date(start);
 		const endDate = new Date(end);
-		const entityId = id ?? this.uuidProvider.generate();
+		const id = uuid ?? this.uuidProvider.generate();
 
-		const todo = new Todo({
-			id: entityId,
-			description,
-			startDate,
-			endDate
-		});
+		const todo = new Todo({ id, description, startDate, endDate });
 
 		const list = await this.repository.get(listName);
 
 		list.add(todo);
 
 		await this.publisher.publish({
-			id: entityId,
+			id,
 			type: TODO_CREATED,
 			details: { ...todo, listName },
 		});
+
+		return { id }
 	}
 }
