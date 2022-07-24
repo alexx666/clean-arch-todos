@@ -9,10 +9,10 @@ export default function (createTodo: CreateList) {
 
 		try {
 			const request: CreateListRequest = {
-				id: req.body.id,
 				listName: req.body.name,
 				maxTodos: req.body.maxTodos ?? 10,
-				allowDuplicates: req.body.allowDuplicates ?? false
+				allowDuplicates: req.body.allowDuplicates ?? false,
+				allowExpired: req.body.allowExpired ?? true,
 			};
 
 			await createTodo.execute(request);

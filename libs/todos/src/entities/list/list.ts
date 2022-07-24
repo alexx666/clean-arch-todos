@@ -6,6 +6,7 @@ interface ListParameters {
 	name: string;
 	maxTodos: number;
 	allowDuplicates: boolean;
+	allowExpired: boolean;
 	todos?: Array<Todo>;
 }
 
@@ -16,10 +17,10 @@ export default class List {
 	private todos: Array<Todo>;
 
 	constructor(params: ListParameters) {
-		const { name, todos, maxTodos, allowDuplicates } = params;
+		const { name, todos, ...policyConfig } = params;
 
 		this.name = Name.create(name);
-		this.policy = new ListPolicy({ maxTodos, allowDuplicates });
+		this.policy = new ListPolicy(policyConfig);
 		this.todos = todos ?? new Array();
 	}
 

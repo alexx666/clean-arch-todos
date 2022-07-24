@@ -9,8 +9,9 @@ export default function (createList: CreateList) {
 		.action(async (cmd) => {
 			const request: CreateListRequest = {
 				listName: String(cmd.listName),
-				allowDuplicates: Boolean(cmd.allowDuplicates ?? false),
 				maxTodos: Number(cmd.maxTodos ?? 10),
+				allowDuplicates: Boolean(cmd.allowDuplicates ?? false),
+				allowExpired: Boolean(cmd.allowExpired ?? true)
 			}
 
 			const result = await createList.execute(request);

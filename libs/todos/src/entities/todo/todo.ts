@@ -34,8 +34,6 @@ export default class Todo {
 
 		this.startDate = startDate;
 		this.endDate = endDate;
-
-		// if (this.isExpired) throw new Error("ValidationError: Can't create an expired todo");
 	}
 
 	public get isExpired(): boolean {
