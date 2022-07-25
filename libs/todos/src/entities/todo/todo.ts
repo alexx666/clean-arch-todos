@@ -1,5 +1,3 @@
-import { Name } from "../../value-objects";
-
 interface TodoParameters {
 	id: string;
 	description: string;
@@ -8,7 +6,7 @@ interface TodoParameters {
 	listName: string;
 }
 
-export default class Todo {
+export class Todo {
 
 	public readonly id: string;
 	public readonly description: string;

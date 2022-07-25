@@ -2,7 +2,7 @@ import { Todo } from "../entities";
 
 import Event from "./event";
 
-export default class TodoRemoved implements Event<Todo> {
+export class TodoRemoved implements Event<Todo> {
 
     public readonly type: string = "TodoRemoved";
     public readonly details: Todo;

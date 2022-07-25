@@ -1,4 +1,4 @@
-import Todo from "./todo";
+import { Todo } from "./todo";
 
 const listName = "my list";
 const notDefined: any = undefined;

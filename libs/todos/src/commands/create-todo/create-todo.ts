@@ -1,9 +1,6 @@
-import Todo from "../../entities/todo/todo";
-import TodoAdded from "../../events/todo-added";
-import EventPublisher from "../../ports/event.publisher";
-import ListRepository from "../../ports/list.repository";
-import UuidProvider from "../../ports/uuid";
-import CommandConfig from "../../ports/command.config";
+import { Todo } from "../../entities";
+import { TodoAdded } from "../../events";
+import { EventPublisher, ListRepository, UuidProvider, CommandConfig } from "../../ports";
 
 export interface CreateTodo {
 	execute(request: CreateTodoRequest): Promise<CreateTodoResponse>;

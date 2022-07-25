@@ -1,3 +1,3 @@
-export { default as List } from "./list/list";
-export { default as ListPolicy } from "./list-policy/list-policy";
-export { default as Todo } from "./todo/todo";
+export * from "./list/list";
+export * from "./list-policy/list-policy";
+export * from "./todo/todo";

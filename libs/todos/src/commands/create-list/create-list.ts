@@ -1,7 +1,6 @@
-import List from "../../entities/list/list";
-import ListCreated from "../../events/list-created";
-import EventPublisher from "../../ports/event.publisher";
-import CommandConfig from "../../ports/command.config";
+import { List } from "../../entities/";
+import { ListCreated } from "../../events";
+import { EventPublisher, CommandConfig } from "../../ports";
 
 export interface CreateList {
 	execute(request: CreateListRequest): Promise<void>;

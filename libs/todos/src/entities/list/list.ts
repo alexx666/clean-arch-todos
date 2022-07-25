@@ -1,8 +1,9 @@
-import Name from "../../value-objects/list-name";
-import ListPolicy from "../list-policy/list-policy";
-import Todo from "../todo/todo";
+import { Name } from "../../value-objects";
 
-interface ListParameters {
+import { ListPolicy } from "../list-policy/list-policy";
+import { Todo } from "../todo/todo";
+
+export interface ListParameters {
 	name: string;
 	maxTodos: number;
 	allowDuplicates: boolean;
@@ -10,11 +11,12 @@ interface ListParameters {
 	todos?: Array<Todo>;
 }
 
-export default class List {
+export class List {
 
 	private name: Name;
-	private policy: ListPolicy;
 	private todos: Array<Todo>;
+
+	public readonly policy: ListPolicy;
 
 	constructor(params: ListParameters) {
 		const { name, todos, ...policyConfig } = params;

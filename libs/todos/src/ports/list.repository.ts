@@ -1,4 +1,4 @@
-import List from "../entities/list/list";
+import { List } from "../entities";
 
 export default interface ListRepository {
 	findById(id: string): Promise<List>;
