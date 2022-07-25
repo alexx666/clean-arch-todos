@@ -1,7 +1,7 @@
 import { List, ListParameters, Todo } from "../entities";
 import Event from "./event";
 import { TodoItem } from "../queries";
-import { TodoAdded } from "./todo-added";
+import { TodoAdded, TodoDetails } from "./todo-added";
 import { TodoRemoved } from "./todo-removed";
 import { ListCreated, ListDetails } from "./list-created";
 
@@ -32,7 +32,7 @@ export default class StateBuilder {
                     break;
 
                 case event instanceof TodoAdded:
-                    listParams.todos?.push(event.details as Todo);
+                    listParams.todos?.push((event as TodoAdded).toEntity());
 
                     break;
 
@@ -49,20 +49,21 @@ export default class StateBuilder {
         return new List(listParams as ListParameters);
     }
 
-    public static buildTodoStateFrom(events: Event<Todo>[]): TodoItem {
+    public static buildTodoStateFrom(events: Event<any>[]): TodoItem {
         const item: Partial<TodoItem> = {};
 
         for (const event of events) {
 
-            const todo = event.details;
-
             switch (true) {
                 case event instanceof TodoAdded:
-                    item.id = todo.id;
-                    item.description = todo.description;
-                    item.start = todo.startDate.toISOString();
-                    item.end = todo.endDate.toISOString();
-                    item.expired = todo.isExpired;
+
+                    const details = event.details as TodoDetails;
+
+                    item.id = event.id;
+                    item.description = details.description;
+                    item.start = details.startDate;
+                    item.end = details.endDate;
+                    item.expired = Date.now() > new Date(details.endDate).getTime();
 
                     item.isDeleted = false;
 

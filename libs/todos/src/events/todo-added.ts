@@ -1,17 +1,43 @@
-import { Todo } from "../entities";
+import { Todo, TodoParameters } from "../entities";
+import { TodoItem } from "../queries";
 
 import Event from "./event";
 
-export class TodoAdded implements Event<Todo> {
+// FIXME: duplicate definition
+export interface TodoDetails {
+    id: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    listName: string;
+}
+
+export class TodoAdded implements Event<TodoDetails> {
 
     public readonly type: string = "TodoAdded";
-    public readonly details: Todo;
+    public readonly details: TodoDetails;
     public readonly id: string;
     public readonly timestamp: number = Date.now();
 
     constructor(todo: Todo) {
-        this.details = todo;
         this.id = todo.id;
+
+        this.details = {
+            id: todo.id,
+            listName: todo.listName,
+            startDate: todo.startDate.toISOString(),
+            endDate: todo.endDate.toISOString(),
+            description: todo.description,
+        }
     }
 
+    public toEntity(): Todo {
+        const todoParams: TodoParameters = {
+            ...this.details,
+            startDate: new Date(this.details.startDate),
+            endDate: new Date(this.details.endDate)
+        }
+
+        return new Todo(todoParams);
+    }
 }

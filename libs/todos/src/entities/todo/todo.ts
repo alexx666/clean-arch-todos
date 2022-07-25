@@ -1,4 +1,4 @@
-interface TodoParameters {
+export interface TodoParameters {
 	id: string;
 	description: string;
 	startDate: Date;
