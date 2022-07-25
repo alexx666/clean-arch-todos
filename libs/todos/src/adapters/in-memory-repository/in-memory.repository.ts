@@ -1,16 +1,16 @@
-import List from "../../entities/list/list";
-import Event from "../../events/event";
-import ListRepository from "../../ports/list.repository";
+import { List } from "../../entities";
+import { Event, StateBuilder } from "../../events";
+import { ListRepository } from "../../ports";
 
 export default class InMemoryTodoRepository implements ListRepository {
 
-	constructor(private readonly events: Event<List>[] = []) { }
+	constructor(private readonly events: Event<any>[] = []) { }
 
 	public async findById(id: string): Promise<List> {
-		const listEvent = this.events.find((event) => event.type.startsWith("List") && event.id === id);
+		const listEvents = this.events.filter((event) => event.id === id || event.details.listName === id);
 
-		if (!listEvent) throw new Error("[InMemoryTodoRepository] Error: List does not exist!");
+		if (!listEvents.length) throw new Error("[InMemoryTodoRepository] Error: List does not exist!");
 
-		return listEvent.details;
+		return StateBuilder.buildListStateFrom(listEvents);
 	}
 }

@@ -1,17 +1,17 @@
-import List from "../list/list";
-import Todo from "../todo/todo";
+import { List } from "../list/list";
+import { Todo } from "../todo/todo";
 
-interface PolicyParameters {
+export interface PolicyParameters {
 	maxTodos: number;
 	allowDuplicates: boolean;
 	allowExpired: boolean;
 }
 
-export default class ListPolicy {
+export class ListPolicy {
 
-	private readonly maxTodos: number;
-	private readonly allowDuplicates: boolean;
-	private readonly allowExpired: boolean;
+	public readonly maxTodos: number;
+	public readonly allowDuplicates: boolean;
+	public readonly allowExpired: boolean;
 
 	constructor(params: PolicyParameters) {
 		this.maxTodos = params.maxTodos;
