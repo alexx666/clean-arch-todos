@@ -10,7 +10,7 @@ Monorepo for practicing and studying software architecture and system design con
 - Event Sourcing (ES)
 - Clean Architecture
 
-## Components
+## Architecture
 
 The project is a simple todo list app...for now! Glorified and overengineered for the purposes of learning. Its componed of the following parts:
 
@@ -22,6 +22,8 @@ The project is a simple todo list app...for now! Glorified and overengineered fo
 - [`@alexx666/todos-api`](../apps/api/README.md) - REST API which provideds the core logic of the app
 - [`@alexx666/todos-cli`](../apps/cli/README.md) - CLI tool for interracting with the API
 - [`web`](../apps//web/) - minimal [Angular](https://angular.io/) frontend managed with [NX](https://nx.dev/) and [NGRX](https://ngrx.io/)
+
+![architecture](./architecture.drawio.svg)
 
 ## Pre-requisites:
 
