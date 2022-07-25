@@ -24,6 +24,7 @@
 	"homepage": "https://github.com/alexx666/clean-arch-todos#readme",
 	"dependencies": {
 		"@alexx666/todos": "*",
+		"aws-sdk": "^2.1181.0",
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.1",
 		"express": "^4.18.1",
