@@ -1,5 +1,4 @@
 import { List } from "../../entities";
-import { ListProjection } from "../../projections";
 import { Events } from "../../events";
 import { ListRepository } from "../../ports";
 
@@ -12,6 +11,6 @@ export default class InMemoryTodoRepository implements ListRepository {
 
 		if (!listEvents.length) throw new Error("[InMemoryTodoRepository] Error: List does not exist!");
 
-		return ListProjection.from(listEvents).build();
+		return List.buildFromStream(listEvents);
 	}
 }

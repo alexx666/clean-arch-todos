@@ -1,7 +1,7 @@
+import { Events, Event, ListCreated, ListDetails, TodoAdded, TodoRemoved } from "../../events";
 import { Name } from "../../value-objects";
-
 import { ListPolicy } from "../list-policy/list-policy";
-import { Todo } from "../todo/todo";
+import { Todo, TodoParameters } from "../todo/todo";
 
 export interface ListParameters {
 	name: string;
@@ -12,6 +12,47 @@ export interface ListParameters {
 }
 
 export class List {
+
+	public static buildFromStream(events: Events<any> | Event<any>[]): List {
+		const listParams: Partial<ListParameters> = {};
+
+		for (const event of events) {
+			switch (true) {
+				case event instanceof ListCreated:
+
+					const listDetails = event.details as ListDetails;
+
+					listParams.name = listDetails.name;
+					listParams.allowDuplicates = listDetails.allowDuplicates;
+					listParams.allowExpired = listDetails.allowExpired;
+					listParams.maxTodos = listDetails.maxTodos;
+					listParams.todos = new Array();
+
+					break;
+
+				case event instanceof TodoAdded:
+					const todoParams: TodoParameters = {
+						...event.details,
+						startDate: new Date(event.details.startDate),
+						endDate: new Date(event.details.endDate)
+					}
+
+					listParams.todos?.push(new Todo(todoParams));
+
+					break;
+
+				case event instanceof TodoRemoved:
+					listParams.todos = listParams.todos?.filter(todo => todo.id !== event.id);
+
+					break;
+
+				default:
+					throw new Error("[StateBuilder] Error: Unable to build object state from event stream!");
+			}
+		}
+
+		return new List(listParams as ListParameters);
+	}
 
 	private name: Name;
 	private todos: Array<Todo>;
