@@ -1,6 +1,5 @@
-import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries/list-todos";
+import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries";
 import { Todo } from "../../entities";
-import { TodoItemProjection } from "../../projections";
 import { Events, Event } from "../../events";
 import { TodoItem } from "../../view-model";
 
@@ -23,7 +22,7 @@ export default class InMemoryListTodos implements ListTodos {
         const items: TodoItem[] = Object.keys(groupedTodoEvents)
             .reduce((todos: TodoItem[], id: string) => [
                 ...todos,
-                TodoItemProjection.from(groupedTodoEvents[id]).build(),
+                TodoItem.buildFromStream(groupedTodoEvents[id]),
             ], []);
 
         const active = items.filter(item => !item.isDeleted)
