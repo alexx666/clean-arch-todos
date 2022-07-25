@@ -1,6 +1,6 @@
 import { Todo } from "../entities";
 
-import Event from "./event";
+import { Event } from "./event";
 
 export class TodoRemoved implements Event<Todo> {
 

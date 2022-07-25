@@ -1,9 +1,9 @@
 import { List, Todo } from "../../entities";
-import { Event, ListCreated, TodoAdded } from "../../events";
+import { Events, ListCreated, TodoAdded } from "../../events";
 
 import InMemoryListTodos from "./in-memory-list-todos.query";
 
-const events: Event<any>[] = [];
+const events: Events<any> = new Events();
 const request = { listName: "my list", limit: 1, skip: 1 }
 
 describe("[ListTodos] Success Cases", () => {

@@ -1,11 +1,11 @@
 import { List } from "../../entities";
-import { Event, ListCreated } from "../../events";
+import { Events, ListCreated } from "../../events";
 
 import InMemoryTodoRepository from "./in-memory.repository";
 
 const listName = "my list";
 
-const events: Event<any>[] = [];
+const events: Events<any> = new Events();
 
 describe("[InMemoryTodoGateway] Test Cases", () => {
 

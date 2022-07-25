@@ -1,6 +1,6 @@
-import { CryptoUuid, InMemoryPublisher, InMemoryTodoRepository } from "@alexx666/todos";
+import { CryptoUuid, Events, InMemoryPublisher, InMemoryTodoRepository } from "@alexx666/todos";
 
-export const eventStore: any[] = [];
+export const eventStore: Events<any> = new Events();
 
 export const providers = {
     repository: new InMemoryTodoRepository(eventStore),

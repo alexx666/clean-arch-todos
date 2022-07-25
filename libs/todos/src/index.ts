@@ -5,3 +5,5 @@ export * from "./value-objects";
 export * from "./ports";
 export * from "./adapters";
 export * from "./events";
+export * from "./projections";
+export * from "./view-model";

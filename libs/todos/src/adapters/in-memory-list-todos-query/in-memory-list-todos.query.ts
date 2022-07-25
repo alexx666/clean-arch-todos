@@ -1,29 +1,29 @@
-import { ListTodos, ListTodosRequest, ListTodosResponse, TodoItem } from "../../queries/list-todos";
+import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries/list-todos";
 import { Todo } from "../../entities";
-
-import Event from "../../events/event";
-import StateBuilder from "../../events/state-builder";
+import { TodoItemProjection } from "../../projections";
+import { Events, Event } from "../../events";
+import { TodoItem } from "../../view-model";
 
 
 export default class InMemoryListTodos implements ListTodos {
 
-    constructor(private readonly events: Event<any>[] = []) { }
+    constructor(private readonly events: Events<any> = new Events()) { }
 
     public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 
         const listName = input.listName;
 
-        const sortedTodoEvents: Event<Todo>[] = this.events
+        const sortedTodoEvents = this.events
             .filter((event) => event.type.startsWith("Todo"))
             .filter((event: Event<Todo>) => event.details.listName === listName)
             .sort((event1, event2) => event1.timestamp - event2.timestamp);
 
-        const groupedTodoEvents = StateBuilder.groupById(sortedTodoEvents);
+        const groupedTodoEvents = new Events(...sortedTodoEvents).groupById();
 
         const items: TodoItem[] = Object.keys(groupedTodoEvents)
             .reduce((todos: TodoItem[], id: string) => [
                 ...todos,
-                StateBuilder.buildTodoStateFrom(groupedTodoEvents[id])
+                TodoItemProjection.from(groupedTodoEvents[id]).build(),
             ], []);
 
         const active = items.filter(item => !item.isDeleted)

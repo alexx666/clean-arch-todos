@@ -1,6 +1,5 @@
 import { List } from "../entities";
-
-import Event from "./event";
+import { Event } from "./event";
 
 // FIXME: duplicated definition
 export interface ListDetails {

@@ -1,3 +1,5 @@
+import { TodoItem } from "../view-model";
+
 // query
 export interface ListTodosRequest {
 	listName: string;
@@ -8,15 +10,6 @@ export interface ListTodosResponse {
 	items: TodoItem[];
 	listName: string;
 	count: number;
-}
-
-export interface TodoItem {
-	id: string;
-	start: string;
-	end: string;
-	expired: boolean;
-	description: string;
-	isDeleted: boolean;
 }
 
 // query handler

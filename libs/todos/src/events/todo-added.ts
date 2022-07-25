@@ -1,7 +1,5 @@
-import { Todo, TodoParameters } from "../entities";
-import { TodoItem } from "../queries";
-
-import Event from "./event";
+import { Todo } from "../entities";
+import { Event } from "./event";
 
 // FIXME: duplicate definition
 export interface TodoDetails {
@@ -29,15 +27,5 @@ export class TodoAdded implements Event<TodoDetails> {
             endDate: todo.endDate.toISOString(),
             description: todo.description,
         }
-    }
-
-    public toEntity(): Todo {
-        const todoParams: TodoParameters = {
-            ...this.details,
-            startDate: new Date(this.details.startDate),
-            endDate: new Date(this.details.endDate)
-        }
-
-        return new Todo(todoParams);
     }
 }
