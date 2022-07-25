@@ -1,17 +1,13 @@
-import ListPolicy from "../../entities/list-policy/list-policy";
-import List from "../../entities/list/list";
-import Todo from "../../entities/todo/todo";
-import CryptoUuid from "../../adapters/uuid/crypro-uuid";
+import { List, Todo } from "../../entities";
 import { CreateTodoImpl } from "../create-todo/create-todo";
-import Name from "../../value-objects/list-name";
-import ListRepository from "../../ports/list.repository";
-import InMemoryPublisher from "../../adapters/publisher/in-memory/in-memory.publisher";
+import { ListRepository } from "../../ports";
+import { InMemoryPublisher, CryptoUuid } from "../../adapters";
 
 const errorMessage = "Todo already exists!"
 const now = new Date(Date.now() + 3600)
-const listName = Name.create("my list");
+const listName = "my list";
 const request = {
-	listName: listName.value,
+	listName: listName,
 	description: "test description",
 	start: now.toISOString(),
 	end: now.toISOString()
@@ -19,23 +15,23 @@ const request = {
 
 const todos = new Array<Todo>();
 
-const policy = new ListPolicy();
-
-const list = new List(listName, policy, todos)
+const list = new List({ name: listName, todos, maxTodos: 10, allowDuplicates: false, allowExpired: false })
 
 const mockSuccessGateway: ListRepository = {
-	get: (_: string) => Promise.resolve(list),
-	create: (_: List) => Promise.resolve(),
-	update: (_: List) => Promise.resolve(),
+	findById: (_: string) => Promise.resolve(list)
 }
 
 const mockFailureGateway: ListRepository = {
-	get: (_: string) => Promise.reject(new Error(errorMessage)),
-	create: (_: List) => Promise.reject(new Error(errorMessage)),
-	update: (_: List) => Promise.reject(new Error(errorMessage)),
+	findById: (_: string) => Promise.reject(new Error(errorMessage))
 }
 
-const providers = {
+const failureProviders = {
+	repository: mockFailureGateway,
+	uuidProvider: new CryptoUuid(),
+	publisher: new InMemoryPublisher()
+}
+
+const successProviders = {
 	repository: mockSuccessGateway,
 	uuidProvider: new CryptoUuid(),
 	publisher: new InMemoryPublisher()
@@ -43,7 +39,7 @@ const providers = {
 
 describe("[CreateTodo] Success Cases", () => {
 
-	const createTodo: CreateTodoImpl = new CreateTodoImpl(providers);
+	const createTodo: CreateTodoImpl = new CreateTodoImpl(successProviders);
 
 	it("should return a the mocked todo in a valid CreateTodoResponse object", async () => {
 		await createTodo.execute(request)
@@ -55,7 +51,7 @@ describe("[CreateTodo] Success Cases", () => {
 
 describe("[CreateTodo] Fail Cases", () => {
 
-	const createTodo: CreateTodoImpl = new CreateTodoImpl(providers);
+	const createTodo: CreateTodoImpl = new CreateTodoImpl(failureProviders);
 
 	it("should return throw an error with the gateways message", async () => {
 		try {

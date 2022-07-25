@@ -1,25 +1,18 @@
-import InMemoryPublisher from "../../adapters/publisher/in-memory/in-memory.publisher";
-import CryptoUuid from "../../adapters/uuid/crypro-uuid";
-import ListPolicy from "../../entities/list-policy/list-policy";
-import List from "../../entities/list/list";
-import Todo from "../../entities/todo/todo";
-import ListRepository from "../../ports/list.repository";
-import Name from "../../value-objects/list-name";
-
+import { List, Todo } from "../../entities";
+import { ListRepository } from "../../ports";
 import { DeleteTodoImpl } from "./delete-todo"
+import { CryptoUuid, InMemoryPublisher } from "../../adapters";
 
-const listName = Name.create("my list");
-const todo = new Todo({ id: "uuid-1", description: "test description", startDate: new Date(), endDate: new Date() })
+const listName = "my list";
+const todo = new Todo({ id: "uuid-1", description: "test description", startDate: new Date(), endDate: new Date(), listName });
 const todos = new Array<Todo>()
 todos.push(todo);
-const list = new List(listName, new ListPolicy(), todos)
+const list = new List({ name: listName, todos, maxTodos: 10, allowDuplicates: false, allowExpired: true });
 
 describe("[DeleteTodo] Success Cases", () => {
 
 	const mockSuccessGateway: ListRepository = {
-		get: (_: string) => Promise.resolve(list),
-		create: (_: List) => Promise.resolve(),
-		update: (_: List) => Promise.resolve(),
+		findById: (_: string) => Promise.resolve(list),
 	}
 
 	const providers = {
@@ -32,16 +25,9 @@ describe("[DeleteTodo] Success Cases", () => {
 
 	it("should return a the mocked todo in a valid DeleteTodoResponse object", async () => {
 
-		const result = await deleteTodo.execute({ id: "uuid-1", listName: listName.value })
+		const result = await deleteTodo.execute({ id: "uuid-1", listName })
 
-		expect(result).toEqual({
-			item: {
-				id: todo.id,
-				description: todo.description,
-				start: todo.startDate.toISOString(),
-				end: todo.endDate.toISOString()
-			}
-		});
+		expect(result).toBeUndefined();
 		expect.assertions(1);
 	})
 })

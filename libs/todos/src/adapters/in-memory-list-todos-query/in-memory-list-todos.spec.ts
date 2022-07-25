@@ -1,31 +1,24 @@
-import ListPolicy from "../../entities/list-policy/list-policy";
-import List from "../../entities/list/list";
-import Todo from "../../entities/todo/todo";
-import ListRepository from "../../ports/list.repository";
-import Name from "../../value-objects/list-name";
-import InMemoryListTodos from "./list-todos.dao";
+import { List, Todo } from "../../entities";
+import { Event, ListCreated, TodoAdded } from "../../events";
 
+import InMemoryListTodos from "./in-memory-list-todos.query";
+
+const events: Event<any>[] = [];
 const request = { listName: "my list", limit: 1, skip: 1 }
 
 describe("[ListTodos] Success Cases", () => {
 
-	const todo = new Todo({ id: "uuid-1", description: "first", startDate: new Date(), endDate: new Date() })
+	const todo = new Todo({ id: "uuid-1", description: "first", startDate: new Date(), endDate: new Date(), listName: request.listName })
 
 	const todos = new Array<Todo>();
 
 	todos.push(todo);
 
-	const policy = new ListPolicy()
+	const list = new List({ name: "test list", todos, maxTodos: 10, allowDuplicates: false, allowExpired: true });
 
-	const list = new List(Name.create("test list"), policy, todos);
+	events.push(new ListCreated(list), new TodoAdded(todo));
 
-	const mockSuccessGateway: ListRepository = {
-		get: (_: string) => Promise.resolve(list),
-		create: (_: List) => Promise.resolve(),
-		update: (_: List) => Promise.resolve()
-	}
-
-	const listTodos: InMemoryListTodos = new InMemoryListTodos(mockSuccessGateway);
+	const listTodos = new InMemoryListTodos(events);
 
 	it("should return a the mocked todo in a valid ListTodosResponse object", async () => {
 		const result = await listTodos.execute(request)
@@ -37,7 +30,8 @@ describe("[ListTodos] Success Cases", () => {
 					end: todo.endDate.toISOString(),
 					start: todo.startDate.toISOString(),
 					description: todo.description,
-					expired: todo.isExpired
+					expired: todo.isExpired,
+					isDeleted: false,
 				}
 			], count: 1, listName: "my list"
 		});
@@ -49,13 +43,7 @@ describe("[ListTodos] Fail Cases", () => {
 
 	const errorMessage = "Unexpected error!"
 
-	const mockFailureGateway: ListRepository = {
-		get: (_: string) => Promise.reject(new Error(errorMessage)),
-		create: (_: List) => Promise.reject(new Error(errorMessage)),
-		update: (_: List) => Promise.reject(new Error(errorMessage))
-	}
-
-	const listTodos: ListTodosImpl = new ListTodosImpl(mockFailureGateway);
+	const listTodos = new InMemoryListTodos(events);
 
 	it("should return throw an error with the gateways message", async () => {
 		try {
