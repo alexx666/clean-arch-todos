@@ -54,12 +54,27 @@ Resources:
         Environment: !Ref Environment
 
 
+  TodoLibrary:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      CompatibleRuntimes:
+        - nodejs16.x
+      ContentUri: ../
+      Description: Todo Package Library
+      LayerName: todo-pkg-lib
+      RetentionPolicy: Delete
+    Metadata:
+      BuildMethod: nodejs16.x
+
+
   CreateList:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-create-list
       CodeUri: ../dist/create-list/
       Handler: handler.handler
+      Layers:
+        - !Ref TodoLibrary
       Events:
         PostList:
           Type: Api
@@ -76,6 +91,8 @@ Resources:
       FunctionName: !Sub ${AWS::StackName}-create-todo
       CodeUri: ../dist/create-todo/
       Handler: handler.handler
+      Layers:
+        - !Ref TodoLibrary
       Events:
         PostTodo:
           Type: Api
@@ -92,6 +109,8 @@ Resources:
       FunctionName: !Sub ${AWS::StackName}-delete-todo
       CodeUri: ../dist/delete-todo/
       Handler: handler.handler
+      Layers:
+        - !Ref TodoLibrary
       Events:
         DeleteTodo:
           Type: Api
@@ -108,6 +127,8 @@ Resources:
       FunctionName: !Sub ${AWS::StackName}-list-todos
       CodeUri: ../dist/list-todos/
       Handler: handler.handler
+      Layers:
+        - !Ref TodoLibrary
       Events:
         GetTodo:
           Type: Api

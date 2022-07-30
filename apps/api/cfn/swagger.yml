@@ -33,7 +33,7 @@ paths:
         uri:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ListTodos.Arn}/invocations
         passthroughBehavior: when_no_match
-        httpMethod: GET
+        httpMethod: POST
         type: aws_proxy
 
     post:
@@ -93,7 +93,7 @@ paths:
         uri:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeleteTodo.Arn}/invocations
         passthroughBehavior: when_no_match
-        httpMethod: DELETE
+        httpMethod: POST
         type: aws_proxy
 
   /lists:
