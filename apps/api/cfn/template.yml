@@ -1,0 +1,122 @@
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Runtime: nodejs16.x
+    Tags:
+      Project: !Ref Project
+      Environment: !Ref Environment
+
+Description: Clean Arch Todos API
+
+# Metadata:
+#   template metadata
+
+Parameters:
+
+  Version:
+    Type: String
+    Default: v1
+
+  Project:
+    Type: String
+    Default: CleanArchTodos
+
+  Environment:
+    Type: String
+    Default: dev
+
+
+# Mappings:
+#   set of mappings
+
+# Conditions:
+#   set of conditions
+
+Resources:
+  
+  TodosAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub ${AWS::StackName}-gw
+      StageName: !Ref Version
+      EndpointConfiguration:
+        Type: REGIONAL
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: ./swagger.yml
+      Tags:
+        Project: !Ref Project
+        Environment: !Ref Environment
+
+
+  CreateList:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-create-list
+      CodeUri: ../dist/create-list/
+      Handler: handler.handler
+      Events:
+        PostList:
+          Type: Api
+          Properties:
+            Auth:
+              Authorizer: NONE
+            RestApiId: !Ref TodosAPI
+            Path: /lists
+            Method: POST
+
+  CreateTodo:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-create-todo
+      CodeUri: ../dist/create-todo/
+      Handler: handler.handler
+      Events:
+        PostTodo:
+          Type: Api
+          Properties:
+            Auth:
+              Authorizer: NONE
+            RestApiId: !Ref TodosAPI
+            Path: /lists/{listId}/todos
+            Method: POST
+
+  DeleteTodo:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-delete-todo
+      CodeUri: ../dist/delete-todo/
+      Handler: handler.handler
+      Events:
+        DeleteTodo:
+          Type: Api
+          Properties:
+            Auth:
+              Authorizer: NONE
+            RestApiId: !Ref TodosAPI
+            Path: /lists/{listId}/todos/{todoId}
+            Method: DELETE
+
+  ListTodos:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-list-todos
+      CodeUri: ../dist/list-todos/
+      Handler: handler.handler
+      Events:
+        GetTodo:
+          Type: Api
+          Properties:
+            Auth:
+              Authorizer: NONE
+            RestApiId: !Ref TodosAPI
+            Path: /lists/{listId}/todos
+            Method: GET
+
+# Outputs:
+#   set of outputs

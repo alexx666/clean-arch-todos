@@ -48,7 +48,7 @@ packages:
     access: $all
     publish: $all
     unpublish: $all
-    proxy: npmjs
+    # proxy: npmjs
 
   "@*/*":
     # scoped packages

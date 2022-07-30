@@ -3,11 +3,12 @@
 	"private": true,
 	"version": "1.0.0",
 	"description": "TODOs Rest API",
-	"main": "dist/main.js",
 	"files": [
 		"dist"
 	],
 	"scripts": {
+		"build": "sam build -t cfn/template.yml",
+		"deploy": "sam deploy -g",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -21,10 +22,10 @@
 	},
 	"homepage": "https://github.com/alexx666/clean-arch-todos#readme",
 	"dependencies": {
-		"@alexx666/todos": "*",
-		"aws-sdk": "^2.1181.0"
+		"@alexx666/todos": "*"
 	},
 	"devDependencies": {
-		"@types/aws-lambda": "^8.10.101"
+		"@types/aws-lambda": "^8.10.101",
+		"aws-sdk": "^2.1185.0"
 	}
 }

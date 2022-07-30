@@ -1,11 +1,11 @@
 [
   {
     "_id": "784d2384-43e1-4b7c-8363-56bf992f34f2",
-    "name": "dev",
-    "default": true,
+    "name": "local",
+    "default": false,
     "sortNum": 10000,
     "created": "2022-07-09T13:38:06.739Z",
-    "modified": "2022-07-24T15:42:04.585Z",
+    "modified": "2022-07-30T13:04:28.516Z",
     "data": [
       {
         "name": "listName",
@@ -20,12 +20,8 @@
         "value": "http://localhost:3000"
       },
       {
-        "name": "listId",
-        "value": "291dde81-1c7c-4269-abf9-7c1168fd0577"
-      },
-      {
         "name": "todoId",
-        "value": "682d6ca7-9853-4b1d-abe9-b318dc459f84"
+        "value": "bd0d4307-e019-4081-8385-bf491b9a3e6c"
       }
     ]
   }

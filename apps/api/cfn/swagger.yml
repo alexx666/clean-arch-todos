@@ -29,6 +29,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ListTodosResponse"
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ListTodos.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: GET
+        type: aws_proxy
 
     post:
       tags:
@@ -55,6 +61,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UUID"
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateTodo.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
 
   /lists/{listId}/todos/{todoId}:
 
@@ -77,6 +89,12 @@ paths:
       responses:
         201:
           description: Delete Todo Success
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeleteTodo.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: DELETE
+        type: aws_proxy
 
   /lists:
 
@@ -95,6 +113,12 @@ paths:
       responses:
         201:
           description: Create List Success
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateList.Arn}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
           
 components:
 
