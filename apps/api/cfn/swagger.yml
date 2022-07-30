@@ -1,0 +1,171 @@
+openapi: 3.0.1
+
+info:
+  version: 1.0.0
+  title: Clean Arch Todos API
+  
+tags:
+  - name: todos
+
+paths:
+
+  /lists/{listId}/todos:
+
+    get:
+      tags:
+        - todos
+      summary: List Todos
+      operationId: listTodos
+      parameters:
+        - name: listId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Array of Todos for the specified list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListTodosResponse"
+
+    post:
+      tags:
+        - todos
+      summary: Create Todo
+      operationId: createTodo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Todo parameters
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTodoParams"
+      responses:
+        200:
+          description: Created Todos UUID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UUID"
+
+  /lists/{listId}/todos/{todoId}:
+
+    delete:
+      tags:
+        - todos
+      summary: Delete Todo
+      operationId: deleteTodo
+      parameters:
+        - name: listId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: todoId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: Delete Todo Success
+
+  /lists:
+
+    post:
+      tags:
+        - todos
+      summary: Create List
+      operationId: createList
+      requestBody:
+        description: List parameters
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateListParams"
+      responses:
+        201:
+          description: Create List Success
+          
+components:
+
+  schemas:
+
+    Todo:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+        expired:
+          type: boolean
+        isDeleted:
+          type: boolean
+
+    CreateListParams:
+      type: object
+      properties:
+        name:
+          type: string
+        allowExpired:
+          type: boolean
+
+    UUID:
+      type: object
+      properties:
+        id:
+          type: string
+
+    CreateTodoParams:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
+
+    ListTodosResponse:
+      type: object
+      properties:
+        count:
+          type: number
+        listName:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Todo"
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/Link"
+            
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+        rel:
+          type: string
