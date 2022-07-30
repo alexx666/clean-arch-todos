@@ -55,9 +55,8 @@
 		"verdaccio": "^5.13.1"
 	},
 	"workspaces": [
-		"libs/todos",
-		"apps/api",
-		"apps/cli"
+		"libs/*",
+		"apps/*"
 	],
 	"dependencies": {
 		"@alexx666/todos": "*",
