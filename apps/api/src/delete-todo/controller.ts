@@ -7,7 +7,7 @@ export default (deleteTodo: DeleteTodo): Handler => async (event: APIGatewayProx
     console.debug("Event:", event);
 
     const response: Partial<APIGatewayProxyResult> = {
-        statusCode: 201,
+        statusCode: 204,
         body: '',
         headers: {
             "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
