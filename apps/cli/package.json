@@ -20,6 +20,9 @@
 	"keywords": [
 		"CLI"
 	],
+	"publishConfig": {
+		"registry": "http://localhost:4873"
+	},
 	"author": "alexx666",
 	"license": "ISC",
 	"bugs": {

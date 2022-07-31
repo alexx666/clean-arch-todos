@@ -19,6 +19,7 @@ The project is a simple todo list app...for now! Glorified and overengineered fo
 - [`@alexx666/todos`](../libs/todos/README.md) - provides core business logic usable in all of the `applications`
 
 ### [Applications](../apps/)
+
 - [`@alexx666/todos-api`](../apps/api/README.md) - REST API which provideds the core logic of the app
 - [`@alexx666/todos-cli`](../apps/cli/README.md) - CLI tool for interracting with the API
 - [`web`](../apps//web/) - minimal [Angular](https://angular.io/) frontend managed with [NX](https://nx.dev/) and [NGRX](https://ngrx.io/)
@@ -27,8 +28,8 @@ The project is a simple todo list app...for now! Glorified and overengineered fo
 
 ## Pre-requisites:
 
-* [`nodejs v16.x`](https://nodejs.org/es/download/)
-* `npm v8.x`
+- [`nodejs v16.x`](https://nodejs.org/es/download/)
+- `npm v8.x`
 
 > Note: These versions or above required since the project uses NPM `workspaces` and NodeJS `crypto` library
 
@@ -37,37 +38,58 @@ The project is a simple todo list app...for now! Glorified and overengineered fo
 The following instruction can get the system up an running on your system.
 
 ### Installing
+
 ```
 npm ci
 ```
 
 ### Building
 
-*Build Source*
+> Note: in order to build the AWS labmda layers locally you need to use verdaccio and publish the public packages by calling
+>
+> ```
+> npm run registry
+> npm publish -w libs/
+> ```
+>
+> This will enable building and deploying to AWS, as well as running the API locally.
+
+_Build Source_
+
 ```
 npm run build
 ```
 
-*Build Docs*
+_Build API_
+
+```
+npm run build -w apps/api
+```
+
+_Build Docs_
+
 ```
 npm run build:docs
 ```
 
 ### Running
 
-*Run API*
+_Run API_
+
 ```
-npm start -w apps/api
+npm start -w apps/api --silent -- --profile <your-aws-profile>
 ```
 
-*Serve Web*
+_Serve Web_
+
 ```
 npm run serve
 ```
 
-*Run CLI*
+_Run CLI_
+
 ```
-npm start -w apps/cli
+npm start -w apps/cli --silent -- <command> <options>
 ```
 
 ### Notes
