@@ -103,6 +103,17 @@ Resources:
             Path: /lists/{listId}/todos
             Method: POST
 
+  CreateTodoLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${CreateTodo}
+      RetentionInDays: 14
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
   DeleteTodo:
     Type: AWS::Serverless::Function
     Properties:
@@ -121,6 +132,17 @@ Resources:
             Path: /lists/{listId}/todos/{todoId}
             Method: DELETE
 
+  DeleteTodoLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${DeleteTodo}
+      RetentionInDays: 14
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
   ListTodos:
     Type: AWS::Serverless::Function
     Properties:
@@ -138,6 +160,17 @@ Resources:
             RestApiId: !Ref TodosAPI
             Path: /lists/{listId}/todos
             Method: GET
+
+  ListTodosLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${ListTodos}
+      RetentionInDays: 14
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
 
 # Outputs:
 #   set of outputs
