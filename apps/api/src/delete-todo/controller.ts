@@ -20,6 +20,8 @@ export default (deleteTodo: DeleteTodo): Handler => async (event: APIGatewayProx
 
         await deleteTodo.execute(request);
     } catch (error) {
+        console.error(error);
+
         response.statusCode = 500; // FIXME: better error handling
         response.body = (error as Error).message;
     }

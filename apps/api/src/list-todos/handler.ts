@@ -1,10 +1,7 @@
-import { Events, InMemoryListTodos } from "@alexx666/todos";
+import { DynamoListTodos } from "@alexx666/todos";
 
 import createHandler from "./controller";
 
-// TODO: provide AWS implementation
-const eventStore: Events<any> = new Events();
-
-const useCase = new InMemoryListTodos(eventStore);
+const useCase = new DynamoListTodos();
 
 export const handler = createHandler(useCase)

@@ -15,9 +15,12 @@ export class ListCreated implements Event<ListDetails> {
     public readonly details: ListDetails;
     public readonly id: string;
     public readonly timestamp: number = Date.now();
+    public readonly stream: string;
 
     constructor(list: List) {
         this.id = list.listName;
+
+        this.stream = this.stream = `List:${list.listName}`;
 
         this.details = {
             name: list.listName,

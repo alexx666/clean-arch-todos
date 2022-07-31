@@ -1,15 +1,11 @@
-import { CreateListImpl, CryptoUuid, Events, InMemoryPublisher, InMemoryTodoRepository } from "@alexx666/todos";
+import { CreateListImpl, CryptoUuid, DynamoEventPublisher, DynamoListRepository } from "@alexx666/todos";
 
 import createHandler from "./controller";
 
-// TODO: provide AWS implementation
-const eventStore: Events<any> = new Events();
-
-// TODO: provide AWS implementation
 const providers = {
-    repository: new InMemoryTodoRepository(eventStore),
+    repository: new DynamoListRepository(),
     uuidProvider: new CryptoUuid(),
-    publisher: new InMemoryPublisher(eventStore),
+    publisher: new DynamoEventPublisher(),
 };
 
 const useCase = new CreateListImpl(providers);

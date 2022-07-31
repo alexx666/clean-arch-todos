@@ -16,9 +16,12 @@ export class TodoAdded implements Event<TodoDetails> {
     public readonly details: TodoDetails;
     public readonly id: string;
     public readonly timestamp: number = Date.now();
+    public readonly stream: string;
 
     constructor(todo: Todo) {
         this.id = todo.id;
+
+        this.stream = `List:${todo.listName}`;
 
         this.details = {
             id: todo.id,

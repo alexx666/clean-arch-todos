@@ -1,8 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Handler } from "aws-lambda";
 
-import { InMemoryListTodos, ListTodosRequest } from "@alexx666/todos";
+import { ListTodos, ListTodosRequest } from "@alexx666/todos";
 
-export default (listTodos: InMemoryListTodos): Handler => async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export default (listTodos: ListTodos): Handler => async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
     console.debug("Event:", event);
 
@@ -30,6 +30,8 @@ export default (listTodos: InMemoryListTodos): Handler => async (event: APIGatew
         })
 
     } catch (error) {
+        console.error(error);
+
         response.statusCode = 500; // FIXME: better error handling
         response.body = (error as Error).message;
     }

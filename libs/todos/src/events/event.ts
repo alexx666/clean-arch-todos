@@ -3,6 +3,7 @@ export interface Event<T> {
     details: T;
     id: string;
     timestamp: number;
+    stream: string;
 }
 
 export class Events<T> extends Array<Event<T>> {

@@ -13,8 +13,8 @@ export default class InMemoryListTodos implements ListTodos {
         const listName = input.listName;
 
         const sortedTodoEvents = this.events
+            .filter((event) => event.stream === `List:${listName}`)
             .filter((event) => event.type.startsWith("Todo"))
-            .filter((event: Event<Todo>) => event.details.listName === listName)
             .sort((event1, event2) => event1.timestamp - event2.timestamp);
 
         const groupedTodoEvents = new Events(...sortedTodoEvents).groupById();

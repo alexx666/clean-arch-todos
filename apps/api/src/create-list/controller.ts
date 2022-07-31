@@ -25,6 +25,8 @@ export default (createList: CreateList): Handler => async (event: APIGatewayProx
 
         await createList.execute(request);
     } catch (error) {
+        console.error(error);
+
         response.statusCode = 500; // FIXME: better error handling
         response.body = (error as Error).message;
     }

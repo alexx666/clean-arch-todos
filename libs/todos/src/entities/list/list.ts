@@ -18,7 +18,7 @@ export class List {
 
 		for (const event of events) {
 			switch (true) {
-				case event instanceof ListCreated:
+				case event.type === "ListCreated":
 
 					const listDetails = event.details as ListDetails;
 
@@ -30,7 +30,7 @@ export class List {
 
 					break;
 
-				case event instanceof TodoAdded:
+				case event.type === "TodoAdded":
 					const todoParams: TodoParameters = {
 						...event.details,
 						startDate: new Date(event.details.startDate),
@@ -41,13 +41,13 @@ export class List {
 
 					break;
 
-				case event instanceof TodoRemoved:
+				case event.type === "TodoRemoved":
 					listParams.todos = listParams.todos?.filter(todo => todo.id !== event.id);
 
 					break;
 
 				default:
-					throw new Error("[StateBuilder] Error: Unable to build object state from event stream!");
+					throw new Error("[List] Error: Unable to build object state from event stream!");
 			}
 		}
 

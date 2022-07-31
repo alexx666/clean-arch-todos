@@ -33,7 +33,7 @@ export default class TodoItem {
         for (const event of events) {
 
             switch (true) {
-                case event instanceof TodoAdded:
+                case event.type === "TodoAdded":
 
                     const details = event.details as TodoDetails;
 
@@ -47,13 +47,13 @@ export default class TodoItem {
 
                     break;
 
-                case event instanceof TodoRemoved:
+                case event.type === "TodoRemoved":
                     params.isDeleted = true;
 
                     break;
 
                 default:
-                    throw new Error("[StateBuilder] Error: Unable to build object state from event stream!");
+                    throw new Error("[TodoItem] Error: Unable to build object state from event stream!");
             }
         }
 

@@ -24,6 +24,8 @@ export default (createTodo: CreateTodo): Handler => async (event: APIGatewayProx
 
         response.body = JSON.stringify(result);
     } catch (error) {
+        console.error(error);
+
         response.statusCode = 500; // FIXME: better error handling
         response.body = (error as Error).message;
     }
