@@ -5,6 +5,11 @@ Globals:
     Timeout: 30
     MemorySize: 512
     Runtime: nodejs16.x
+    Layers:
+      - !Ref TodoLibrary
+    Environment:
+      Variables:
+        DYNAMO_TABLE_NAME: !Ref EventStore
     Tags:
       Project: !Ref Project
       Environment: !Ref Environment
@@ -27,7 +32,6 @@ Parameters:
   Environment:
     Type: String
     Default: dev
-
 
 # Mappings:
 #   set of mappings
@@ -53,6 +57,28 @@ Resources:
         Project: !Ref Project
         Environment: !Ref Environment
 
+  EventStore:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: !Sub ${AWS::StackName}-event-store
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      AttributeDefinitions: 
+        - AttributeName: stream
+          AttributeType: "S"
+        - AttributeName: timestamp
+          AttributeType: "N"
+      KeySchema: 
+        - AttributeName: stream
+          KeyType: HASH
+        - AttributeName: timestamp
+          KeyType: RANGE
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
 
   TodoLibrary:
     Type: AWS::Serverless::LayerVersion
@@ -73,8 +99,8 @@ Resources:
       FunctionName: !Sub ${AWS::StackName}-create-list
       CodeUri: ../dist/create-list/
       Handler: handler.handler
-      Layers:
-        - !Ref TodoLibrary
+      Policies:
+        - AmazonDynamoDBFullAccess
       Events:
         PostList:
           Type: Api
@@ -85,14 +111,25 @@ Resources:
             Path: /lists
             Method: POST
 
+  CreateListLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${CreateList}
+      RetentionInDays: 14
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
   CreateTodo:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-create-todo
       CodeUri: ../dist/create-todo/
       Handler: handler.handler
-      Layers:
-        - !Ref TodoLibrary
+      Policies:
+        - AmazonDynamoDBFullAccess
       Events:
         PostTodo:
           Type: Api
@@ -120,8 +157,8 @@ Resources:
       FunctionName: !Sub ${AWS::StackName}-delete-todo
       CodeUri: ../dist/delete-todo/
       Handler: handler.handler
-      Layers:
-        - !Ref TodoLibrary
+      Policies:
+        - AmazonDynamoDBFullAccess
       Events:
         DeleteTodo:
           Type: Api
@@ -149,8 +186,8 @@ Resources:
       FunctionName: !Sub ${AWS::StackName}-list-todos
       CodeUri: ../dist/list-todos/
       Handler: handler.handler
-      Layers:
-        - !Ref TodoLibrary
+      Policies:
+        - AmazonDynamoDBFullAccess
       Events:
         GetTodo:
           Type: Api
