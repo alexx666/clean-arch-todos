@@ -8,6 +8,12 @@ export default (createTodo: CreateTodo): Handler => async (event: APIGatewayProx
 
     const response: Partial<APIGatewayProxyResult> = {
         statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE,PUT",
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+        },
     };
 
     try {
