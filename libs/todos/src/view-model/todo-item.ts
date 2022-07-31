@@ -1,4 +1,4 @@
-import { Event, Events, TodoAdded, TodoDetails, TodoRemoved } from "../events";
+import { Event, Events, TodoDetails } from "../events";
 
 interface TodoItemParameters {
     id: string;
@@ -27,7 +27,7 @@ export default class TodoItem {
         this.isDeleted = params.isDeleted;
     }
 
-    public static buildFromStream(events: Events<any> | Event<any>[]): TodoItem {
+    public static buildFromStream(events: Events | Event[]): TodoItem {
         const params: Partial<TodoItemParameters> = {};
 
         for (const event of events) {
@@ -37,7 +37,7 @@ export default class TodoItem {
 
                     const details = event.details as TodoDetails;
 
-                    params.id = event.id;
+                    params.id = details.id;
                     params.description = details.description;
                     params.start = details.startDate;
                     params.end = details.endDate;

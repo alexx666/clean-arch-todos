@@ -1,20 +1,26 @@
-export interface Event<T> {
+export interface Entity {
+    id: string;
+    [key: string]: any;
+}
+
+export interface DomainEvent<T extends Entity> {
     type: string;
     details: T;
-    id: string;
     timestamp: number;
     stream: string;
 }
 
-export class Events<T> extends Array<Event<T>> {
+export type Event = DomainEvent<Entity>;
 
-    constructor(...items: Event<T>[]) {
+export class Events extends Array<Event> {
+
+    constructor(...items: Event[]) {
         super(...items);
     }
 
     public groupById() {
-        return this.reduce((rv: { [key: string]: Events<T> }, x: Event<T>) => {
-            (rv[x.id] = rv[x.id] || []).push(x);
+        return this.reduce((rv: { [key: string]: Events }, x: Event) => {
+            (rv[x.details.id] = rv[x.details.id] || []).push(x);
             return rv;
         }, {});
     };

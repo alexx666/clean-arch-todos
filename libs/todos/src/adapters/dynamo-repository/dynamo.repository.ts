@@ -19,7 +19,7 @@ export default class DynamoListRepository implements ListRepository {
 
         if (!events?.length) throw new Error("[DynamoListRepository] Error: List does not exist!");
 
-        return List.buildFromStream(events as Event<any>[]);
+        return List.buildFromStream(events as Event[]);
     }
 
 }

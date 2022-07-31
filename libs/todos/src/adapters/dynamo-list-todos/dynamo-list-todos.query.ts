@@ -25,7 +25,7 @@ export default class DynamoListTodos implements ListTodos {
             }
         }).promise();
 
-        const groupedTodoEvents = new Events(...sortedTodoEvents as Event<any>[]).groupById();
+        const groupedTodoEvents = new Events(...sortedTodoEvents as Event[]).groupById();
 
         const items: TodoItem[] = Object.keys(groupedTodoEvents)
             .reduce((todos: TodoItem[], id: string) => [

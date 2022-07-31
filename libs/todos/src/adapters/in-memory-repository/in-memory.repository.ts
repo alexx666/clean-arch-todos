@@ -4,10 +4,10 @@ import { ListRepository } from "../../ports";
 
 export default class InMemoryTodoRepository implements ListRepository {
 
-	constructor(private readonly events: Events<any> = new Events()) { }
+	constructor(private readonly events: Events = new Events()) { }
 
 	public async findById(id: string): Promise<List> {
-		const listEvents = this.events.filter((event) => event.id === id || event.details.listName === id);
+		const listEvents = this.events.filter((event) => event.details.id === id);
 
 		if (!listEvents.length) throw new Error("[InMemoryTodoRepository] Error: List does not exist!");
 

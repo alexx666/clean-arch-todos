@@ -1,4 +1,4 @@
-import { Events, Event, ListCreated, ListDetails, TodoAdded, TodoRemoved } from "../../events";
+import { Events, Event, ListDetails } from "../../events";
 import { Name } from "../../value-objects";
 import { ListPolicy } from "../list-policy/list-policy";
 import { Todo, TodoParameters } from "../todo/todo";
@@ -13,7 +13,7 @@ export interface ListParameters {
 
 export class List {
 
-	public static buildFromStream(events: Events<any> | Event<any>[]): List {
+	public static buildFromStream(events: Events | Event[]): List {
 		const listParams: Partial<ListParameters> = {};
 
 		for (const event of events) {
@@ -31,18 +31,18 @@ export class List {
 					break;
 
 				case event.type === "TodoAdded":
-					const todoParams: TodoParameters = {
-						...event.details,
+					const todoParams = {
+						...event.details as TodoParameters,
 						startDate: new Date(event.details.startDate),
 						endDate: new Date(event.details.endDate)
-					}
+					};
 
 					listParams.todos?.push(new Todo(todoParams));
 
 					break;
 
 				case event.type === "TodoRemoved":
-					listParams.todos = listParams.todos?.filter(todo => todo.id !== event.id);
+					listParams.todos = listParams.todos?.filter(todo => todo.id !== event.details.id);
 
 					break;
 

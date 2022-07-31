@@ -6,7 +6,7 @@ import { TodoItem } from "../../view-model";
 
 export default class InMemoryListTodos implements ListTodos {
 
-    constructor(private readonly events: Events<any> = new Events()) { }
+    constructor(private readonly events: Events = new Events()) { }
 
     public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 
