@@ -39,7 +39,9 @@ export default (listTodos: ListTodos): Handler => async (event: APIGatewayProxyE
         console.error(error);
 
         response.statusCode = 500; // FIXME: better error handling
-        response.body = (error as Error).message;
+        response.body = JSON.stringify({
+            error: (error as Error).message,
+        });
     }
 
     console.debug("Response:", response);
