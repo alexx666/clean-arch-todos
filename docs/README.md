@@ -20,8 +20,8 @@ The project is a simple todo list app...for now! Glorified and overengineered fo
 
 ### [Applications](../apps/)
 
-- [`@alexx666/todos-api`](../apps/api/README.md) - REST API which provideds the core logic of the app
 - [`@alexx666/todos-cli`](../apps/cli/README.md) - CLI tool for interracting with the API
+- [`todos-api`](../apps/api/README.md) - REST API which provideds the core logic of the app
 - [`web`](../apps//web/) - minimal [Angular](https://angular.io/) frontend managed with [NX](https://nx.dev/) and [NGRX](https://ngrx.io/)
 
 ![architecture](./architecture.drawio.svg)
@@ -29,7 +29,8 @@ The project is a simple todo list app...for now! Glorified and overengineered fo
 ## Pre-requisites:
 
 - [`nodejs v16.x`](https://nodejs.org/es/download/)
-- `npm v8.x`
+- [`npm v8.x`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [`docker`](https://docs.docker.com/engine/install/)
 
 > Note: These versions or above required since the project uses NPM `workspaces` and NodeJS `crypto` library
 
