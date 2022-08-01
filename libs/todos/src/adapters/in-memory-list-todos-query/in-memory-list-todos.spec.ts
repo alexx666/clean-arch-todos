@@ -3,7 +3,7 @@ import { Events, ListCreated, TodoAdded } from "../../events";
 
 import InMemoryListTodos from "./in-memory-list-todos.query";
 
-const events: Events<any> = new Events();
+const events = new Events();
 const request = { listName: "my list", limit: 1, skip: 1 }
 
 describe("[ListTodos] Success Cases", () => {

@@ -5,7 +5,7 @@ import InMemoryTodoRepository from "./in-memory.repository";
 
 const listName = "my list";
 
-const events: Events<any> = new Events();
+const events = new Events();
 
 describe("[InMemoryTodoGateway] Test Cases", () => {
 
