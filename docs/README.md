@@ -49,6 +49,7 @@ npm ci
 > Note: in order to build the AWS labmda layers locally you need to use verdaccio and publish the public packages by calling
 >
 > ```
+> echo "@alexx666:registry=http://localhost:4873" >> apps/api/.npmrc
 > npm run registry
 > npm publish -w libs/
 > ```
