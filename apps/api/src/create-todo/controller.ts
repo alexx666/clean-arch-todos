@@ -22,7 +22,7 @@ export default (createTodo: CreateTodo): Handler => async (event: APIGatewayProx
         if (!body) throw new Error("Request has no body!");
         if (!params?.listId) throw new Error("Request has no path parameters!");
 
-        const todoParams = JSON.parse(body);
+        const todoParams = JSON.parse(body) as CreateTodoRequest;
 
         const request: CreateTodoRequest = { ...todoParams, listName: decodeURI(params.listId) };
 

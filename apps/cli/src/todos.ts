@@ -22,4 +22,4 @@ async function start(args: string[]) {
 	}
 }
 
-start(process.argv);
+void start(process.argv);

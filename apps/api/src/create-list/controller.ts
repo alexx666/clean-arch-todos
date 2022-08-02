@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Handler } from "aws-lambda";
 
-import { CreateList, CreateListRequest } from "@alexx666/todos";
+import { CreateList, CreateListRequest, ListParameters } from "@alexx666/todos";
 
 export default (createList: CreateList): Handler => async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 
@@ -20,7 +20,7 @@ export default (createList: CreateList): Handler => async (event: APIGatewayProx
     try {
         if (!event.body) throw new Error("Request has no body!");
 
-        const body = JSON.parse(event.body);
+        const body = JSON.parse(event.body) as ListParameters;
 
         const request: CreateListRequest = {
             listName: body.name,
