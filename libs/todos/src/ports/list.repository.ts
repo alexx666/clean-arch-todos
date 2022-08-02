@@ -1,5 +1,5 @@
 import { List } from "../entities";
 
 export default interface ListRepository {
-	findById(id: string): Promise<List>;
+	findByName(name: string): Promise<List>;
 }

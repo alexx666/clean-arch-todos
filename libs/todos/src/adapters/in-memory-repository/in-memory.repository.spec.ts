@@ -20,7 +20,7 @@ describe("[InMemoryTodoGateway] Test Cases", () => {
 	})
 
 	it("should return matching list", async () => {
-		const result = await inMemTodoGW.findById(listName)
+		const result = await inMemTodoGW.findByName(listName)
 		expect(result).toEqual(list)
 		expect.assertions(1)
 	})

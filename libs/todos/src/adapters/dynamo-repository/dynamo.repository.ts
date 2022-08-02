@@ -8,7 +8,7 @@ export default class DynamoListRepository implements ListRepository {
 
     constructor(private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()) { }
 
-    public async findById(id: string): Promise<List> {
+    public async findByName(id: string): Promise<List> {
 
         const { Items: events } = await this.ddb.query({
             TableName: String(process.env.DYNAMO_TABLE_NAME),

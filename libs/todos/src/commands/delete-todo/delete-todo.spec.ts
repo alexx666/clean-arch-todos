@@ -12,12 +12,12 @@ const list = new List({ name: listName, todos, maxTodos: 10, allowDuplicates: fa
 describe("[DeleteTodo] Success Cases", () => {
 
 	const mockSuccessGateway: ListRepository = {
-		findById: (_: string) => Promise.resolve(list),
+		findByName: (_: string) => Promise.resolve(list),
 	}
 
 	const providers = {
 		repository: mockSuccessGateway,
-		uuidProvider: new CryptoUuid(),
+		uuid: new CryptoUuid(),
 		publisher: new InMemoryPublisher()
 	}
 

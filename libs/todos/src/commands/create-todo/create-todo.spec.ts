@@ -18,11 +18,11 @@ const todos = new Array<Todo>();
 const list = new List({ name: listName, todos, maxTodos: 10, allowDuplicates: false, allowExpired: false })
 
 const mockSuccessGateway: ListRepository = {
-	findById: (_: string) => Promise.resolve(list)
+	findByName: (_: string) => Promise.resolve(list)
 }
 
 const mockFailureGateway: ListRepository = {
-	findById: (_: string) => Promise.reject(new Error(errorMessage))
+	findByName: (_: string) => Promise.reject(new Error(errorMessage))
 }
 
 const failureProviders: Providers = {
