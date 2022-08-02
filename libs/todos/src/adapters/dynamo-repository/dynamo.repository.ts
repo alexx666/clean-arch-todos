@@ -8,7 +8,7 @@ export default class DynamoListRepository implements ListRepository {
 
     constructor(private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()) { }
 
-    public async findByName(id: string): Promise<List> {
+    public async findByName(id: string): Promise<List | undefined> {
 
         const { Items: events } = await this.ddb.query({
             TableName: String(process.env.DYNAMO_TABLE_NAME),
@@ -17,7 +17,7 @@ export default class DynamoListRepository implements ListRepository {
             ExpressionAttributeNames: { "#stream": "stream" }
         }).promise();
 
-        if (!events?.length) throw new Error("[DynamoListRepository] Error: List does not exist!");
+        if (!events?.length) return;
 
         return List.buildFromStream(events as Event[]);
     }

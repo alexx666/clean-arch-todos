@@ -26,6 +26,8 @@ export class DeleteTodoImpl implements DeleteTodo {
 
 		const list = await this.repository.findByName(listName);
 
+		if (!list) throw new Error("[DeleteTodo] Error: List does not exist!");
+
 		const deletedTodo = list.remove(id)
 
 		await this.publisher.publish(new TodoRemoved(deletedTodo));

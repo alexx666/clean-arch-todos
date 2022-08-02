@@ -6,10 +6,10 @@ export default class InMemoryTodoRepository implements ListRepository {
 
 	constructor(private readonly events: Events = new Events()) { }
 
-	public async findByName(id: string): Promise<List> {
+	public async findByName(id: string): Promise<List | undefined> {
 		const listEvents = this.events.filter((event) => event.details.id === id);
 
-		if (!listEvents.length) throw new Error("[InMemoryTodoRepository] Error: List does not exist!");
+		if (!listEvents.length) return;
 
 		return List.buildFromStream(listEvents);
 	}

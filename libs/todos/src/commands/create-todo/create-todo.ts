@@ -42,6 +42,8 @@ export class CreateTodoImpl implements CreateTodo {
 
 		const list = await this.repository.findByName(listName);
 
+		if (!list) throw new Error("[CreateTodo] Error: List does not exist!");
+
 		list.add(todo);
 
 		await this.publisher.publish(new TodoAdded(todo));
