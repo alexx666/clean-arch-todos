@@ -6,6 +6,7 @@
 		"apps/*"
 	],
 	"scripts": {
+		"lint": "npx nx lint web",
 		"serve": "npx nx serve",
 		"test": "jest --passWithNoTests -c jest.projects.json",
 		"test:watch": "npm t -- --watch",
