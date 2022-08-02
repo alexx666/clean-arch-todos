@@ -1,12 +1,11 @@
 {
-	"editor.formatOnSave": true,
-	"editor.codeActionsOnSave": {
-		"source.fixAll.tslint": true
-	},
-	"files.associations": {
-		"tslint.json": "jsonc"
-	},
 	"thunder-client.saveToWorkspace": true,
 	"thunder-client.followRedirects": true,
 	"hediet.vscode-drawio.codeLinkActivated": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
 }
