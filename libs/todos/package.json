@@ -9,7 +9,10 @@
 		"typings"
 	],
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"clean": "tsc -b --clean tsconfig.json",
+		"prebuild": "npm run clean",
+		"build": "tsc -b tsconfig.json",
+		"test": "jest --passWithNoTests -c jest.config.js"
 	},
 	"publishConfig": {
 		"registry": "http://localhost:4873"

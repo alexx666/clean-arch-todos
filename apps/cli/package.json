@@ -9,9 +9,12 @@
 		"dist"
 	],
 	"scripts": {
+		"clean": "tsc -b --clean tsconfig.json",
+		"prebuild": "npm run clean",
+		"build": "tsc -b tsconfig.json",
 		"start": "node dist/todos",
 		"debug": "node --inspect dist/todos",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "jest --passWithNoTests -c jest.config.js"
 	},
 	"repository": {
 		"type": "git",
