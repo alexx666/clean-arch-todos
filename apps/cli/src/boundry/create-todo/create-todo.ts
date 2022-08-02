@@ -1,10 +1,10 @@
-import { CreateTodo, CreateTodoRequest, CreateTodoResponse, UuidProvider } from "@alexx666/todos";
+import { CreateTodo, CreateTodoRequest, CreateTodoResponse, UuidGenerator } from "@alexx666/todos";
 import { Config } from "../../config";
 import Request from "../../utils/request";
 
 export class CreateTodoImpl implements CreateTodo {
 
-	constructor(private readonly config: Config, private readonly uuidProvider: UuidProvider) { }
+	constructor(private readonly config: Config, private readonly uuidProvider: UuidGenerator) { }
 
 	async execute(input: CreateTodoRequest): Promise<CreateTodoResponse> {
 

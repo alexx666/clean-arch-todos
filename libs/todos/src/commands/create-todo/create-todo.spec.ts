@@ -1,6 +1,6 @@
 import { List, Todo } from "../../entities";
 import { CreateTodoImpl } from "../create-todo/create-todo";
-import { ListRepository } from "../../ports";
+import { ListRepository, Providers } from "../../ports";
 import { InMemoryPublisher, CryptoUuid } from "../../adapters";
 
 const errorMessage = "Todo already exists!"
@@ -25,15 +25,15 @@ const mockFailureGateway: ListRepository = {
 	findById: (_: string) => Promise.reject(new Error(errorMessage))
 }
 
-const failureProviders = {
+const failureProviders: Providers = {
 	repository: mockFailureGateway,
-	uuidProvider: new CryptoUuid(),
+	uuid: new CryptoUuid(),
 	publisher: new InMemoryPublisher()
 }
 
-const successProviders = {
+const successProviders: Providers = {
 	repository: mockSuccessGateway,
-	uuidProvider: new CryptoUuid(),
+	uuid: new CryptoUuid(),
 	publisher: new InMemoryPublisher()
 }
 

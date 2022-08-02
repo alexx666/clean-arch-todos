@@ -1,5 +1,5 @@
 import { TodoRemoved } from "../../events";
-import { EventPublisher, ListRepository, CommandConfig } from "../../ports";
+import { EventPublisher, ListRepository, Providers } from "../../ports";
 
 export interface DeleteTodo {
 	execute(request: DeleteTodoRequest): Promise<void>;
@@ -15,7 +15,7 @@ export class DeleteTodoImpl implements DeleteTodo {
 	private repository: ListRepository;
 	private publisher: EventPublisher;
 
-	constructor(config: CommandConfig) {
+	constructor(config: Providers) {
 		this.publisher = config.publisher;
 		this.repository = config.repository;
 	}

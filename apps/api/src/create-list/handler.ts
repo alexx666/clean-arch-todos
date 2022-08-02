@@ -1,10 +1,10 @@
-import { CreateListImpl, CryptoUuid, DynamoEventPublisher, DynamoListRepository } from "@alexx666/todos";
+import { CreateListImpl, CryptoUuid, DynamoEventPublisher, DynamoListRepository, Providers } from "@alexx666/todos";
 
 import createHandler from "./controller";
 
-const providers = {
+const providers: Providers = {
     repository: new DynamoListRepository(),
-    uuidProvider: new CryptoUuid(),
+    uuid: new CryptoUuid(),
     publisher: new DynamoEventPublisher(),
 };
 

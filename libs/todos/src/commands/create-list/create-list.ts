@@ -1,6 +1,6 @@
 import { List } from "../../entities/";
 import { ListCreated } from "../../events";
-import { EventPublisher, CommandConfig } from "../../ports";
+import { EventPublisher, Providers } from "../../ports";
 
 export interface CreateList {
 	execute(request: CreateListRequest): Promise<void>;
@@ -17,7 +17,7 @@ export class CreateListImpl implements CreateList {
 
 	private publisher: EventPublisher;
 
-	constructor(config: CommandConfig) {
+	constructor(config: Providers) {
 		this.publisher = config.publisher;
 	}
 

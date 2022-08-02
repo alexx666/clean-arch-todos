@@ -1,6 +1,6 @@
 import { Todo } from "../../entities";
 import { TodoAdded } from "../../events";
-import { EventPublisher, ListRepository, UuidProvider, CommandConfig } from "../../ports";
+import { EventPublisher, ListRepository, UuidGenerator, Providers } from "../../ports";
 
 export interface CreateTodo {
 	execute(request: CreateTodoRequest): Promise<CreateTodoResponse>;
@@ -21,12 +21,12 @@ export interface CreateTodoResponse {
 export class CreateTodoImpl implements CreateTodo {
 
 	private repository: ListRepository;
-	private uuidProvider: UuidProvider;
+	private uuidProvider: UuidGenerator;
 	private publisher: EventPublisher;
 
-	constructor(config: CommandConfig) {
+	constructor(config: Providers) {
 		this.publisher = config.publisher;
-		this.uuidProvider = config.uuidProvider;
+		this.uuidProvider = config.uuid;
 		this.repository = config.repository;
 	}
 

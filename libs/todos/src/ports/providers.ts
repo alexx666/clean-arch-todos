@@ -1,9 +1,9 @@
 import EventPublisher from "./event.publisher";
 import ListRepository from "./list.repository";
-import UuidProvider from "./uuid";
+import UuidGenerator from "./uuid";
 
-export default interface CommandConfig {
+export default interface Providers {
     repository: ListRepository;
     publisher: EventPublisher;
-    uuidProvider: UuidProvider;
+    uuid: UuidGenerator;
 }
