@@ -15,7 +15,9 @@
 		"build": "tsc -b tsconfig.json",
 		"start": "node dist/todos",
 		"debug": "node --inspect dist/todos",
-		"test": "jest --passWithNoTests -c jest.config.js"
+		"test": "jest --passWithNoTests -c jest.config.js",
+		"format": "npx prettier --write src/",
+		"lint:fix": "npm run lint -- --fix"
 	},
 	"repository": {
 		"type": "git",
