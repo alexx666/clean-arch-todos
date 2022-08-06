@@ -12,14 +12,14 @@ import { config } from "../../config";
 
 import { CryptoUuid } from "@alexx666/todos";
 
-const listTodos = new ListTodosImpl(config)
-const createTodo = new CreateTodoImpl(config, new CryptoUuid())
-const deleteTodo = new DeleteTodoImpl(config)
+const listTodos = new ListTodosImpl(config);
+const createTodo = new CreateTodoImpl(config, new CryptoUuid());
+const deleteTodo = new DeleteTodoImpl(config);
 
 const todosCommand = new Command("todos");
 
-todosCommand.addCommand(listCmd(listTodos))
-todosCommand.addCommand(createCmd(createTodo))
-todosCommand.addCommand(deleteCmd(deleteTodo))
+todosCommand.addCommand(listCmd(listTodos));
+todosCommand.addCommand(createCmd(createTodo));
+todosCommand.addCommand(deleteCmd(deleteTodo));
 
 export default todosCommand;

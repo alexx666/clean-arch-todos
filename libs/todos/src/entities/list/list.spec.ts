@@ -1,3 +1,3 @@
 describe("[List] Test Cases", () => {
-	xit("should create a list successfully", () => {})
-})
+	xit("should create a list successfully", () => {});
+});

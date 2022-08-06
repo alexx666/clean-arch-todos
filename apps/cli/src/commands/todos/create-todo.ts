@@ -10,16 +10,16 @@ export default function (createTodo: CreateTodo) {
 		.requiredOption("-d, --description <description>", "todo description")
 		.requiredOption("-s, --start <start>", "todo start date in ISO format")
 		.requiredOption("-e, --end <end>", "todo end date in ISO format")
-		.action(async cmd => {
+		.action(async (cmd) => {
 			const request: CreateTodoRequest = {
 				listName: cmd.listName,
 				description: cmd.description,
 				start: cmd.start,
-				end: cmd.end
+				end: cmd.end,
 			};
 
 			const result = await createTodo.execute(request);
 
-			console.table(result)
+			console.table(result);
 		});
 }

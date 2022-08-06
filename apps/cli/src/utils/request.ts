@@ -3,58 +3,59 @@ import { request, RequestOptions } from "https";
 import { URL } from "url";
 
 interface Headers {
-    [key: string]: string | number;
+	[key: string]: string | number;
 }
 
 interface RequestParameters {
-    url: string;
-    method: "POST" | "PUT" | "DELETE" | "GET",
-    body?: string | Buffer;
-    headers: Headers;
+	url: string;
+	method: "POST" | "PUT" | "DELETE" | "GET";
+	body?: string | Buffer;
+	headers: Headers;
 }
 
 export default class Request<TResponse> {
+	private static errorRegex = /^(4|5)[\d]{2}$/;
 
-    private static errorRegex = /^(4|5)[\d]{2}$/;
+	private readonly options: RequestOptions;
+	private readonly body?: string | Buffer;
 
-    private readonly options: RequestOptions;
-    private readonly body?: string | Buffer;
+	constructor(options: RequestParameters) {
+		const urlParams = new URL(options.url);
 
-    constructor(options: RequestParameters) {
+		this.options = {
+			host: urlParams.hostname,
+			port: urlParams.port,
+			method: options.method,
+			path: urlParams.pathname,
+			headers: options.headers,
+		};
 
-        const urlParams = new URL(options.url);
+		this.body = options.body;
+	}
 
-        this.options = {
-            host: urlParams.hostname,
-            port: urlParams.port,
-            method: options.method,
-            path: urlParams.pathname,
-            headers: options.headers
-        }
+	public send(): Promise<TResponse> {
+		return new Promise((resolve, reject) => {
+			const handler = (res: IncomingMessage) => {
+				const isError = Request.errorRegex.test(String(res.statusCode));
 
-        this.body = options.body;
-    }
+				res.setEncoding("utf8");
 
-    public send(): Promise<TResponse> {
-        return new Promise((resolve, reject) => {
+				res.on("data", (data) =>
+					isError
+						? reject(new Error(JSON.parse(data).error))
+						: resolve(JSON.parse(data))
+				);
 
-            const handler = (res: IncomingMessage) => {
-                const isError = Request.errorRegex.test(String(res.statusCode));
+				res.on("error", reject);
+			};
 
-                res.setEncoding('utf8');
+			const req = request(this.options, handler);
 
-                res.on("data", (data) => isError ? reject(new Error(JSON.parse(data).error)) : resolve(JSON.parse(data)));
+			req.on("error", reject);
 
-                res.on("error", reject);
-            }
+			if (this.body) req.write(this.body);
 
-            const req = request(this.options, handler);
-
-            req.on("error", reject);
-
-            if (this.body) req.write(this.body);
-
-            req.end();
-        });
-    }
+			req.end();
+		});
+	}
 }

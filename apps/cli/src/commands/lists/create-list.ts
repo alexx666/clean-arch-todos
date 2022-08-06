@@ -11,11 +11,11 @@ export default function (createList: CreateList) {
 				listName: String(cmd.listName),
 				maxTodos: Number(cmd.maxTodos ?? 10),
 				allowDuplicates: Boolean(cmd.allowDuplicates ?? false),
-				allowExpired: Boolean(cmd.allowExpired ?? true)
-			}
+				allowExpired: Boolean(cmd.allowExpired ?? true),
+			};
 
 			const result = await createList.execute(request);
 
 			console.table(result);
-		})
+		});
 }

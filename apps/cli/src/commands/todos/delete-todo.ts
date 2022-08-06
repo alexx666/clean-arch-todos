@@ -8,7 +8,7 @@ export default function (deleteTodo: DeleteTodo) {
 		.description("Delete todo")
 		.requiredOption("-l, --list-name <list>", "List ID")
 		.requiredOption("--id <id>", "todo ID")
-		.action(async cmd => {
+		.action(async (cmd) => {
 			const request: DeleteTodoRequest = { listName: cmd.listName, id: cmd.id };
 
 			await deleteTodo.execute(request);

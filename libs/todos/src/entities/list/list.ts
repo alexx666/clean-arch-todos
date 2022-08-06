@@ -12,14 +12,12 @@ export interface ListParameters {
 }
 
 export class List {
-
 	public static buildFromStream(events: Events | Event[]): List {
 		const listParams: Partial<ListParameters> = {};
 
 		for (const event of events) {
 			switch (true) {
 				case event.type === "ListCreated":
-
 					const listDetails = event.details as ListDetails;
 
 					listParams.name = listDetails.name;
@@ -32,9 +30,9 @@ export class List {
 
 				case event.type === "TodoAdded":
 					const todoParams = {
-						...event.details as TodoParameters,
+						...(event.details as TodoParameters),
 						startDate: new Date(event.details.startDate),
-						endDate: new Date(event.details.endDate)
+						endDate: new Date(event.details.endDate),
 					};
 
 					listParams.todos?.push(new Todo(todoParams));
@@ -42,12 +40,16 @@ export class List {
 					break;
 
 				case event.type === "TodoRemoved":
-					listParams.todos = listParams.todos?.filter(todo => todo.id !== event.details.id);
+					listParams.todos = listParams.todos?.filter(
+						(todo) => todo.id !== event.details.id
+					);
 
 					break;
 
 				default:
-					throw new Error("[List] Error: Unable to build object state from event stream!");
+					throw new Error(
+						"[List] Error: Unable to build object state from event stream!"
+					);
 			}
 		}
 
@@ -68,17 +70,18 @@ export class List {
 	}
 
 	public add(todo: Todo) {
-		if (!this.policy.isAllowedToAdd(this, todo)) throw new Error("ListError: Todo does not conform to List policy");
+		if (!this.policy.isAllowedToAdd(this, todo))
+			throw new Error("ListError: Todo does not conform to List policy");
 
 		this.todos.push(todo);
 	}
 
 	public remove(id: string): Todo {
-		const item = this.todos.find(todo => todo.id === id);
+		const item = this.todos.find((todo) => todo.id === id);
 
 		if (!item) throw new Error("ListError: Todo item not found within list!");
 
-		this.todos = this.todos.filter(todo => todo.id !== item.id);
+		this.todos = this.todos.filter((todo) => todo.id !== item.id);
 
 		return item;
 	}
@@ -93,5 +96,5 @@ export class List {
 
 	public get items(): Array<Todo> {
 		return this.todos;
-	};
+	}
 }

@@ -1,50 +1,51 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Handler } from "aws-lambda";
+import {
+	APIGatewayProxyEvent,
+	APIGatewayProxyResult,
+	Handler,
+} from "aws-lambda";
 
 import { ListTodos, ListTodosRequest } from "@alexx666/todos";
 
-export default (listTodos: ListTodos): Handler => async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export default (listTodos: ListTodos): Handler =>
+	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+		console.debug("Event:", event);
 
-    console.debug("Event:", event);
+		const response: Partial<APIGatewayProxyResult> = {
+			statusCode: 200,
+			headers: {
+				"Access-Control-Allow-Headers":
+					"Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
+				"Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE,PUT",
+				"Access-Control-Allow-Origin": "*",
+				"Content-Type": "application/json",
+			},
+		};
 
-    const response: Partial<APIGatewayProxyResult> = {
-        statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE,PUT",
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-        },
-    };
+		try {
+			const { pathParameters: params, path } = event;
 
-    try {
+			if (!params?.listId) throw new Error("Request has no path parameters!");
 
-        const { pathParameters: params, path } = event;
+			const request: ListTodosRequest = {
+				listName: String(params.listId),
+			};
 
-        if (!params?.listId) throw new Error("Request has no path parameters!");
+			const result = await listTodos.execute(request);
 
-        const request: ListTodosRequest = {
-            listName: String(params.listId)
-        }
+			response.body = JSON.stringify({
+				...result,
+				links: [{ rel: "self", href: `${path}` }],
+			});
+		} catch (error) {
+			console.error(error);
 
-        const result = await listTodos.execute(request)
+			response.statusCode = 500; // FIXME: better error handling
+			response.body = JSON.stringify({
+				error: (error as Error).message,
+			});
+		}
 
-        response.body = JSON.stringify({
-            ...result,
-            links: [
-                { rel: "self", href: `${path}` }
-            ]
-        })
+		console.debug("Response:", response);
 
-    } catch (error) {
-        console.error(error);
-
-        response.statusCode = 500; // FIXME: better error handling
-        response.body = JSON.stringify({
-            error: (error as Error).message,
-        });
-    }
-
-    console.debug("Response:", response);
-
-    return response as APIGatewayProxyResult;
-}
+		return response as APIGatewayProxyResult;
+	};

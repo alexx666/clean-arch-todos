@@ -1,6 +1,11 @@
 import { Todo } from "../../entities";
 import { TodoAdded } from "../../events";
-import { EventPublisher, ListRepository, UuidGenerator, Providers } from "../../ports";
+import {
+	EventPublisher,
+	ListRepository,
+	UuidGenerator,
+	Providers,
+} from "../../ports";
 
 export interface CreateTodo {
 	execute(request: CreateTodoRequest): Promise<CreateTodoResponse>;
@@ -19,7 +24,6 @@ export interface CreateTodoResponse {
 }
 
 export class CreateTodoImpl implements CreateTodo {
-
 	private repository: ListRepository;
 	private uuidProvider: UuidGenerator;
 	private publisher: EventPublisher;
@@ -31,7 +35,6 @@ export class CreateTodoImpl implements CreateTodo {
 	}
 
 	async execute(request: CreateTodoRequest): Promise<CreateTodoResponse> {
-
 		const { id: uuid, description, start, end, listName } = request;
 
 		const startDate = new Date(start);

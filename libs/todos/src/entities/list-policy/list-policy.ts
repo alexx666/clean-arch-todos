@@ -8,7 +8,6 @@ export interface PolicyParameters {
 }
 
 export class ListPolicy {
-
 	public readonly maxTodos: number;
 	public readonly allowDuplicates: boolean;
 	public readonly allowExpired: boolean;
@@ -20,8 +19,7 @@ export class ListPolicy {
 	}
 
 	public isAllowedToAdd(list: List, todo: Todo): boolean {
-
-		const listContainsItem = list.items.some(item => item.id === todo.id);
+		const listContainsItem = list.items.some((item) => item.id === todo.id);
 
 		const doesNotExceedLimit = this.maxTodos > list.size;
 

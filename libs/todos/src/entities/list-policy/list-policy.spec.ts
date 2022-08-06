@@ -1,3 +1,3 @@
 describe("[ListPolicy] Test Cases", () => {
-	xit("should create a list policy successfully", () => {})
-})
+	xit("should create a list policy successfully", () => {});
+});

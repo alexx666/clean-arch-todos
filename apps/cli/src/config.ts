@@ -4,4 +4,4 @@ export interface Config {
 
 export const config: Config = {
 	apiUrl: String(process.env.API_URL),
-}
+};

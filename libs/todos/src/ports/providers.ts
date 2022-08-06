@@ -3,7 +3,7 @@ import ListRepository from "./list.repository";
 import UuidGenerator from "./uuid";
 
 export default interface Providers {
-    repository: ListRepository;
-    publisher: EventPublisher;
-    uuid: UuidGenerator;
+	repository: ListRepository;
+	publisher: EventPublisher;
+	uuid: UuidGenerator;
 }

@@ -7,7 +7,6 @@ export interface TodoParameters {
 }
 
 export class Todo {
-
 	public readonly id: string;
 	public readonly description: string;
 	public readonly startDate: Date;
@@ -15,7 +14,6 @@ export class Todo {
 	public readonly listName: string;
 
 	constructor(params: TodoParameters) {
-
 		const { id, description, startDate, endDate, listName } = params;
 
 		this.listName = listName;
@@ -24,17 +22,19 @@ export class Todo {
 
 		this.id = id;
 
-		if (!description) throw new Error("ValidationError: Description not provided!");
+		if (!description)
+			throw new Error("ValidationError: Description not provided!");
 
 		this.description = description;
 
-		if (!startDate || !endDate) throw new Error("ValidationError: todo Timeline not defined!");
+		if (!startDate || !endDate)
+			throw new Error("ValidationError: todo Timeline not defined!");
 
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
 
 	public get isExpired(): boolean {
-		return Date.now() > this.endDate.getTime()
+		return Date.now() > this.endDate.getTime();
 	}
 }

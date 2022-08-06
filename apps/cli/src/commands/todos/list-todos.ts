@@ -9,13 +9,13 @@ export default function (listTodos: ListTodos) {
 		.alias("ls")
 		.description("List todos")
 		.requiredOption("-l, --list-name <list>", "List ID")
-		.action(async cmd => {
+		.action(async (cmd) => {
 			const request: ListTodosRequest = {
 				listName: String(cmd.listName),
-			}
+			};
 
-			const response = await listTodos.execute(request)
+			const response = await listTodos.execute(request);
 
-			console.table(response.items)
+			console.table(response.items);
 		});
 }

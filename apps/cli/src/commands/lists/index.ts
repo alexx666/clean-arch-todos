@@ -8,7 +8,7 @@ import createCmd from "./create-list";
 
 const createList = new CreateListImpl(config);
 
-const listCommand = new Command("lists")
+const listCommand = new Command("lists");
 
 listCommand.addCommand(createCmd(createList));
 

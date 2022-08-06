@@ -8,22 +8,25 @@ const listName = "my list";
 const events = new Events();
 
 describe("[InMemoryTodoGateway] Test Cases", () => {
-
 	let inMemTodoGW: InMemoryTodoRepository;
 
-	const list = new List({ name: listName, maxTodos: 10, allowDuplicates: false, allowExpired: true });
+	const list = new List({
+		name: listName,
+		maxTodos: 10,
+		allowDuplicates: false,
+		allowExpired: true,
+	});
 
 	events.push(new ListCreated(list));
 
 	beforeEach(() => {
 		inMemTodoGW = new InMemoryTodoRepository(events);
-	})
+	});
 
 	it("should return matching list", async () => {
-		const result = await inMemTodoGW.findByName(listName)
-		expect(result).toBeDefined()
-		expect(result).toEqual(list)
-		expect.assertions(2)
-	})
-
-})
+		const result = await inMemTodoGW.findByName(listName);
+		expect(result).toBeDefined();
+		expect(result).toEqual(list);
+		expect.assertions(2);
+	});
+});

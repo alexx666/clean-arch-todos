@@ -14,7 +14,6 @@ export interface CreateListRequest {
 }
 
 export class CreateListImpl implements CreateList {
-
 	private publisher: EventPublisher;
 	private repository: ListRepository;
 
@@ -24,7 +23,6 @@ export class CreateListImpl implements CreateList {
 	}
 
 	public async execute(request: CreateListRequest): Promise<void> {
-
 		const { listName: name, allowDuplicates, maxTodos, allowExpired } = request;
 
 		const existingList = await this.repository.findByName(name);

@@ -11,7 +11,6 @@ export interface DeleteTodoRequest {
 }
 
 export class DeleteTodoImpl implements DeleteTodo {
-
 	private repository: ListRepository;
 	private publisher: EventPublisher;
 
@@ -21,14 +20,13 @@ export class DeleteTodoImpl implements DeleteTodo {
 	}
 
 	public async execute(request: DeleteTodoRequest): Promise<void> {
-
 		const { listName, id } = request;
 
 		const list = await this.repository.findByName(listName);
 
 		if (!list) throw new Error("[DeleteTodo] Error: List does not exist!");
 
-		const deletedTodo = list.remove(id)
+		const deletedTodo = list.remove(id);
 
 		await this.publisher.publish(new TodoRemoved(deletedTodo));
 	}
