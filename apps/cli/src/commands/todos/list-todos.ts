@@ -9,9 +9,9 @@ export default function (listTodos: ListTodos) {
 		.alias("ls")
 		.description("List todos")
 		.requiredOption("-l, --list-name <list>", "List ID")
-		.action(async (cmd) => {
+		.action(async ({ listName }) => {
 			const request: ListTodosRequest = {
-				listName: String(cmd.listName),
+				listName: String(listName),
 			};
 
 			const response = await listTodos.execute(request);

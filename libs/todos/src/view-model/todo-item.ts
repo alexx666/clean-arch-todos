@@ -29,22 +29,20 @@ export default class TodoItem {
 	public static buildFromStream(events: Events | Event[]): TodoItem {
 		const params: Partial<TodoItemParameters> = {};
 
-		for (const event of events) {
+		for (const { type, details } of events) {
 			switch (true) {
-				case event.type === "TodoAdded":
-					const details = event.details as TodoDetails;
-
-					params.id = details.id;
-					params.description = details.description;
-					params.start = details.startDate;
-					params.end = details.endDate;
-					params.expired = Date.now() > new Date(details.endDate).getTime();
+				case type === "TodoAdded":
+					params.id = (details as TodoDetails).id;
+					params.description = (details as TodoDetails).description;
+					params.start = (details as TodoDetails).startDate;
+					params.end = (details as TodoDetails).endDate;
+					params.expired = Date.now() > new Date((details as TodoDetails).endDate).getTime();
 
 					params.isDeleted = false;
 
 					break;
 
-				case event.type === "TodoRemoved":
+				case type === "TodoRemoved":
 					params.isDeleted = true;
 
 					break;

@@ -13,6 +13,11 @@ interface RequestParameters {
 	headers: Headers;
 }
 
+// FIXME: define as generic param in Request
+interface ErrorMessage {
+	error: string;
+}
+
 export default class Request<TResponse> {
 	private static errorRegex = /^(4|5)[\d]{2}$/;
 
@@ -40,10 +45,10 @@ export default class Request<TResponse> {
 
 				res.setEncoding("utf8");
 
-				res.on("data", (data) =>
+				res.on("data", (data: string) =>
 					isError
-						? reject(new Error(JSON.parse(data).error))
-						: resolve(JSON.parse(data))
+						? reject(new Error((JSON.parse(data) as ErrorMessage).error))
+						: resolve(JSON.parse(data) as TResponse)
 				);
 
 				res.on("error", reject);

@@ -15,33 +15,29 @@ export class List {
 	public static buildFromStream(events: Events | Event[]): List {
 		const listParams: Partial<ListParameters> = {};
 
-		for (const event of events) {
+		for (const { type, details } of events) {
 			switch (true) {
-				case event.type === "ListCreated":
-					const listDetails = event.details as ListDetails;
-
-					listParams.name = listDetails.name;
-					listParams.allowDuplicates = listDetails.allowDuplicates;
-					listParams.allowExpired = listDetails.allowExpired;
-					listParams.maxTodos = listDetails.maxTodos;
-					listParams.todos = new Array();
+				case type === "ListCreated":
+					listParams.name = (details as ListDetails).name;
+					listParams.allowDuplicates = (details as ListDetails).allowDuplicates;
+					listParams.allowExpired = (details as ListDetails).allowExpired;
+					listParams.maxTodos = (details as ListDetails).maxTodos;
+					listParams.todos = [];
 
 					break;
 
-				case event.type === "TodoAdded":
-					const todoParams = {
-						...(event.details as TodoParameters),
-						startDate: new Date(event.details.startDate),
-						endDate: new Date(event.details.endDate),
-					};
-
-					listParams.todos?.push(new Todo(todoParams));
+				case type === "TodoAdded":
+					listParams.todos?.push(new Todo({
+						...(details as TodoParameters),
+						startDate: new Date((details as TodoParameters).startDate),
+						endDate: new Date((details as TodoParameters).endDate),
+					}));
 
 					break;
 
-				case event.type === "TodoRemoved":
+				case type === "TodoRemoved":
 					listParams.todos = listParams.todos?.filter(
-						(todo) => todo.id !== event.details.id
+						(todo) => todo.id !== details.id
 					);
 
 					break;
@@ -66,7 +62,7 @@ export class List {
 
 		this.name = Name.create(name);
 		this.policy = new ListPolicy(policyConfig);
-		this.todos = todos ?? new Array();
+		this.todos = todos ?? [];
 	}
 
 	public add(todo: Todo) {

@@ -9,7 +9,7 @@
 		"dist"
 	],
 	"scripts": {
-		"lint": "eslint -c .eslintrc.json --ext .ts \"src/*\"",
+		"lint": "eslint -c .eslintrc.json --ext .ts src/",
 		"clean": "tsc -b --clean tsconfig.json",
 		"prebuild": "npm run clean",
 		"build": "tsc -b tsconfig.json",

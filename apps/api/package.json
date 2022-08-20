@@ -9,7 +9,7 @@
 	"scripts": {
 		"format": "npx prettier --write src/",
 		"lint:fix": "npm run lint -- --fix",
-		"lint": "eslint -c .eslintrc.json --ext .ts \"src/**\"",
+		"lint": "eslint -c .eslintrc.json --ext .ts src/",
 		"clean": "tsc -b --clean tsconfig.json",
 		"prebuild": "npm run clean",
 		"start": "sam local start-api --debug --warm-containers EAGER --env-vars cfn/env.json",
