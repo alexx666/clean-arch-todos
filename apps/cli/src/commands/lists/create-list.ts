@@ -6,12 +6,12 @@ export default function (createList: CreateList) {
 		.alias("mk")
 		.description("Creates new list")
 		.requiredOption("-n, --list-name <list>", "List name")
-		.action(async (cmd) => {
+		.action(async ({ listName, maxTodos, allowDuplicates, allowExpired }) => {
 			const request: CreateListRequest = {
-				listName: String(cmd.listName),
-				maxTodos: Number(cmd.maxTodos ?? 10),
-				allowDuplicates: Boolean(cmd.allowDuplicates ?? false),
-				allowExpired: Boolean(cmd.allowExpired ?? true),
+				listName: String(listName),
+				maxTodos: Number(maxTodos ?? 10),
+				allowDuplicates: Boolean(allowDuplicates ?? false),
+				allowExpired: Boolean(allowExpired ?? true),
 			};
 
 			const result = await createList.execute(request);

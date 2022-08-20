@@ -1,12 +1,11 @@
 import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries";
-import { Todo } from "../../entities";
-import { Events, Event } from "../../events";
+import { Events } from "../../events";
 import { TodoItem } from "../../view-model";
 
 export default class InMemoryListTodos implements ListTodos {
-	constructor(private readonly events: Events = new Events()) {}
+	constructor(private readonly events: Events = new Events()) { }
 
-	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
+	public execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 		const listName = input.listName;
 
 		const sortedTodoEvents = this.events
@@ -26,10 +25,10 @@ export default class InMemoryListTodos implements ListTodos {
 
 		const active = items.filter((item) => !item.isDeleted);
 
-		return {
+		return Promise.resolve({
 			items,
 			count: active.length,
 			listName,
-		};
+		});
 	}
 }
