@@ -1,12 +1,11 @@
 {
 	"entryPoints": [
-		"libs/*"
+		"."
 	],
 	"entryPointStrategy": "packages",
-	"excludeInternal": true,
-	"excludeProtected": true,
-	"excludePrivate": true,
 	"includeVersion": true,
 	"cleanOutputDir": true,
-	"out": "dist"
+	"out": "dist",
+	"readme": "docs/README.md",
+	"name": "clean-arch-todos"
 }

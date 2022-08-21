@@ -32,5 +32,8 @@
 	"bugs": {
 		"url": "https://github.com/alexx666/clean-arch-todos/issues"
 	},
-	"homepage": "https://github.com/alexx666/clean-arch-todos#readme"
+	"homepage": "https://github.com/alexx666/clean-arch-todos#readme",
+	"typedoc": {
+		"readmeFile": "README.md"
+	}
 }

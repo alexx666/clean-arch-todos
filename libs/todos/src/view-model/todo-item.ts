@@ -1,6 +1,6 @@
 import { Event, Events, TodoDetails } from "../events";
 
-interface TodoItemParameters {
+export interface TodoItemParameters {
 	id: string;
 	start: string;
 	end: string;
@@ -9,7 +9,7 @@ interface TodoItemParameters {
 	isDeleted: boolean;
 }
 
-export default class TodoItem {
+export class TodoItem {
 	public readonly id: string;
 	public readonly start: string;
 	public readonly end: string;

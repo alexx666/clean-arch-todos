@@ -1,1 +1,1 @@
-export { default as TodoItem } from "./todo-item";
+export * from "./todo-item";
