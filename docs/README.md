@@ -2,6 +2,7 @@
 
 [![tests](https://github.com/alexx666/clean-arch-todos/actions/workflows/tests.yml/badge.svg)](https://github.com/alexx666/clean-arch-todos/actions/workflows/tests.yml)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 Monorepo for practicing and studying software architecture and system design concepts:
 
@@ -14,9 +15,9 @@ Monorepo for practicing and studying software architecture and system design con
 
 The project is a simple todo list app...for now! Glorified and overengineered for the purposes of learning. Its componed of the following packages:
 
-- [`@alexx666/todos`](../packages/todos/README.md) - provides core business logic usable in all of the `applications`
+- [`@alexx666/todos-core`](../packages/core/README.md) - provides core business logic usable in all of the `applications`
 - [`@alexx666/todos-cli`](../packages/cli/README.md) - CLI tool for interracting with the API
-- [`todos-api`](../packages/api/README.md) - REST API which provideds the core logic of the app
+- [`@alexx666/todos-api`](../packages/api/README.md) - REST API which provideds the core logic of the app
 - [`web`](../packages/web/) - minimal [Angular](https://angular.io/) frontend managed with [NX](https://nx.dev/) and [NGRX](https://ngrx.io/)
 
 ![architecture](./images/architecture.drawio.svg)

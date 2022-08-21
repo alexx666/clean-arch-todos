@@ -3,5 +3,5 @@
 ### Running
 
 ```
-npm start -w apps/api --silent -- --profile <your-aws-profile>
+npm start -w packages/api --silent -- --profile <your-aws-profile>
 ```
