@@ -8,6 +8,7 @@
 ### Verdaccio
 .verdaccio/storage/
 .verdaccio/plugins/
+!.verdaccio/config.yml
 
 ### Linux ###
 *~
