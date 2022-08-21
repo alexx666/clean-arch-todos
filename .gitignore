@@ -6,8 +6,8 @@
 .aws-sam/
 
 ### Verdaccio
-storage/
-plugins/
+.verdaccio/storage/
+.verdaccio/plugins/
 
 ### Linux ###
 *~

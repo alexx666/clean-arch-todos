@@ -17,9 +17,6 @@
 		"format": "npx prettier --write src/",
 		"lint:fix": "npm run lint -- --fix"
 	},
-	"publishConfig": {
-		"registry": "http://localhost:4873"
-	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/alexx666/clean-arch-todos.git"
