@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { CreateList, CreateListRequest } from "@alexx666/todos";
+import { CreateList, CreateListRequest } from "@alexx666/todos-core";
 
 export default function (createList: CreateList) {
 	return new Command("create")

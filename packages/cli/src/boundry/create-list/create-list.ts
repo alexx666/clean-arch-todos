@@ -1,10 +1,10 @@
-import { CreateList, CreateListRequest } from "@alexx666/todos";
+import { CreateList, CreateListRequest } from "@alexx666/todos-core";
 
 import { Config } from "../../config";
 import Request from "../../utils/request";
 
 export class CreateListImpl implements CreateList {
-	constructor(private readonly config: Config) {}
+	constructor(private readonly config: Config) { }
 
 	public execute(input: CreateListRequest): Promise<void> {
 		const request = new Request<void>({

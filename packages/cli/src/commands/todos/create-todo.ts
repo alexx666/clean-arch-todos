@@ -1,6 +1,6 @@
 import { Command } from "commander";
 
-import { CreateTodo, CreateTodoRequest } from "@alexx666/todos";
+import { CreateTodo, CreateTodoRequest } from "@alexx666/todos-core";
 
 export default function (createTodo: CreateTodo) {
 	return new Command("create")

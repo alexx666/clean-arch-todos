@@ -1,10 +1,10 @@
-import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos";
+import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos-core";
 import { Config } from "../../config";
 
 import Request from "../../utils/request";
 
 export class DeleteTodoImpl implements DeleteTodo {
-	constructor(private readonly config: Config) {}
+	constructor(private readonly config: Config) { }
 
 	public async execute(input: DeleteTodoRequest): Promise<void> {
 		const request = new Request<void>({

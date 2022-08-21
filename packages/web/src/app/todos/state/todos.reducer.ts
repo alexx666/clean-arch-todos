@@ -1,4 +1,4 @@
-import { TodoItem } from "@alexx666/todos";
+import { TodoItem } from "@alexx666/todos-core";
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { loadTodos, todosLoaded, deleteTodo, todoDeleted, todoRequestErrored } from "./todos.actions";
 import { TodoFeatureState } from "./todos.state";

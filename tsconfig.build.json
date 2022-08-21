@@ -2,7 +2,7 @@
 	"files": [],
 	"references": [
 		{
-			"path": "packages/todos"
+			"path": "packages/core"
 		},
 		{
 			"path": "packages/cli"

@@ -1,4 +1,4 @@
-import { DeleteTodoRequest, ListTodosRequest, ListTodosResponse } from "@alexx666/todos";
+import { DeleteTodoRequest, ListTodosRequest, ListTodosResponse } from "@alexx666/todos-core";
 import { createAction, props } from "@ngrx/store";
 
 export enum TodoActionTypes {

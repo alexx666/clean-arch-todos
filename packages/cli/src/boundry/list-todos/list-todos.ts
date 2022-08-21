@@ -2,12 +2,12 @@ import {
 	ListTodos,
 	ListTodosRequest,
 	ListTodosResponse,
-} from "@alexx666/todos";
+} from "@alexx666/todos-core";
 import { Config } from "../../config";
 import Request from "../../utils/request";
 
 export class ListTodosImpl implements ListTodos {
-	constructor(private readonly config: Config) {}
+	constructor(private readonly config: Config) { }
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 		const request = new Request<ListTodosResponse>({

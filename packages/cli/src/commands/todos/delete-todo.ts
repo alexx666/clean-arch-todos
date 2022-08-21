@@ -1,6 +1,6 @@
 import { Command } from "commander";
 
-import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos";
+import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos-core";
 
 export default function (deleteTodo: DeleteTodo) {
 	return new Command("delete")

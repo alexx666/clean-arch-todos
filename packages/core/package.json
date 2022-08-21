@@ -1,5 +1,5 @@
 {
-	"name": "@alexx666/todos",
+	"name": "@alexx666/todos-core",
 	"version": "1.0.0",
 	"description": "TODOs core business logic",
 	"main": "dist/index",

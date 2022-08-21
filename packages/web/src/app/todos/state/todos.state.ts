@@ -1,4 +1,4 @@
-import { TodoItem } from "@alexx666/todos";
+import { TodoItem } from "@alexx666/todos-core";
 
 export interface TodoFeatureState {
 	loading: boolean;

@@ -4,7 +4,7 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { CreateList, CreateListRequest, ListParameters } from "@alexx666/todos";
+import { CreateList, CreateListRequest, ListParameters } from "@alexx666/todos-core";
 
 export default (createList: CreateList): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {

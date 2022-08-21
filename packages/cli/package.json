@@ -33,7 +33,7 @@
 	},
 	"homepage": "https://github.com/alexx666/clean-arch-todos#readme",
 	"dependencies": {
-		"@alexx666/todos": "*",
+		"@alexx666/todos-core": "^1.0.0",
 		"commander": "^9.3.0",
 		"dotenv": "^16.0.1"
 	}

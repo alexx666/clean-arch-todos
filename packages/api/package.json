@@ -27,11 +27,11 @@
 		"url": "https://github.com/alexx666/clean-arch-todos/issues"
 	},
 	"homepage": "https://github.com/alexx666/clean-arch-todos#readme",
-	"dependencies": {
-		"@alexx666/todos": "*"
-	},
 	"devDependencies": {
 		"@types/aws-lambda": "^8.10.101",
 		"aws-sdk": "^2.1185.0"
+	},
+	"dependencies": {
+		"@alexx666/todos-core": "^1.0.0"
 	}
 }

@@ -1,4 +1,4 @@
-import { DynamoListTodos } from "@alexx666/todos";
+import { DynamoListTodos } from "@alexx666/todos-core";
 
 import createHandler from "./controller";
 

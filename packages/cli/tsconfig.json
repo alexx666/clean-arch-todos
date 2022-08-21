@@ -8,7 +8,7 @@
 	},
 	"references": [
 		{
-			"path": "../todos"
+			"path": "../core"
 		}
 	],
 	"exclude": [

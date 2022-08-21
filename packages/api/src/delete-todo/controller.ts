@@ -4,7 +4,7 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos";
+import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos-core";
 
 export default (deleteTodo: DeleteTodo): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {

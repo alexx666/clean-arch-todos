@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { CreateListRequest, CreateTodoRequest, DeleteTodoRequest, ListTodosRequest, ListTodosResponse } from "@alexx666/todos";
+import { CreateListRequest, CreateTodoRequest, DeleteTodoRequest, ListTodosRequest, ListTodosResponse } from "@alexx666/todos-core";
 
 @Injectable({
 	providedIn: 'root'
