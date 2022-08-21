@@ -12,17 +12,12 @@ Monorepo for practicing and studying software architecture and system design con
 
 ## Architecture
 
-The project is a simple todo list app...for now! Glorified and overengineered for the purposes of learning. Its componed of the following parts:
+The project is a simple todo list app...for now! Glorified and overengineered for the purposes of learning. Its componed of the following packages:
 
-### [Libraries](../libs/)
-
-- [`@alexx666/todos`](../libs/todos/README.md) - provides core business logic usable in all of the `applications`
-
-### [Applications](../apps/)
-
-- [`@alexx666/todos-cli`](../apps/cli/README.md) - CLI tool for interracting with the API
-- [`todos-api`](../apps/api/README.md) - REST API which provideds the core logic of the app
-- [`web`](../apps//web/) - minimal [Angular](https://angular.io/) frontend managed with [NX](https://nx.dev/) and [NGRX](https://ngrx.io/)
+- [`@alexx666/todos`](../packages/todos/README.md) - provides core business logic usable in all of the `applications`
+- [`@alexx666/todos-cli`](../packages/cli/README.md) - CLI tool for interracting with the API
+- [`todos-api`](../packages/api/README.md) - REST API which provideds the core logic of the app
+- [`web`](../packages/web/) - minimal [Angular](https://angular.io/) frontend managed with [NX](https://nx.dev/) and [NGRX](https://ngrx.io/)
 
 ![architecture](./images/architecture.drawio.svg)
 

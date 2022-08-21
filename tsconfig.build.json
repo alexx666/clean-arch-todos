@@ -2,10 +2,13 @@
 	"files": [],
 	"references": [
 		{
-			"path": "libs"
+			"path": "packages/todos"
 		},
 		{
-			"path": "apps"
+			"path": "packages/cli"
+		},
+		{
+			"path": "packages/api"
 		}
 	]
 }

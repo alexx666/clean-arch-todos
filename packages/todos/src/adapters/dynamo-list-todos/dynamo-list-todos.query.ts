@@ -7,7 +7,7 @@ import { TodoItem } from "../../view-model";
 export default class DynamoListTodos implements ListTodos {
 	constructor(
 		private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()
-	) {}
+	) { }
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 		const listName = input.listName;

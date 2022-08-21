@@ -8,7 +8,7 @@
 	},
 	"references": [
 		{
-			"path": "../../libs/todos"
+			"path": "../todos"
 		}
 	],
 	"exclude": [
@@ -16,5 +16,6 @@
 		"test",
 		"dist",
 		"typings",
+		".aws-sam",
 	]
 }

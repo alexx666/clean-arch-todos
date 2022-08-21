@@ -35,5 +35,8 @@
 	"homepage": "https://github.com/alexx666/clean-arch-todos#readme",
 	"typedoc": {
 		"readmeFile": "README.md"
+	},
+	"peerDependencies": {
+		"aws-sdk": "^2.1199.0"
 	}
 }
