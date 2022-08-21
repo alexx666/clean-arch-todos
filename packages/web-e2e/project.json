@@ -27,7 +27,10 @@
 			}
 		}
 	},
-	"tags": [],
+	"tags": [
+		"scope:client",
+		"type:app"
+	],
 	"implicitDependencies": [
 		"web"
 	]

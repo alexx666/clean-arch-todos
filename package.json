@@ -58,7 +58,6 @@
 		"verdaccio": "^5.13.1"
 	},
 	"dependencies": {
-		"@alexx666/todos": "*",
 		"@angular/animations": "~14.0.0",
 		"@angular/cdk": "github:angular/cdk-builds",
 		"@angular/common": "~14.0.0",

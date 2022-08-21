@@ -5,6 +5,12 @@
 	"bin": {
 		"todos": "dist/todos.js"
 	},
+	"nx": {
+		"tags": [
+			"scope:client",
+			"type:app"
+		]
+	},
 	"files": [
 		"dist"
 	],

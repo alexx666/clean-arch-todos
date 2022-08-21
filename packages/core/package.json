@@ -4,6 +4,12 @@
 	"description": "TODOs core business logic",
 	"main": "dist/index",
 	"types": "typings/index",
+	"nx": {
+		"tags": [
+			"scope:core",
+			"type:feature"
+		]
+	},
 	"files": [
 		"dist",
 		"typings"

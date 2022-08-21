@@ -3,6 +3,12 @@
 	"private": true,
 	"version": "1.0.0",
 	"description": "TODOs Rest API",
+	"nx": {
+		"tags": [
+			"scope:backend",
+			"type:app"
+		]
+	},
 	"files": [
 		"package.json"
 	],
