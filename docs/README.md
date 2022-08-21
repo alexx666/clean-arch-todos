@@ -24,7 +24,7 @@ The project is a simple todo list app...for now! Glorified and overengineered fo
 - [`todos-api`](../apps/api/README.md) - REST API which provideds the core logic of the app
 - [`web`](../apps//web/) - minimal [Angular](https://angular.io/) frontend managed with [NX](https://nx.dev/) and [NGRX](https://ngrx.io/)
 
-![architecture](./architecture.drawio.svg)
+![architecture](./images/architecture.drawio.svg)
 
 ## Pre-requisites:
 

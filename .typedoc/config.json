@@ -1,6 +1,6 @@
 {
 	"entryPoints": [
-		"."
+		".."
 	],
 	"entryPointStrategy": "packages",
 	"includeVersion": true,
