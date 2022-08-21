@@ -1,6 +1,7 @@
 {
 	"thunder-client.saveToWorkspace": true,
 	"thunder-client.followRedirects": true,
+	"thunder-client.workspaceRelativePath": ".thunderclient",
 	"hediet.vscode-drawio.codeLinkActivated": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
