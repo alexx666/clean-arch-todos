@@ -1,18 +1,36 @@
 import { TodoItem } from "../view-model";
 
-// query
+/**
+ * Query request specifying the Todos to be returned
+ */
 export interface ListTodosRequest {
+	/**
+	 * String value of the name of the list
+	 */
 	listName: string;
 }
 
-// read model projection
+/**
+ * Query response object holding all matching Todos represented as {@link TodoItem}
+ */
 export interface ListTodosResponse {
+	/**
+	 * Todo items matching the query
+	 */
 	items: TodoItem[];
+	/**
+	 * List name to which the todos belong
+	 */
 	listName: string;
+	/**
+	 * Number of all todos found
+	 */
 	count: number;
 }
 
-// query handler
+/**
+ * Query interactor listing todo items belonging to a specific list.
+ */
 export interface ListTodos {
 	execute(input: ListTodosRequest): Promise<ListTodosResponse>;
 }

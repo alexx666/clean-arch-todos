@@ -10,6 +10,10 @@ export interface TodoDetails {
 	listName: string;
 }
 
+/**
+ * {@link DomainEvent} emitted when a {@link Todo} is added to a {@link List}.
+ * Holds the details of the {@link Todo} in a {@link TodoDetails} object
+ */
 export class TodoAdded implements DomainEvent<TodoDetails> {
 	public readonly type: string = "TodoAdded";
 	public readonly details: TodoDetails;
