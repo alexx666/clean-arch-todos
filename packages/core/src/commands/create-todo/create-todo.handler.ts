@@ -32,7 +32,7 @@ export class CreateTodoHandler implements CommandHandler<CreateTodo, Promise<Cre
 
 		list.add(todo);
 
-		await this.publisher.notify(new TodoAdded(todo));
+		await this.publisher.send(new TodoAdded(todo));
 
 		return { id };
 	}

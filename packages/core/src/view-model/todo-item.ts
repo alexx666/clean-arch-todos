@@ -59,7 +59,7 @@ export class TodoItem {
 	public static buildFromStream(events: Events | Event[]): TodoItem {
 		const params: Partial<TodoItemParameters> = {};
 
-		for (const { type, details } of events) {
+		for (const { name: type, params: details } of events) {
 			switch (true) {
 				case type === "TodoAdded":
 					params.id = (details as TodoDetails).id;

@@ -1,8 +1,10 @@
 import { List, Todo } from "../../entities";
 import { ListRepository } from "../../ports";
 import { DeleteTodoHandler } from "./delete-todo.handler";
-import { InMemoryPublisher } from "../../adapters";
 import { DeleteTodo } from "./delete-todo.command";
+import { InMemoryMediator } from "../../adapters";
+import { TodoRemovedHandler } from "./todo-removed.handler";
+import { TODO_REMOVED } from "./todo-removed.event";
 
 const listName = "my list";
 const todo = new Todo({
@@ -27,7 +29,14 @@ describe("[DeleteTodo] Success Cases", () => {
 		findByName: (_: string) => Promise.resolve(list),
 	};
 
-	const deleteTodoHandler: DeleteTodoHandler = new DeleteTodoHandler(new InMemoryPublisher(), mockSuccessGateway);
+	const di = new Map();
+	const mediator = new InMemoryMediator(di);
+
+	beforeAll(() => {
+		di.set(TODO_REMOVED, new TodoRemovedHandler());
+	})
+
+	const deleteTodoHandler: DeleteTodoHandler = new DeleteTodoHandler(mediator, mockSuccessGateway);
 
 	it("should return a the mocked todo in a valid DeleteTodoResponse object", async () => {
 		const result = await deleteTodoHandler.execute(new DeleteTodo({ id: "uuid-1", listName }));

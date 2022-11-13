@@ -16,7 +16,7 @@ export class List {
 	public static buildFromStream(events: Events | Event[]): List {
 		const listParams: Partial<ListParameters> = {};
 
-		for (const { type, details } of events) {
+		for (const { name: type, params: details } of events) {
 			switch (true) {
 				case type === "ListCreated":
 					listParams.name = (details as ListDetails).name;

@@ -1,23 +1,23 @@
+import { Command, CommandParameters } from "./command";
+
 /**
  * An arbitrary Domain Object
  */
-export interface Entity {
+export interface Entity extends CommandParameters {
 	/**
 	 * Unique identifier
 	 */
 	id: string;
-	[key: string]: any; // TODO: review if required
 }
 
 /**
  * A generic event event definition
  */
-export interface DomainEvent<T extends Entity> {
-	type: string;
+export interface DomainEvent<T extends Entity> extends Command {
 	/**
 	 * Event detail parameters
 	 */
-	details: T;
+	params: T;
 	/**
 	 * Time of event creation in miliseconds
 	 */
@@ -48,7 +48,7 @@ export class Events extends Array<Event> {
 	 */
 	public groupById() {
 		return this.reduce((rv: { [key: string]: Events }, x: Event) => {
-			(rv[x.details.id] = rv[x.details.id] || []).push(x);
+			(rv[x.params.id] = rv[x.params.id] || []).push(x);
 			return rv;
 		}, {});
 	}

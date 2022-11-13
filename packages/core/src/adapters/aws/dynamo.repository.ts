@@ -4,7 +4,7 @@ import { List } from "../../entities";
 import { Event } from "../../shared";
 import { ListRepository } from "../../ports";
 
-export default class DynamoListRepository implements ListRepository {
+export class DynamoListRepository implements ListRepository {
 	constructor(
 		private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()
 	) { }

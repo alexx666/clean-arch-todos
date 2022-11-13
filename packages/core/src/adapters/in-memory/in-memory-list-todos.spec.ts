@@ -1,7 +1,8 @@
 import { List, Todo } from "../../entities";
-import { Events, ListCreated, TodoAdded } from "../../events";
+import { Events } from "../../shared";
+import { ListCreated, TodoAdded } from "../../commands";
 
-import InMemoryListTodos from "./in-memory-list-todos.query";
+import { InMemoryListTodos } from "./in-memory-list-todos.query";
 
 const events = new Events();
 const request = { listName: "my list", limit: 1, skip: 1 };

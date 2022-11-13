@@ -10,13 +10,15 @@ export interface ListDetails {
 	allowExpired: boolean;
 }
 
+export const LIST_CREATED = "ListCreated";
+
 /**
  * {@link DomainEvent} emitted when a new list is created.
  * Holds the details of the {@link List} in a {@link ListDetails} object
  */
 export class ListCreated implements DomainEvent<ListDetails> {
-	public readonly type: string = "ListCreated";
-	public readonly details: ListDetails;
+	public readonly name: string = LIST_CREATED;
+	public readonly params: ListDetails;
 	public readonly timestamp: number = Date.now();
 	public readonly stream: string;
 
@@ -26,7 +28,7 @@ export class ListCreated implements DomainEvent<ListDetails> {
 	constructor(list: List) {
 		this.stream = this.stream = `List:${list.listName}`;
 
-		this.details = {
+		this.params = {
 			id: list.listName,
 			name: list.listName,
 			maxTodos: list.policy.maxTodos,

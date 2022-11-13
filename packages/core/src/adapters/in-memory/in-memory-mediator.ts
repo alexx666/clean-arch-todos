@@ -1,5 +1,5 @@
-import { Mediator } from "../ports";
-import { Command, CommandHandler, Event } from "../shared";
+import { Mediator } from "../../ports";
+import { Command, CommandHandler } from "../../shared";
 
 export class InMemoryMediator implements Mediator {
 
@@ -14,10 +14,4 @@ export class InMemoryMediator implements Mediator {
 
 		return handler.execute(command);
 	}
-
-	// FIXME: command and event should be the same
-	public async notify(_: Event): Promise<void> {
-		return;
-	}
-
 }

@@ -1,7 +1,8 @@
+import { ListCreated } from "../../commands";
 import { List } from "../../entities";
-import { Events, ListCreated } from "../../events";
+import { Events } from "../../shared";
 
-import InMemoryTodoRepository from "./in-memory.repository";
+import { InMemoryTodoRepository } from "./in-memory.repository";
 
 const listName = "my list";
 

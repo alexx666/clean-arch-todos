@@ -4,7 +4,7 @@ import { Event, Events } from "../../shared";
 import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries";
 import { TodoItem } from "../../view-model";
 
-export default class DynamoListTodos implements ListTodos {
+export class DynamoListTodos implements ListTodos {
 	constructor(
 		private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()
 	) { }

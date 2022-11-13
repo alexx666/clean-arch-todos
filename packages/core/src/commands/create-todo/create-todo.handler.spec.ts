@@ -1,9 +1,11 @@
 import { ListRepository } from "../../ports";
 import { List, Todo } from "../../entities";
-import { InMemoryPublisher, CryptoUuid } from "../../adapters";
+import { InMemoryMediator, CryptoUuid } from "../../adapters";
 
 import { CreateTodoHandler } from "./create-todo.handler";
 import { CreateTodo } from "./create-todo.command";
+import { TodoAddedHandler } from "./todo-added.handler";
+import { TODO_ADDED } from "./todo-added.event";
 
 const errorMessage = "Todo already exists!";
 const now = new Date(Date.now() + 3600);
@@ -34,8 +36,14 @@ const mockFailureGateway: ListRepository = {
 	findByName: (_: string) => Promise.reject(new Error(errorMessage)),
 };
 
+const di = new Map();
+const mediator = new InMemoryMediator(di);
+
+di.set(TODO_ADDED, new TodoAddedHandler());
+
 describe("[CreateTodo] Success Cases", () => {
-	const createTodoHandler = new CreateTodoHandler(mockSuccessGateway, new CryptoUuid(), new InMemoryPublisher());
+
+	const createTodoHandler = new CreateTodoHandler(mockSuccessGateway, new CryptoUuid(), mediator);
 
 	it("should return a the mocked todo in a valid CreateTodoResponse object", async () => {
 		await createTodoHandler.execute(new CreateTodo(request));
@@ -46,7 +54,7 @@ describe("[CreateTodo] Success Cases", () => {
 });
 
 describe("[CreateTodo] Fail Cases", () => {
-	const createTodoHandler = new CreateTodoHandler(mockFailureGateway, new CryptoUuid(), new InMemoryPublisher());
+	const createTodoHandler = new CreateTodoHandler(mockFailureGateway, new CryptoUuid(), mediator);
 
 	it("should return throw an error with the gateways message", async () => {
 		try {

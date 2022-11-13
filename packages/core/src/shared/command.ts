@@ -1,6 +1,6 @@
 
 export interface CommandParameters {
-	[key: string]: boolean | string | number | undefined;
+	[key: string]: any;
 }
 
 export interface Command {
