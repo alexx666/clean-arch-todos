@@ -1,20 +1,14 @@
-import { CreateList, CreateListHandler, CreateTodo, CreateTodoHandler, CREATE_LIST, CREATE_TODO, DeleteTodo, DeleteTodoHandler, DELETE_TODO, ListCreated, LIST_CREATED, TodoAdded, TodoRemoved, TODO_ADDED, TODO_REMOVED } from "../../../../commands";
-import { ListRepository, Mediator, UuidGenerator } from "../../../../ports";
+import { ListCreated, LIST_CREATED, TodoAdded, TodoRemoved, TODO_ADDED, TODO_REMOVED } from "../../../../commands";
+import { Mediator } from "../../../../ports";
 import { Command } from "../../../../shared";
 import { Config, Request } from "../../util";
 
 export class HttpMediator implements Mediator {
 
-	constructor(
-		private readonly config: Config,
-		private readonly repository: ListRepository,
-		private readonly uuids: UuidGenerator,
-	) { }
+	constructor(private readonly config: Config) { }
 
 	// FIXME convert to map
 	public async send(command: Command): Promise<any> {
-
-		let request: Request<any>;
 
 		switch (command.name) {
 			case LIST_CREATED:
@@ -48,14 +42,6 @@ export class HttpMediator implements Mediator {
 						end: (command as TodoAdded).params.endDate,
 					}),
 				}).send();
-
-			// REVIEW: these are in process related calls
-			case CREATE_LIST:
-				return new CreateListHandler(this, this.repository).execute(command as CreateList);
-			case CREATE_TODO:
-				return new CreateTodoHandler(this.repository, this.uuids, this).execute(command as CreateTodo);
-			case DELETE_TODO:
-				return new DeleteTodoHandler(this, this.repository).execute(command as DeleteTodo);
 			default:
 				throw new Error("Unknown operation performed");
 		}

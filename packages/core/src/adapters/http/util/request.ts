@@ -60,6 +60,8 @@ export class Request<TResponse> {
 
 			if (this.body) req.write(this.body);
 
+			console.log("Sending request", JSON.stringify({ ...this.options, body: this.body }, null, 2));
+
 			req.end();
 		});
 	}
