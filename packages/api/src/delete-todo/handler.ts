@@ -1,19 +1,11 @@
 import {
-	CryptoUuid,
-	DeleteTodoImpl,
+	DeleteTodoHandler,
 	DynamoEventPublisher,
 	DynamoListRepository,
-	Providers,
 } from "@alexx666/todos-core";
 
 import createHandler from "./controller";
 
-const providers: Providers = {
-	repository: new DynamoListRepository(),
-	uuid: new CryptoUuid(),
-	publisher: new DynamoEventPublisher(),
-};
-
-const useCase = new DeleteTodoImpl(providers);
+const useCase = new DeleteTodoHandler(new DynamoEventPublisher(), new DynamoListRepository());
 
 export const handler = createHandler(useCase);

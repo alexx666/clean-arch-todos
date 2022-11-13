@@ -1,5 +1,5 @@
 import { List } from "../../entities";
-import { Events } from "../../events";
+import { Events } from "../../shared";
 import { ListRepository } from "../../ports";
 
 export default class InMemoryTodoRepository implements ListRepository {

@@ -4,9 +4,9 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos-core";
+import { DeleteTodo, DeleteTodoHandler, DeleteTodoParameters } from "@alexx666/todos-core";
 
-export default (deleteTodo: DeleteTodo): Handler =>
+export default (handler: DeleteTodoHandler): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -28,12 +28,12 @@ export default (deleteTodo: DeleteTodo): Handler =>
 			if (!params?.listId || !params?.todoId)
 				throw new Error("Request has no path parameters!");
 
-			const request: DeleteTodoRequest = {
+			const request: DeleteTodoParameters = {
 				listName: params.listId,
 				id: params.todoId,
 			};
 
-			await deleteTodo.execute(request);
+			await handler.execute(new DeleteTodo(request));
 		} catch (error) {
 			console.error(error);
 

@@ -1,5 +1,5 @@
-import { List } from "../entities";
-import { DomainEvent } from "./event";
+import { List } from "../../entities";
+import { DomainEvent } from "../../shared";
 
 // FIXME: duplicated definition
 export interface ListDetails {

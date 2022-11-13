@@ -1,4 +1,5 @@
-import { Event, Events, TodoDetails } from "../events";
+import { TodoDetails } from "../commands";
+import { Event, Events } from "../shared";
 
 /**
  * Input parameters for {@link TodoItem} construction

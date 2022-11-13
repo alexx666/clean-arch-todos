@@ -1,7 +1,8 @@
 import { List, Todo } from "../../entities";
 import { ListRepository } from "../../ports";
-import { DeleteTodoImpl } from "./delete-todo";
-import { CryptoUuid, InMemoryPublisher } from "../../adapters";
+import { DeleteTodoHandler } from "./delete-todo.handler";
+import { InMemoryPublisher } from "../../adapters";
+import { DeleteTodo } from "./delete-todo.command";
 
 const listName = "my list";
 const todo = new Todo({
@@ -26,16 +27,10 @@ describe("[DeleteTodo] Success Cases", () => {
 		findByName: (_: string) => Promise.resolve(list),
 	};
 
-	const providers = {
-		repository: mockSuccessGateway,
-		uuid: new CryptoUuid(),
-		publisher: new InMemoryPublisher(),
-	};
-
-	const deleteTodo: DeleteTodoImpl = new DeleteTodoImpl(providers);
+	const deleteTodoHandler: DeleteTodoHandler = new DeleteTodoHandler(new InMemoryPublisher(), mockSuccessGateway);
 
 	it("should return a the mocked todo in a valid DeleteTodoResponse object", async () => {
-		const result = await deleteTodo.execute({ id: "uuid-1", listName });
+		const result = await deleteTodoHandler.execute(new DeleteTodo({ id: "uuid-1", listName }));
 
 		expect(result).toBeUndefined();
 		expect.assertions(1);

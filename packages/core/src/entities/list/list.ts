@@ -1,4 +1,5 @@
-import { Events, Event, ListDetails } from "../../events";
+import { ListDetails } from "../../commands";
+import { Events, Event } from "../../shared";
 import { Name } from "../../value-objects";
 import { ListPolicy } from "../list-policy/list-policy";
 import { Todo, TodoParameters } from "../todo/todo";

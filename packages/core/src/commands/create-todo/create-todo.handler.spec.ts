@@ -1,11 +1,14 @@
+import { ListRepository } from "../../ports";
 import { List, Todo } from "../../entities";
-import { CreateTodoImpl } from "../create-todo/create-todo";
-import { ListRepository, Providers } from "../../ports";
 import { InMemoryPublisher, CryptoUuid } from "../../adapters";
+
+import { CreateTodoHandler } from "./create-todo.handler";
+import { CreateTodo } from "./create-todo.command";
 
 const errorMessage = "Todo already exists!";
 const now = new Date(Date.now() + 3600);
 const listName = "my list";
+
 const request = {
 	listName: listName,
 	description: "test description",
@@ -31,23 +34,11 @@ const mockFailureGateway: ListRepository = {
 	findByName: (_: string) => Promise.reject(new Error(errorMessage)),
 };
 
-const failureProviders: Providers = {
-	repository: mockFailureGateway,
-	uuid: new CryptoUuid(),
-	publisher: new InMemoryPublisher(),
-};
-
-const successProviders: Providers = {
-	repository: mockSuccessGateway,
-	uuid: new CryptoUuid(),
-	publisher: new InMemoryPublisher(),
-};
-
 describe("[CreateTodo] Success Cases", () => {
-	const createTodo: CreateTodoImpl = new CreateTodoImpl(successProviders);
+	const createTodoHandler = new CreateTodoHandler(mockSuccessGateway, new CryptoUuid(), new InMemoryPublisher());
 
 	it("should return a the mocked todo in a valid CreateTodoResponse object", async () => {
-		await createTodo.execute(request);
+		await createTodoHandler.execute(new CreateTodo(request));
 
 		expect(todos.length).toEqual(1);
 		expect.assertions(1);
@@ -55,11 +46,11 @@ describe("[CreateTodo] Success Cases", () => {
 });
 
 describe("[CreateTodo] Fail Cases", () => {
-	const createTodo: CreateTodoImpl = new CreateTodoImpl(failureProviders);
+	const createTodoHandler = new CreateTodoHandler(mockFailureGateway, new CryptoUuid(), new InMemoryPublisher());
 
 	it("should return throw an error with the gateways message", async () => {
 		try {
-			await createTodo.execute(request);
+			await createTodoHandler.execute(new CreateTodo(request));
 		} catch (error) {
 			expect((error as Error).message).toEqual(errorMessage);
 			expect.assertions(1);

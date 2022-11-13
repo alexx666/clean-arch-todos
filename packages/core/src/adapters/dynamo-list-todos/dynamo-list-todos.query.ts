@@ -1,5 +1,5 @@
 import { DynamoDB } from "aws-sdk";
-import { Event, Events } from "../../events";
+import { Event, Events } from "../../shared";
 
 import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries";
 import { TodoItem } from "../../view-model";

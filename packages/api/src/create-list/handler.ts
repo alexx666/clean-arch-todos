@@ -1,19 +1,11 @@
 import {
-	CreateListImpl,
-	CryptoUuid,
+	CreateListHandler,
 	DynamoEventPublisher,
 	DynamoListRepository,
-	Providers,
 } from "@alexx666/todos-core";
 
 import createHandler from "./controller";
 
-const providers: Providers = {
-	repository: new DynamoListRepository(),
-	uuid: new CryptoUuid(),
-	publisher: new DynamoEventPublisher(),
-};
-
-const useCase = new CreateListImpl(providers);
+const useCase = new CreateListHandler(new DynamoEventPublisher(), new DynamoListRepository());
 
 export const handler = createHandler(useCase);

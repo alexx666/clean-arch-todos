@@ -4,9 +4,9 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { CreateTodo, CreateTodoRequest } from "@alexx666/todos-core";
+import { CreateTodo, CreateTodoHandler, CreateTodoParameters } from "@alexx666/todos-core";
 
-export default (createTodo: CreateTodo): Handler =>
+export default (createTodoHandler: CreateTodoHandler): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -27,14 +27,12 @@ export default (createTodo: CreateTodo): Handler =>
 			if (!body) throw new Error("Request has no body!");
 			if (!params?.listId) throw new Error("Request has no path parameters!");
 
-			const todoParams = JSON.parse(body) as CreateTodoRequest;
-
-			const request: CreateTodoRequest = {
-				...todoParams,
+			const request = {
+				...JSON.parse(body),
 				listName: decodeURI(params.listId),
-			};
+			} as CreateTodoParameters;
 
-			const result = await createTodo.execute(request);
+			const result = await createTodoHandler.execute(new CreateTodo(request));
 
 			response.body = JSON.stringify(result);
 		} catch (error) {

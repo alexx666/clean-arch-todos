@@ -1,5 +1,5 @@
 import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries";
-import { Events } from "../../events";
+import { Events } from "../../shared";
 import { TodoItem } from "../../view-model";
 
 export default class InMemoryListTodos implements ListTodos {

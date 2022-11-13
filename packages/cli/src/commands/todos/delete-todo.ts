@@ -1,17 +1,18 @@
 import { Command } from "commander";
 
-import { DeleteTodo, DeleteTodoRequest } from "@alexx666/todos-core";
+import { DeleteTodo, DeleteTodoParameters } from "@alexx666/todos-core";
+import { DeleteTodoImpl } from "../../boundry/delete-todo/delete-todo";
 
-export default function (deleteTodo: DeleteTodo) {
+export default function (handler: DeleteTodoImpl) {
 	return new Command("delete")
 		.alias("rm")
 		.description("Delete todo")
 		.requiredOption("-l, --list-name <list>", "List ID")
 		.requiredOption("--id <id>", "todo ID")
 		.action(async ({ listName, id }) => {
-			const request: DeleteTodoRequest = { listName: String(listName), id: String(id) };
+			const request: DeleteTodoParameters = { listName: String(listName), id: String(id) };
 
-			await deleteTodo.execute(request);
+			await handler.execute(new DeleteTodo(request));
 
 			console.log("Deleted todo:", id);
 		});

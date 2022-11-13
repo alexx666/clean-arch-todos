@@ -1,6 +1,6 @@
-import { Todo } from "../entities";
+import { Todo } from "../../entities";
 
-import { DomainEvent } from "./event";
+import { DomainEvent } from "../../shared";
 
 /**
  * {@link DomainEvent} emitted when a {@link Todo} is removed from a {@link List}.

@@ -1,8 +1,10 @@
 import { Command } from "commander";
 
-import { CreateTodo, CreateTodoRequest } from "@alexx666/todos-core";
+import { CreateTodo } from "@alexx666/todos-core";
 
-export default function (createTodo: CreateTodo) {
+import { CreateTodoImpl } from "../../boundry/create-todo/create-todo";
+
+export default function (createTodoHandler: CreateTodoImpl) {
 	return new Command("create")
 		.alias("mk")
 		.description("Create todo")
@@ -11,14 +13,14 @@ export default function (createTodo: CreateTodo) {
 		.requiredOption("-s, --start <start>", "todo start date in ISO format")
 		.requiredOption("-e, --end <end>", "todo end date in ISO format")
 		.action(async ({ listName, description, start, end }) => {
-			const request: CreateTodoRequest = {
+			const request = new CreateTodo({
 				listName: String(listName),
 				description: String(description),
 				start: String(start),
 				end: String(end),
-			};
+			});
 
-			const result = await createTodo.execute(request);
+			const result = await createTodoHandler.execute(request);
 
 			console.table(result);
 		});

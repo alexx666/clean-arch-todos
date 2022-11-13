@@ -4,9 +4,9 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { CreateList, CreateListRequest, ListParameters } from "@alexx666/todos-core";
+import { CreateList, CreateListHandler, CreateListParameters } from "@alexx666/todos-core";
 
-export default (createList: CreateList): Handler =>
+export default (createListHandler: CreateListHandler): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -25,16 +25,16 @@ export default (createList: CreateList): Handler =>
 		try {
 			if (!event.body) throw new Error("Request has no body!");
 
-			const body = JSON.parse(event.body) as ListParameters;
+			const body = JSON.parse(event.body) as CreateListParameters;
 
-			const request: CreateListRequest = {
+			const request = {
 				listName: body.name,
 				maxTodos: body.maxTodos ?? 10,
 				allowDuplicates: body.allowDuplicates ?? false,
 				allowExpired: body.allowExpired ?? true,
-			};
+			} as CreateListParameters;
 
-			await createList.execute(request);
+			await createListHandler.execute(new CreateList(request));
 		} catch (error) {
 			console.error(error);
 

@@ -1,13 +1,13 @@
 import { DynamoDB } from "aws-sdk";
 
 import { List } from "../../entities";
-import { Event } from "../../events";
+import { Event } from "../../shared";
 import { ListRepository } from "../../ports";
 
 export default class DynamoListRepository implements ListRepository {
 	constructor(
 		private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()
-	) {}
+	) { }
 
 	public async findByName(id: string): Promise<List | undefined> {
 		const { Items: events } = await this.ddb
