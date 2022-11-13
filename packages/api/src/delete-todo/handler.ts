@@ -1,11 +1,11 @@
-import {
-	DeleteTodoHandler,
-	DynamoEventPublisher,
-	DynamoListRepository,
-} from "@alexx666/todos-core";
+import { DeleteTodoHandler, DELETE_TODO, InMemoryMediator, InMemoryTodoRepository } from "@alexx666/todos-core";
 
 import createHandler from "./controller";
 
-const useCase = new DeleteTodoHandler(new DynamoEventPublisher(), new DynamoListRepository());
+const di = new Map();
 
-export const handler = createHandler(useCase);
+const mediator = new InMemoryMediator(di);
+
+di.set(DELETE_TODO, new DeleteTodoHandler(mediator, new InMemoryTodoRepository()));
+
+export const handler = createHandler(mediator);

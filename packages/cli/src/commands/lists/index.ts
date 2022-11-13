@@ -1,15 +1,14 @@
+import { InMemoryMediator } from "@alexx666/todos-core";
 import { Command } from "commander";
 
-import { CreateListImpl } from "../../boundry/create-list/create-list";
-
-import { config } from "../../config";
+import handlers from "../../boundry";
 
 import createCmd from "./create-list";
 
-const createList = new CreateListImpl(config);
+const mediator = new InMemoryMediator(handlers);
 
 const listCommand = new Command("lists");
 
-listCommand.addCommand(createCmd(createList));
+listCommand.addCommand(createCmd(mediator));
 
 export default listCommand;

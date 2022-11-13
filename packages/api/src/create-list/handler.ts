@@ -1,11 +1,11 @@
-import {
-	CreateListHandler,
-	DynamoEventPublisher,
-	DynamoListRepository,
-} from "@alexx666/todos-core";
+import { CreateListHandler, CREATE_LIST, InMemoryMediator, InMemoryTodoRepository } from "@alexx666/todos-core";
 
 import createHandler from "./controller";
 
-const useCase = new CreateListHandler(new DynamoEventPublisher(), new DynamoListRepository());
+const di = new Map();
 
-export const handler = createHandler(useCase);
+const mediator = new InMemoryMediator(di);
+
+di.set(CREATE_LIST, new CreateListHandler(mediator, new InMemoryTodoRepository()));
+
+export const handler = createHandler(mediator);

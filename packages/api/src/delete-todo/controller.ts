@@ -4,9 +4,9 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { DeleteTodo, DeleteTodoHandler, DeleteTodoParameters } from "@alexx666/todos-core";
+import { DeleteTodo, DeleteTodoParameters, Mediator } from "@alexx666/todos-core";
 
-export default (handler: DeleteTodoHandler): Handler =>
+export default (mediator: Mediator): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -33,7 +33,7 @@ export default (handler: DeleteTodoHandler): Handler =>
 				id: params.todoId,
 			};
 
-			await handler.execute(new DeleteTodo(request));
+			await mediator.send(new DeleteTodo(request));
 		} catch (error) {
 			console.error(error);
 

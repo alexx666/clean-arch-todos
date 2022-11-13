@@ -1,9 +1,7 @@
 import { Command } from "commander";
-import { CreateList } from "@alexx666/todos-core";
+import { CreateList, Mediator } from "@alexx666/todos-core";
 
-import { CreateListImpl } from "../../boundry/create-list/create-list";
-
-export default function (createListHandler: CreateListImpl) {
+export default function (mediator: Mediator) {
 	return new Command("create")
 		.alias("mk")
 		.description("Creates new list")
@@ -16,7 +14,7 @@ export default function (createListHandler: CreateListImpl) {
 				allowExpired: Boolean(allowExpired ?? true),
 			});
 
-			const result = await createListHandler.execute(request);
+			const result = await mediator.send(request);
 
 			console.table(result);
 		});

@@ -1,12 +1,11 @@
-import {
-	CreateTodoHandler,
-	CryptoUuid,
-	DynamoEventPublisher,
-	DynamoListRepository,
-} from "@alexx666/todos-core";
+import { CreateTodoHandler, CREATE_TODO, CryptoUuid, InMemoryMediator, InMemoryTodoRepository } from "@alexx666/todos-core";
 
 import createHandler from "./controller";
 
-const useCase = new CreateTodoHandler(new DynamoListRepository(), new CryptoUuid(), new DynamoEventPublisher());
+const di = new Map();
 
-export const handler = createHandler(useCase);
+const mediator = new InMemoryMediator(di);
+
+di.set(CREATE_TODO, new CreateTodoHandler(new InMemoryTodoRepository(), new CryptoUuid(), mediator));
+
+export const handler = createHandler(mediator);

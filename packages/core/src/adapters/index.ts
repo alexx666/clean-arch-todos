@@ -7,3 +7,5 @@ export { default as InMemoryListTodos } from "./in-memory-list-todos-query/in-me
 export { default as DynamoEventPublisher } from "./dynamo-publisher/dynamo.publisher";
 export { default as DynamoListRepository } from "./dynamo-repository/dynamo.repository";
 export { default as DynamoListTodos } from "./dynamo-list-todos/dynamo-list-todos.query";
+
+export * from "./in-memory-mediator";

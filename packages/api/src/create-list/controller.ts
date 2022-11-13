@@ -4,9 +4,9 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { CreateList, CreateListHandler, CreateListParameters } from "@alexx666/todos-core";
+import { CreateList, CreateListParameters, Mediator } from "@alexx666/todos-core";
 
-export default (createListHandler: CreateListHandler): Handler =>
+export default (mediator: Mediator): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -34,7 +34,7 @@ export default (createListHandler: CreateListHandler): Handler =>
 				allowExpired: body.allowExpired ?? true,
 			} as CreateListParameters;
 
-			await createListHandler.execute(new CreateList(request));
+			await mediator.send(new CreateList(request));
 		} catch (error) {
 			console.error(error);
 

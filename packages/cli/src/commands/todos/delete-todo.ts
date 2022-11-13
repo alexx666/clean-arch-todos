@@ -1,9 +1,8 @@
 import { Command } from "commander";
 
-import { DeleteTodo, DeleteTodoParameters } from "@alexx666/todos-core";
-import { DeleteTodoImpl } from "../../boundry/delete-todo/delete-todo";
+import { DeleteTodo, DeleteTodoParameters, Mediator } from "@alexx666/todos-core";
 
-export default function (handler: DeleteTodoImpl) {
+export default function (mediator: Mediator) {
 	return new Command("delete")
 		.alias("rm")
 		.description("Delete todo")
@@ -12,7 +11,7 @@ export default function (handler: DeleteTodoImpl) {
 		.action(async ({ listName, id }) => {
 			const request: DeleteTodoParameters = { listName: String(listName), id: String(id) };
 
-			await handler.execute(new DeleteTodo(request));
+			await mediator.send(new DeleteTodo(request));
 
 			console.log("Deleted todo:", id);
 		});

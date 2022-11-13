@@ -4,9 +4,9 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { CreateTodo, CreateTodoHandler, CreateTodoParameters } from "@alexx666/todos-core";
+import { CreateTodo, CreateTodoParameters, Mediator } from "@alexx666/todos-core";
 
-export default (createTodoHandler: CreateTodoHandler): Handler =>
+export default (mediator: Mediator): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -32,7 +32,7 @@ export default (createTodoHandler: CreateTodoHandler): Handler =>
 				listName: decodeURI(params.listId),
 			} as CreateTodoParameters;
 
-			const result = await createTodoHandler.execute(new CreateTodo(request));
+			const result = await mediator.send(new CreateTodo(request));
 
 			response.body = JSON.stringify(result);
 		} catch (error) {

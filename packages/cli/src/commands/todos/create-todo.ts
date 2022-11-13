@@ -1,10 +1,8 @@
 import { Command } from "commander";
 
-import { CreateTodo } from "@alexx666/todos-core";
+import { CreateTodo, Mediator } from "@alexx666/todos-core";
 
-import { CreateTodoImpl } from "../../boundry/create-todo/create-todo";
-
-export default function (createTodoHandler: CreateTodoImpl) {
+export default function (mediator: Mediator) {
 	return new Command("create")
 		.alias("mk")
 		.description("Create todo")
@@ -20,7 +18,7 @@ export default function (createTodoHandler: CreateTodoImpl) {
 				end: String(end),
 			});
 
-			const result = await createTodoHandler.execute(request);
+			const result = await mediator.send(request);
 
 			console.table(result);
 		});
