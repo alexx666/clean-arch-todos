@@ -1,1 +1,1 @@
-export * from "./crypro-uuid";
+export * from "./adapters/crypro-uuid";

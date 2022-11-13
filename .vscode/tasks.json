@@ -1,62 +1,62 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "npm",
-            "script": "serve",
-            "problemMatcher": [],
-            "label": "npm: serve",
-            "isBackground": true,
-            "detail": "npx nx serve",
-            "icon": {
-                "id": "dashboard",
-                "color": "terminal.ansiWhite"
-            }
-        },
-        {
-            "type": "npm",
-            "script": "build:watch",
-            "group": "build",
-            "problemMatcher": [
-                "$tsc-watch"
-            ],
-            "isBackground": true,
-            "label": "npm: build:watch",
-            "detail": "npm run build -- -w",
-            "icon": {
-                "id": "tools",
-                "color": "terminal.ansiYellow"
-            }
-        },
-        {
-            "type": "npm",
-            "script": "test:watch",
-            "group": "build",
-            "isBackground": true,
-            "problemMatcher": [],
-            "label": "npm: test:watch",
-            "detail": "npm t -- --watch",
-            "icon": {
-                "id": "check-all",
-                "color": "terminal.ansiGreen"
-            }
-        },
-        {
-            "type": "npm",
-            "script": "build",
-            "path": "apps/api",
-            "group": "build",
-            "problemMatcher": [],
-            "label": "npm: build - apps/api",
-            "detail": "sam build -t cfn/template.yml"
-        },
-        {
-            "type": "npm",
-            "script": "registry",
-            "isBackground": true,
-            "problemMatcher": [],
-            "label": "npm: registry",
-            "detail": "verdaccio -c verdaccio.yml"
-        }
-    ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "serve",
+			"problemMatcher": [],
+			"label": "npm: serve",
+			"isBackground": true,
+			"detail": "npx nx serve",
+			"icon": {
+				"id": "dashboard",
+				"color": "terminal.ansiWhite"
+			}
+		},
+		{
+			"type": "npm",
+			"script": "build:watch",
+			"group": "build",
+			"problemMatcher": [
+				"$tsc-watch"
+			],
+			"isBackground": true,
+			"label": "npm: build:watch",
+			"detail": "npm run build -- -w",
+			"icon": {
+				"id": "tools",
+				"color": "terminal.ansiYellow"
+			}
+		},
+		{
+			"type": "npm",
+			"script": "test:watch",
+			"group": "test",
+			"isBackground": true,
+			"problemMatcher": [],
+			"label": "npm: test:watch",
+			"detail": "npm t -- --watch",
+			"icon": {
+				"id": "check-all",
+				"color": "terminal.ansiGreen"
+			}
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "apps/api",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build - apps/api",
+			"detail": "sam build -t cfn/template.yml"
+		},
+		{
+			"type": "npm",
+			"script": "registry",
+			"isBackground": true,
+			"problemMatcher": [],
+			"label": "npm: registry",
+			"detail": "verdaccio -c verdaccio.yml"
+		}
+	]
 }

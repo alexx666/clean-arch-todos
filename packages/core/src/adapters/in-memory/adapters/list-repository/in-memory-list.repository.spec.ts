@@ -1,15 +1,15 @@
-import { ListCreated } from "../../commands";
-import { List } from "../../entities";
-import { Events } from "../../shared";
+import { ListCreated } from "../../../../commands";
+import { List } from "../../../../entities";
+import { Events } from "../../../../shared";
 
-import { InMemoryTodoRepository } from "./in-memory.repository";
+import { InMemoryListRepository } from "./in-memory-list.repository";
 
 const listName = "my list";
 
 const events = new Events();
 
 describe("[InMemoryTodoGateway] Test Cases", () => {
-	let inMemTodoGW: InMemoryTodoRepository;
+	let inMemTodoGW: InMemoryListRepository;
 
 	const list = new List({
 		name: listName,
@@ -21,7 +21,7 @@ describe("[InMemoryTodoGateway] Test Cases", () => {
 	events.push(new ListCreated(list));
 
 	beforeEach(() => {
-		inMemTodoGW = new InMemoryTodoRepository(events);
+		inMemTodoGW = new InMemoryListRepository(events);
 	});
 
 	it("should return matching list", async () => {

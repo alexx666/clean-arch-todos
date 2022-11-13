@@ -1,5 +1,5 @@
-import { Mediator } from "../../ports";
-import { Command, CommandHandler } from "../../shared";
+import { Mediator } from "../../../../ports";
+import { Command, CommandHandler } from "../../../../shared";
 
 export class InMemoryMediator implements Mediator {
 

@@ -1,6 +1,6 @@
-import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries";
-import { Events } from "../../shared";
-import { TodoItem } from "../../view-model";
+import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../../../queries";
+import { Events } from "../../../../shared";
+import { TodoItem } from "../../../../view-model";
 
 export class InMemoryListTodos implements ListTodos {
 	constructor(private readonly events: Events = new Events()) { }

@@ -1,8 +1,8 @@
-import { List } from "../../entities";
-import { Events } from "../../shared";
-import { ListRepository } from "../../ports";
+import { List } from "../../../../entities";
+import { Events } from "../../../../shared";
+import { ListRepository } from "../../../../ports";
 
-export class InMemoryTodoRepository implements ListRepository {
+export class InMemoryListRepository implements ListRepository {
 	constructor(private readonly events: Events = new Events()) { }
 
 	public findByName(id: string): Promise<List | undefined> {

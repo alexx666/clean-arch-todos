@@ -1,8 +1,8 @@
 import { DynamoDB } from "aws-sdk";
 
-import { List } from "../../entities";
-import { Event } from "../../shared";
-import { ListRepository } from "../../ports";
+import { List } from "../../../../entities";
+import { Event } from "../../../../shared";
+import { ListRepository } from "../../../../ports";
 
 export class DynamoListRepository implements ListRepository {
 	constructor(

@@ -1,8 +1,8 @@
 import { DynamoDB } from "aws-sdk";
-import { Event, Events } from "../../shared";
+import { Event, Events } from "../../../../shared";
 
-import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../queries";
-import { TodoItem } from "../../view-model";
+import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../../../queries";
+import { TodoItem } from "../../../../view-model";
 
 export class DynamoListTodos implements ListTodos {
 	constructor(
