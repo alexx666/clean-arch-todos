@@ -9,4 +9,10 @@ export default interface ListRepository {
 	 * @param name string value representing the {@link List} name
 	 */
 	findByName(name: string): Promise<List | undefined>;
+
+	/**
+	 * Persists list changes into the repository
+	 * @param list {@link List} object to be saved
+	 */
+	save(list: List): Promise<void>;
 }

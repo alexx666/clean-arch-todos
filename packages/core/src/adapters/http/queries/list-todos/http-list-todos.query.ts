@@ -1,12 +1,8 @@
-import {
-	ListTodos,
-	ListTodosRequest,
-	ListTodosResponse,
-} from "@alexx666/todos-core";
-import { Config } from "../../config";
-import Request from "../../utils/request";
+import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../../../queries";
+import { Config, Request } from "../../util";
 
-export class ListTodosImpl implements ListTodos {
+export class HttpListTodos implements ListTodos {
+
 	constructor(private readonly config: Config) { }
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
@@ -20,4 +16,5 @@ export class ListTodosImpl implements ListTodos {
 
 		return request.send();
 	}
+
 }

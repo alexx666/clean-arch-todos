@@ -21,6 +21,8 @@ export class CreateListHandler implements CommandHandler<CreateList, Promise<voi
 
 		const newList = new List({ name, allowDuplicates, allowExpired, maxTodos });
 
+		await this.repository.save(newList);
+
 		await this.publisher.send(new ListCreated(newList));
 	}
 }

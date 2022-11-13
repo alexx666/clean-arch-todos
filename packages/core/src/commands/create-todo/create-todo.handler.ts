@@ -32,6 +32,8 @@ export class CreateTodoHandler implements CommandHandler<CreateTodo, Promise<Cre
 
 		list.add(todo);
 
+		await this.repository.save(list);
+
 		await this.publisher.send(new TodoAdded(todo));
 
 		return { id };

@@ -18,7 +18,7 @@ interface ErrorMessage {
 	error: string;
 }
 
-export default class Request<TResponse> {
+export class Request<TResponse> {
 	private static errorRegex = /^(4|5)[\d]{2}$/;
 
 	private readonly options: RequestOptions;

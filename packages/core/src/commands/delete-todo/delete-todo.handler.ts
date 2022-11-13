@@ -20,6 +20,8 @@ export class DeleteTodoHandler implements CommandHandler<DeleteTodo, Promise<voi
 
 		const deletedTodo = list.remove(id);
 
+		await this.repository.save(list);
+
 		await this.publisher.send(new TodoRemoved(deletedTodo));
 	}
 }
