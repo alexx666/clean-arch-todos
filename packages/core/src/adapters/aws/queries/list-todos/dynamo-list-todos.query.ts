@@ -1,10 +1,10 @@
 import { DynamoDB } from "aws-sdk";
 import { Event, Events } from "../../../../shared";
 
-import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../../../queries";
+import { IListTodos, ListTodosRequest, ListTodosResponse } from "../../../../queries";
 import { TodoItem } from "../../../../view-model";
 
-export class DynamoListTodos implements ListTodos {
+export class DynamoListTodos implements IListTodos {
 	constructor(
 		private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()
 	) { }

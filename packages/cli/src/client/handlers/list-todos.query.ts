@@ -1,7 +1,9 @@
-import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../../../queries";
-import { Config, Request } from "../../util";
+import { IListTodos, ListTodosRequest, ListTodosResponse } from "@alexx666/todos-core";
 
-export class HttpListTodos implements ListTodos {
+import { Config } from "../config";
+import { Request } from "../request";
+
+export class ListTodos implements IListTodos {
 
 	constructor(private readonly config: Config) { }
 

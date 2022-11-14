@@ -1,8 +1,8 @@
-import { ListTodos, ListTodosRequest, ListTodosResponse } from "../../../../queries";
+import { IListTodos, ListTodosRequest, ListTodosResponse } from "../../../../queries";
 import { Events } from "../../../../shared";
 import { TodoItem } from "../../../../view-model";
 
-export class InMemoryListTodos implements ListTodos {
+export class InMemoryListTodos implements IListTodos {
 	constructor(private readonly events: Events = new Events()) { }
 
 	public execute(input: ListTodosRequest): Promise<ListTodosResponse> {

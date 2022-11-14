@@ -1,4 +1,4 @@
-import { Mediator, ListRepository } from "../../ports";
+import { IMediator, ListRepository } from "../../ports";
 import { CommandHandler } from "../../shared";
 
 import { DeleteTodo } from "./delete-todo.command";
@@ -9,7 +9,7 @@ export type IDeleteTodoHandler = CommandHandler<DeleteTodo, Promise<void>>;
 export class DeleteTodoHandler implements IDeleteTodoHandler {
 
 	constructor(
-		private readonly publisher: Mediator,
+		private readonly publisher: IMediator,
 		private readonly repository: ListRepository
 	) { }
 

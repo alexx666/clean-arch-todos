@@ -1,7 +1,7 @@
 import { Command } from "commander";
-import { CreateList, Mediator } from "@alexx666/todos-core";
+import { CreateList, IMediator } from "@alexx666/todos-core";
 
-export default function (mediator: Mediator) {
+export default function (mediator: IMediator) {
 	return new Command("create")
 		.alias("mk")
 		.description("Creates new list")

@@ -1,5 +1,5 @@
 import { Todo } from "../../entities";
-import { Mediator, ListRepository, UuidGenerator } from "../../ports";
+import { IMediator, ListRepository, UuidGenerator } from "../../ports";
 import { CommandHandler } from "../../shared";
 
 import { CreateTodo } from "./create-todo.command";
@@ -16,7 +16,7 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 	constructor(
 		private readonly repository: ListRepository,
 		private readonly uuidProvider: UuidGenerator,
-		private readonly publisher: Mediator,
+		private readonly publisher: IMediator,
 	) { }
 
 	public async execute(command: CreateTodo): Promise<CreateTodoResponse> {

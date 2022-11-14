@@ -1,5 +1,5 @@
 import { List } from "../../entities";
-import { Mediator, ListRepository } from "../../ports";
+import { IMediator, ListRepository } from "../../ports";
 import { CommandHandler } from "../../shared";
 
 import { CreateList } from "./create-list.command";
@@ -10,7 +10,7 @@ export type ICreateListHandler = CommandHandler<CreateList, Promise<void>>;
 export class CreateListHandler implements ICreateListHandler {
 
 	constructor(
-		private readonly publisher: Mediator,
+		private readonly publisher: IMediator,
 		private readonly repository: ListRepository
 	) { }
 

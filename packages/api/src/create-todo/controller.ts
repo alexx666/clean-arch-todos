@@ -4,9 +4,9 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { CreateTodo, CreateTodoParameters, Mediator } from "@alexx666/todos-core";
+import { CreateTodo, CreateTodoParameters, IMediator } from "@alexx666/todos-core";
 
-export default (mediator: Mediator): Handler =>
+export default (mediator: IMediator): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 

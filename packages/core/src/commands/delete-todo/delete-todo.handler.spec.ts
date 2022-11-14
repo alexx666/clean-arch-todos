@@ -2,7 +2,7 @@ import { List, Todo } from "../../entities";
 import { ListRepository } from "../../ports";
 import { DeleteTodoHandler } from "./delete-todo.handler";
 import { DeleteTodo } from "./delete-todo.command";
-import { InMemoryMediator } from "../../adapters";
+import { Mediator } from "../../adapters";
 import { TodoRemovedHandler } from "./todo-removed.handler";
 import { TODO_REMOVED } from "./todo-removed.event";
 
@@ -27,10 +27,11 @@ const list = new List({
 describe("[DeleteTodo] Success Cases", () => {
 	const mockSuccessGateway: ListRepository = {
 		findByName: (_: string) => Promise.resolve(list),
+		save: () => Promise.resolve(),
 	};
 
 	const di = new Map();
-	const mediator = new InMemoryMediator(di);
+	const mediator = new Mediator(di);
 
 	beforeAll(() => {
 		di.set(TODO_REMOVED, new TodoRemovedHandler());

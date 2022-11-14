@@ -1,8 +1,8 @@
 import { Command } from "commander";
 
-import { DeleteTodo, DeleteTodoParameters, Mediator } from "@alexx666/todos-core";
+import { DeleteTodo, DeleteTodoParameters, IMediator } from "@alexx666/todos-core";
 
-export default function (mediator: Mediator) {
+export default function (mediator: IMediator) {
 	return new Command("delete")
 		.alias("rm")
 		.description("Delete todo")

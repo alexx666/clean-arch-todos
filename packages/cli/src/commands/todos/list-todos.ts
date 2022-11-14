@@ -2,9 +2,9 @@
 import { Command } from "commander";
 
 // Request/Response models
-import { ListTodos, ListTodosRequest } from "@alexx666/todos-core";
+import { IListTodos, ListTodosRequest } from "@alexx666/todos-core";
 
-export default function (listTodos: ListTodos) {
+export default function (listTodos: IListTodos) {
 	return new Command("list")
 		.alias("ls")
 		.description("List todos")

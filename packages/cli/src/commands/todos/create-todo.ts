@@ -1,8 +1,8 @@
 import { Command } from "commander";
 
-import { CreateTodo, Mediator } from "@alexx666/todos-core";
+import { CreateTodo, IMediator } from "@alexx666/todos-core";
 
-export default function (mediator: Mediator) {
+export default function (mediator: IMediator) {
 	return new Command("create")
 		.alias("mk")
 		.description("Create todo")

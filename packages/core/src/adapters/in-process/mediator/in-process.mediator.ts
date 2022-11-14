@@ -1,7 +1,7 @@
-import { Mediator } from "../../../../ports";
-import { Command, CommandHandler } from "../../../../shared";
+import { IMediator } from "../../../ports";
+import { Command, CommandHandler } from "../../../shared";
 
-export class InMemoryMediator implements Mediator {
+export class Mediator implements IMediator {
 
 	constructor(private readonly handlers: Map<string, any> = new Map()) { }
 

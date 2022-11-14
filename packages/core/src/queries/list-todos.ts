@@ -31,6 +31,6 @@ export interface ListTodosResponse {
 /**
  * Query interactor listing todo items belonging to a specific list.
  */
-export interface ListTodos {
+export interface IListTodos {
 	execute(input: ListTodosRequest): Promise<ListTodosResponse>;
 }

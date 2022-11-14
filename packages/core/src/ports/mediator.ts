@@ -1,5 +1,5 @@
 import { Command } from "../shared";
 
-export interface Mediator {
+export interface IMediator {
 	send<Output>(command: Command): Promise<Output>;
 }

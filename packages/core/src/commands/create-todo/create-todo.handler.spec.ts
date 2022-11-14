@@ -1,6 +1,6 @@
 import { ListRepository } from "../../ports";
 import { List, Todo } from "../../entities";
-import { InMemoryMediator, CryptoUuid } from "../../adapters";
+import { Mediator, CryptoUuid } from "../../adapters";
 
 import { CreateTodoHandler } from "./create-todo.handler";
 import { CreateTodo } from "./create-todo.command";
@@ -30,14 +30,16 @@ const list = new List({
 
 const mockSuccessGateway: ListRepository = {
 	findByName: (_: string) => Promise.resolve(list),
+	save: () => Promise.resolve()
 };
 
 const mockFailureGateway: ListRepository = {
 	findByName: (_: string) => Promise.reject(new Error(errorMessage)),
+	save: () => Promise.reject()
 };
 
 const di = new Map();
-const mediator = new InMemoryMediator(di);
+const mediator = new Mediator(di);
 
 di.set(TODO_ADDED, new TodoAddedHandler());
 
