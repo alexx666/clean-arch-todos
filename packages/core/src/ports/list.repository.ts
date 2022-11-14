@@ -1,4 +1,4 @@
-import { List } from "../entities";
+import { List } from "../domain";
 
 /**
  * Data access object for {@link List} domain entities.
