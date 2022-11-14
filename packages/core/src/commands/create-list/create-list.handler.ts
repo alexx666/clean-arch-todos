@@ -5,7 +5,9 @@ import { CommandHandler } from "../../shared";
 import { CreateList } from "./create-list.command";
 import { ListCreated } from "./list-created.event";
 
-export class CreateListHandler implements CommandHandler<CreateList, Promise<void>> {
+export type ICreateListHandler = CommandHandler<CreateList, Promise<void>>;
+
+export class CreateListHandler implements ICreateListHandler {
 
 	constructor(
 		private readonly publisher: Mediator,

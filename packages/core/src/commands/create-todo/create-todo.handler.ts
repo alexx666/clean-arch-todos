@@ -9,7 +9,9 @@ export interface CreateTodoResponse {
 	id: string;
 }
 
-export class CreateTodoHandler implements CommandHandler<CreateTodo, Promise<CreateTodoResponse>> {
+export type ICreateTodoHandler = CommandHandler<CreateTodo, Promise<CreateTodoResponse>>;
+
+export class CreateTodoHandler implements ICreateTodoHandler {
 
 	constructor(
 		private readonly repository: ListRepository,
