@@ -13,6 +13,6 @@ export default function (mediator: IMediator) {
 
 			await mediator.send(new DeleteTodo(request));
 
-			console.log("Deleted todo:", id);
+			console.log("Todo Removed:", id);
 		});
 }

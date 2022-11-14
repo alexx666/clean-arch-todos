@@ -20,6 +20,7 @@ export default function (mediator: IMediator) {
 
 			const result = await mediator.send(request);
 
+			console.log("Todo Added!");
 			console.table(result);
 		});
 }

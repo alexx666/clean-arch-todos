@@ -9,4 +9,5 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
 	},
+	"debug.javascript.autoAttachFilter": "onlyWithFlag",
 }

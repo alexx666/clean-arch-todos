@@ -18,7 +18,7 @@
 		"lint": "eslint -c .eslintrc.json --ext .ts src/",
 		"clean": "tsc -b --clean tsconfig.json",
 		"prebuild": "npm run clean",
-		"start": "sam local start-api --debug --warm-containers EAGER --env-vars cfn/env.json",
+		"start": "sam local start-api --warm-containers EAGER --env-vars cfn/env.json",
 		"build": "tsc -b tsconfig.json && sam build -t cfn/template.yml",
 		"deploy": "sam deploy -g",
 		"test": "jest --passWithNoTests -c jest.config.js"

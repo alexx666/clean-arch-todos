@@ -16,6 +16,7 @@ export default function (mediator: IMediator) {
 
 			const result = await mediator.send(request);
 
+			console.log("List Created!");
 			console.table(result);
 		});
 }
