@@ -10,6 +10,7 @@ Globals:
     Environment:
       Variables:
         DYNAMO_TABLE_NAME: !Ref EventStore
+        SNS_TOPIC_ARN: !Ref Mediator
     Tags:
       Project: !Ref Project
       Environment: !Ref Environment
@@ -20,7 +21,6 @@ Description: Clean Arch Todos API
 #   template metadata
 
 Parameters:
-
   Version:
     Type: String
     Default: v1
@@ -40,7 +40,6 @@ Parameters:
 #   set of conditions
 
 Resources:
-  
   TodosAPI:
     Type: AWS::Serverless::Api
     Properties:
@@ -57,19 +56,29 @@ Resources:
         Project: !Ref Project
         Environment: !Ref Environment
 
+  Mediator:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub ${AWS::StackName}-mediator
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
   EventStore:
     Type: AWS::DynamoDB::Table
-    Properties: 
+    Properties:
       TableName: !Sub ${AWS::StackName}-event-store
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-      AttributeDefinitions: 
+      AttributeDefinitions:
         - AttributeName: stream
           AttributeType: "S"
         - AttributeName: timestamp
           AttributeType: "N"
-      KeySchema: 
+      KeySchema:
         - AttributeName: stream
           KeyType: HASH
         - AttributeName: timestamp
@@ -91,7 +100,6 @@ Resources:
       RetentionPolicy: Delete
     Metadata:
       BuildMethod: nodejs16.x
-
 
   CreateList:
     Type: AWS::Serverless::Function
@@ -208,6 +216,5 @@ Resources:
           Value: !Ref Project
         - Key: Environment
           Value: !Ref Environment
-
 # Outputs:
 #   set of outputs
