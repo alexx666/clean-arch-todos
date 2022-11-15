@@ -1,5 +1,9 @@
-import { InMemoryListTodos } from "@alexx666/todos-core";
+import { DynamoListTodos } from "@alexx666/todos-core";
 
 import createHandler from "./controller";
 
-export const handler = createHandler(new InMemoryListTodos());
+const dynamoListTodos = new DynamoListTodos({
+	table: String(process.env.DYNAMO_TABLE_NAME),
+});
+
+export const handler = createHandler(dynamoListTodos);

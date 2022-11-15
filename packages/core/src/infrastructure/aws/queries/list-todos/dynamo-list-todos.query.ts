@@ -3,18 +3,21 @@ import { DynamoDB } from "aws-sdk";
 import { Event, Events } from "../../../../shared";
 import { IListTodos, ListTodosRequest, ListTodosResponse } from "../../../../application";
 import { TodoItem } from "../../../../domain";
+import { DynamoConfig } from "../../config";
 
 export class DynamoListTodos implements IListTodos {
-	constructor(
-		private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()
-	) { }
+	private readonly ddb: DynamoDB.DocumentClient;
+
+	constructor(private readonly config: DynamoConfig) {
+		this.ddb = new DynamoDB.DocumentClient();
+	}
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 		const listName = input.listName;
 
 		const { Items: sortedTodoEvents } = await this.ddb
 			.query({
-				TableName: String(process.env.DYNAMO_TABLE_NAME),
+				TableName: this.config.table,
 				KeyConditionExpression: "#stream = :stream",
 				FilterExpression: `begins_with(#type, :todo_events)`,
 				ExpressionAttributeValues: {

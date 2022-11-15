@@ -3,16 +3,19 @@ import { DynamoDB } from "aws-sdk";
 import { List } from "../../../../domain";
 import { Event } from "../../../../shared";
 import { ListRepository } from "../../../../ports";
+import { DynamoConfig } from "../../config";
 
 export class DynamoListRepository implements ListRepository {
-	constructor(
-		private readonly ddb: DynamoDB.DocumentClient = new DynamoDB.DocumentClient()
-	) { }
+	private readonly ddb: DynamoDB.DocumentClient;
+
+	constructor(private readonly config: DynamoConfig) {
+		this.ddb = new DynamoDB.DocumentClient();
+	}
 
 	public async findByName(id: string): Promise<List | undefined> {
 		const { Items: events } = await this.ddb
 			.query({
-				TableName: String(process.env.DYNAMO_TABLE_NAME),
+				TableName: this.config.table,
 				KeyConditionExpression: "#stream = :stream",
 				ExpressionAttributeValues: { ":stream": `List:${id}` },
 				ExpressionAttributeNames: { "#stream": "stream" },
