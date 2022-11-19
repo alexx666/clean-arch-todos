@@ -19,14 +19,14 @@ export class DynamoListTodos implements IListTodos {
 			.query({
 				TableName: this.config.table,
 				KeyConditionExpression: "#stream = :stream",
-				FilterExpression: `begins_with(#type, :todo_events)`,
+				FilterExpression: `begins_with(#name, :todo_events)`,
 				ExpressionAttributeValues: {
 					":stream": `List:${listName}`,
 					":todo_events": "Todo",
 				},
 				ExpressionAttributeNames: {
 					"#stream": "stream",
-					"#type": "type",
+					"#name": "name",
 				},
 			})
 			.promise();

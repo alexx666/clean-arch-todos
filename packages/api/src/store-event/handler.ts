@@ -1,4 +1,4 @@
-import DynamoEventRepository from "@alexx666/todos-core/src/infrastructure/aws/adapters/event-repository/dynamo-event.repository";
+import { DynamoEventRepository } from "@alexx666/todos-core";
 
 import createHandler from "./controller";
 import { StoreEventHandler } from "./store-event";

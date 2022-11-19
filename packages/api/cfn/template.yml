@@ -65,6 +65,26 @@ Resources:
         - Key: Environment
           Value: !Ref Environment
 
+  QueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument:
+        Version: 2008-10-17
+        Id: PublicationPolicy
+        Statement:
+          - Sid: Allow-SNS-SendMessage
+            Effect: Allow
+            Principal:
+              AWS: "*"
+            Action:
+              - sqs:SendMessage
+            Resource: "*"
+            Condition:
+              ArnEquals:
+                aws:SourceArn: !Ref Mediator
+      Queues:
+        - !Ref StoreEventQueue
+
   EventStore:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -109,6 +129,7 @@ Resources:
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
+        - AmazonSNSFullAccess
       Events:
         PostList:
           Type: Api
@@ -139,6 +160,7 @@ Resources:
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
+        - AmazonSNSFullAccess
       Events:
         PostTodo:
           Type: Api
@@ -169,6 +191,7 @@ Resources:
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
+        - AmazonSNSFullAccess
       Events:
         DeleteTodo:
           Type: Api

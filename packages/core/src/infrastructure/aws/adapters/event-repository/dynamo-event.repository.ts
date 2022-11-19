@@ -4,7 +4,7 @@ import { Event } from "../../../../shared";
 
 import { DynamoConfig } from "../../config";
 
-export default class DynamoEventRepository implements EventRepository {
+export class DynamoEventRepository implements EventRepository {
 
 	private readonly ddb: DynamoDB.DocumentClient;
 
