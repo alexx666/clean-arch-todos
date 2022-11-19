@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { CreateListRequest, CreateTodoRequest, DeleteTodoRequest, ListTodosRequest, ListTodosResponse } from "@alexx666/todos-core";
+import { CreateListParameters, CreateTodoParameters, DeleteTodoParameters, ListTodosRequest, ListTodosResponse } from "@alexx666/todos-core";
 
 @Injectable({
 	providedIn: 'root'
@@ -19,7 +19,7 @@ export class TodosService {
 		)
 	}
 
-	public createList(request: CreateListRequest) {
+	public createList(request: CreateListParameters) {
 		const url = encodeURI(`${environment.url}/lists`);
 
 		const body = { listName: request.listName };
@@ -29,7 +29,7 @@ export class TodosService {
 		);
 	}
 
-	public createTodo(request: CreateTodoRequest) {
+	public createTodo(request: CreateTodoParameters) {
 
 		const url = encodeURI(`${environment.url}/lists/${request.listName}/todos`);
 
@@ -45,7 +45,7 @@ export class TodosService {
 	}
 
 	// TODO: handle returned item for undo functionality
-	public deleteTodo(request: DeleteTodoRequest) {
+	public deleteTodo(request: DeleteTodoParameters) {
 		const url = encodeURI(`${environment.url}/lists/${request.listName}/todos/${request.id}`);
 
 		return this.http.delete<void>(url).pipe(
