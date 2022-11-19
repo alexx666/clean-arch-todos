@@ -29,13 +29,11 @@ const list = new List({
 });
 
 const mockSuccessGateway: ListRepository = {
-	findByName: (_: string) => Promise.resolve(list),
-	save: () => Promise.resolve()
+	findByName: (_: string) => Promise.resolve(list)
 };
 
 const mockFailureGateway: ListRepository = {
-	findByName: (_: string) => Promise.reject(new Error(errorMessage)),
-	save: () => Promise.reject()
+	findByName: (_: string) => Promise.reject(new Error(errorMessage))
 };
 
 const di = new Map();

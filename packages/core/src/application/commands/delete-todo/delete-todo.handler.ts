@@ -22,8 +22,6 @@ export class DeleteTodoHandler implements IDeleteTodoHandler {
 
 		const deletedTodo = list.remove(id);
 
-		await this.repository.save(list);
-
 		await this.publisher.send(new TodoRemoved(deletedTodo));
 	}
 }

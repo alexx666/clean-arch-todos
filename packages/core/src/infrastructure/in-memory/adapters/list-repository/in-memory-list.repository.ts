@@ -14,9 +14,4 @@ export class InMemoryListRepository implements ListRepository {
 
 		return Promise.resolve(list);
 	}
-
-	// delegated to mediator by sending an event
-	public save(_: List): Promise<void> {
-		return Promise.resolve();
-	}
 }

@@ -2,7 +2,6 @@ Transform: AWS::Serverless-2016-10-31
 
 Globals:
   Function:
-    Timeout: 30
     MemorySize: 512
     Runtime: nodejs16.x
     Layers:
@@ -105,6 +104,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-create-list
+      Timeout: 30
       CodeUri: ../dist/create-list/
       Handler: handler.handler
       Policies:
@@ -134,6 +134,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-create-todo
+      Timeout: 30
       CodeUri: ../dist/create-todo/
       Handler: handler.handler
       Policies:
@@ -163,6 +164,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-delete-todo
+      Timeout: 30
       CodeUri: ../dist/delete-todo/
       Handler: handler.handler
       Policies:
@@ -192,6 +194,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-list-todos
+      Timeout: 30
       CodeUri: ../dist/list-todos/
       Handler: handler.handler
       Policies:
@@ -210,6 +213,54 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/lambda/${ListTodos}
+      RetentionInDays: 14
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
+  StoreEventQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      MessageRetentionPeriod: 1209600
+      QueueName: !Sub ${AWS::StackName}-store-queue
+      VisibilityTimeout: 900
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
+  StoreEventSubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      TopicArn: !Ref Mediator
+      Endpoint: !GetAtt StoreEventQueue.Arn
+      Protocol: sqs
+      RawMessageDelivery: true
+
+  StoreEvent:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 900
+      FunctionName: !Sub ${AWS::StackName}-store-event
+      CodeUri: ../dist/store-event/
+      Handler: handler.handler
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Events:
+        OnSQSEvent:
+          Type: SQS
+          Properties:
+            BatchSize: 10
+            Enabled: true
+            Queue: !GetAtt StoreEventQueue.Arn
+
+  StoreEventLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${StoreEvent}
       RetentionInDays: 14
       Tags:
         - Key: Project

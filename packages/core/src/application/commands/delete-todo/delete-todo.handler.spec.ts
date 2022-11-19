@@ -26,8 +26,7 @@ const list = new List({
 
 describe("[DeleteTodo] Success Cases", () => {
 	const mockSuccessGateway: ListRepository = {
-		findByName: (_: string) => Promise.resolve(list),
-		save: () => Promise.resolve(),
+		findByName: (_: string) => Promise.resolve(list)
 	};
 
 	const di = new Map();

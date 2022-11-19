@@ -26,8 +26,4 @@ export class DynamoListRepository implements ListRepository {
 
 		return List.buildFromStream(events as Event[]);
 	}
-
-	public save(_: List): Promise<void> {
-		return Promise.resolve();
-	};
 }
