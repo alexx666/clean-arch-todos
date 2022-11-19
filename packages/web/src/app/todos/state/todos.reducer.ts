@@ -16,7 +16,7 @@ export const todosFeature = createFeature({
 	name: todosFeatureKey,
 	reducer: createReducer(initialState,
 		on(loadTodos, (state, { listName }) => ({ ...state, items: [], loading: true, searchTerm: listName })),
-		on(todosLoaded, (state, { items }) => ({ ...state, items: (items ?? []).filter(i => !i.isDeleted), loading: false, error: "" })),
+		on(todosLoaded, (state, { items }) => ({ ...state, items: (items ?? []), loading: false, error: "" })),
 		on(deleteTodo, (state, _) => ({ ...state })),
 		on(todoDeleted, (state, { id }) => ({ ...state, items: state.items.filter(todo => todo.id !== id), error: "" })),
 		on(todoRequestErrored, (state, { error }) => ({ ...state, error }))

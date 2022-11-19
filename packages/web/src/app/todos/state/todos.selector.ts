@@ -8,8 +8,14 @@ export const selectTodosState = createFeatureSelector<TodoFeatureState>(todosFea
 // child selectors
 export const selectTodos = createSelector(
 	selectTodosState,
-	(state) => state.items
+	(state) => state.items.filter(item => !item.isDeleted)
 );
+
+export const selectDeletedTodos = createSelector(
+	selectTodosState,
+	(state) => state.items.filter(item => item.isDeleted)
+)
+
 export const selectLoading = createSelector(
 	selectTodosState,
 	(state) => state.loading

@@ -1,5 +1,5 @@
 import { TodoItem } from '@alexx666/todos-core';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from "@ngrx/store";
 import { BehaviorSubject, debounceTime, filter, Subscription } from 'rxjs';
@@ -14,7 +14,7 @@ import { TodoFeatureState } from '../state/todos.state';
 	styleUrls: ['./todos.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodosComponent implements OnInit, OnDestroy {
+export class TodosComponent implements OnDestroy {
 
 	listName$ = new BehaviorSubject("");
 
@@ -38,8 +38,6 @@ export class TodosComponent implements OnInit, OnDestroy {
 
 		this.errorSubscription = this.error$.subscribe((error) => this.showError(error));
 	}
-
-	ngOnInit(): void { }
 
 	ngOnDestroy(): void {
 		this.listNameSubscription.unsubscribe();
