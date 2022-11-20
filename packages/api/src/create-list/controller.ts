@@ -28,7 +28,7 @@ export default (mediator: IMediator): Handler =>
 			const body = JSON.parse(event.body) as CreateListParameters;
 
 			const request = {
-				listName: body.name,
+				listName: body.listName,
 				maxTodos: body.maxTodos ?? 10,
 				allowDuplicates: body.allowDuplicates ?? false,
 				allowExpired: body.allowExpired ?? true,

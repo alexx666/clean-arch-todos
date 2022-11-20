@@ -3,7 +3,7 @@ const settings = require("../../jest.preset.js");
 module.exports = {
 	...settings,
 	displayName: {
-		name: "CLI",
+		name: "cli",
 		color: "red",
 	},
 };

@@ -38,7 +38,7 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint -ws
+        run: npm run lint -ws --include-workspace-root
 
       - name: Build
         run: npm run build
