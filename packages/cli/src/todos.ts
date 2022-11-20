@@ -1,23 +1,18 @@
 #!/usr/bin/env node
 
-import { program } from "commander";
-
 import { config } from "dotenv";
+import { readFileSync } from "fs";
+import { join } from "path";
+
+import { CLI } from "./app";
+
+import * as commands from "./commands";
 
 config();
 
-import lists from "./commands/lists";
-import todos from "./commands/todos";
+const pkgPath = join(__dirname, "../package.json");
+const pkg = JSON.parse(readFileSync(pkgPath, "utf-8"));
 
-async function start(args: string[]) {
-	program.addCommand(lists).addCommand(todos);
+const cli = new CLI(pkg.version, Object.values(commands))
 
-	try {
-		await program.parseAsync(args);
-	} catch (error) {
-		console.error("Error:", (error as Error).message);
-		console.debug((error as Error).stack);
-	}
-}
-
-void start(process.argv);
+void cli.start(process.argv);

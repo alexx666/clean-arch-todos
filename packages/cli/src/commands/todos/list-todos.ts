@@ -4,7 +4,7 @@ import { Command } from "commander";
 // Request/Response models
 import { IListTodos, ListTodosRequest } from "@alexx666/todos-core";
 
-export default function (listTodos: IListTodos) {
+export default function (handler: IListTodos) {
 	return new Command("list")
 		.alias("ls")
 		.description("List todos")
@@ -14,7 +14,7 @@ export default function (listTodos: IListTodos) {
 				listName: String(listName),
 			};
 
-			const response = await listTodos.execute(request);
+			const response = await handler.execute(request);
 
 			console.table(response.items);
 		});

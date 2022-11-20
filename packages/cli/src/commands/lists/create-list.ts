@@ -1,7 +1,7 @@
 import { Command } from "commander";
-import { CreateList, IMediator } from "@alexx666/todos-core";
+import { CreateList, ICreateListHandler } from "@alexx666/todos-core";
 
-export default function (mediator: IMediator) {
+export default function (handler: ICreateListHandler) {
 	return new Command("create")
 		.alias("mk")
 		.description("Creates new list")
@@ -14,7 +14,7 @@ export default function (mediator: IMediator) {
 				allowExpired: Boolean(allowExpired ?? true),
 			});
 
-			const result = await mediator.send(request);
+			const result = await handler.execute(request);
 
 			console.log("List Created!");
 			console.table(result);

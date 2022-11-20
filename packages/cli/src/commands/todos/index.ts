@@ -1,15 +1,12 @@
 import { Command } from "commander";
 
-import { client, listTodos } from "../../client";
-
 import listCmd from "./list-todos";
 import createCmd from "./create-todo";
 import deleteCmd from "./delete-todo";
 
-const todosCommand = new Command("todos");
+import { ListTodos, config, CreateTodoHandler, DeleteTodoHandler } from "../../client";
 
-todosCommand.addCommand(listCmd(listTodos));
-todosCommand.addCommand(createCmd(client));
-todosCommand.addCommand(deleteCmd(client));
-
-export default todosCommand;
+export const todosCommand = new Command("todos")
+	.addCommand(listCmd(new ListTodos(config)))
+	.addCommand(createCmd(new CreateTodoHandler(config)))
+	.addCommand(deleteCmd(new DeleteTodoHandler(config)));

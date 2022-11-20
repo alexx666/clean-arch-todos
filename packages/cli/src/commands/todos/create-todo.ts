@@ -1,8 +1,8 @@
 import { Command } from "commander";
 
-import { CreateTodo, IMediator } from "@alexx666/todos-core";
+import { CreateTodo, ICreateTodoHandler } from "@alexx666/todos-core";
 
-export default function (mediator: IMediator) {
+export default function (handler: ICreateTodoHandler) {
 	return new Command("create")
 		.alias("mk")
 		.description("Create todo")
@@ -18,7 +18,7 @@ export default function (mediator: IMediator) {
 				end: String(end),
 			});
 
-			const result = await mediator.send(request);
+			const result = await handler.execute(request);
 
 			console.log("Todo Added!");
 			console.table(result);

@@ -1,11 +1,9 @@
 import { Command } from "commander";
 
-import { client } from "../../client";
+import { config, CreateListHandler } from "../../client";
 
 import createCmd from "./create-list";
 
-const listCommand = new Command("lists");
 
-listCommand.addCommand(createCmd(client));
-
-export default listCommand;
+export const listCommand = new Command("lists")
+	.addCommand(createCmd(new CreateListHandler(config)));
