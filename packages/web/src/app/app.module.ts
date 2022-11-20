@@ -11,6 +11,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { TodosFeatureModule } from './todos/state/todos.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MaterialModule } from './material.module';
 		TodosComponent,
 	],
 	imports: [
+		ReactiveFormsModule,
 		BrowserAnimationsModule,
 		MaterialModule,
 		BrowserModule,
