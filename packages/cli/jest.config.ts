@@ -1,0 +1,4 @@
+export default {
+	displayName: 'cli',
+	preset: '../../jest.preset.js'
+};

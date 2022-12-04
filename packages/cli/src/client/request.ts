@@ -1,5 +1,5 @@
 import { IncomingMessage } from "http";
-import { request, RequestOptions } from "https";
+import { request, RequestOptions } from "http";
 import { URL } from "url";
 
 interface Headers {

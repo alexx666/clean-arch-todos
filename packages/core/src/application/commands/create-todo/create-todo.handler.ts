@@ -1,4 +1,4 @@
-import { Todo } from "../../../domain";
+import { Todo } from "../../../infrastructure/domain";
 import { IMediator, ListRepository, UuidGenerator } from "../../../ports";
 import { CommandHandler } from "../../../shared";
 

@@ -2,7 +2,7 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"composite": true,
-		"outDir": "dist",
+		"outDir": "build",
 		"rootDir": "src",
 		"declarationDir": "typings",
 	},
@@ -12,6 +12,7 @@
 		}
 	],
 	"exclude": [
+		"jest.config.ts",
 		"**/*.spec.ts",
 		"test",
 		"dist",

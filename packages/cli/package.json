@@ -1,46 +1,4 @@
 {
-	"name": "@alexx666/todo-cli",
-	"version": "1.0.0",
-	"description": "TODOs CLI app",
-	"bin": {
-		"todos": "dist/todos.js"
-	},
-	"nx": {
-		"tags": [
-			"scope:client",
-			"type:app"
-		]
-	},
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"lint": "eslint -c .eslintrc.json --ext .ts src/",
-		"clean": "tsc -b --clean tsconfig.json",
-		"prebuild": "npm run clean",
-		"build": "tsc -b tsconfig.json",
-		"start": "node dist/todos",
-		"debug": "node --inspect dist/todos",
-		"test": "jest --passWithNoTests -c jest.config.js",
-		"format": "npx prettier --write src/",
-		"lint:fix": "npm run lint -- --fix"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/alexx666/clean-arch-todos.git"
-	},
-	"keywords": [
-		"CLI"
-	],
-	"author": "alexx666",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/alexx666/clean-arch-todos/issues"
-	},
-	"homepage": "https://github.com/alexx666/clean-arch-todos#readme",
-	"dependencies": {
-		"@alexx666/todos-core": "^1.0.0",
-		"commander": "^9.3.0",
-		"dotenv": "^16.0.1"
-	}
+	"name": "@alexx666/todos-cli",
+	"version": "1.0.0"
 }

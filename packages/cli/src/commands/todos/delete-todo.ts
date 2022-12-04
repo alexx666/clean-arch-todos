@@ -1,6 +1,6 @@
 import { Command } from "commander";
 
-import { DeleteTodo, DeleteTodoParameters, IDeleteTodoHandler } from "@alexx666/todos-core";
+import { DeleteTodo, DeleteTodoParameters, IDeleteTodoHandler } from "@todos/core";
 
 export default function (handler: IDeleteTodoHandler) {
 	return new Command("delete")

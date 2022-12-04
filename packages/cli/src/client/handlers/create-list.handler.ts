@@ -1,4 +1,4 @@
-import { CreateList, ICreateListHandler } from "@alexx666/todos-core";
+import { CreateList, ICreateListHandler } from "@todos/core";
 
 import { Config } from "../config";
 import { Request } from "../request";

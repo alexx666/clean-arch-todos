@@ -1,4 +1,4 @@
-import { IListTodos, ListTodosRequest, ListTodosResponse } from "@alexx666/todos-core";
+import { IListTodos, ListTodosRequest, ListTodosResponse } from "@todos/core";
 
 import { Config } from "../config";
 import { Request } from "../request";

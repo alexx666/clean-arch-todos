@@ -4,7 +4,7 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { IListTodos, ListTodosRequest } from "@alexx666/todos-core";
+import { IListTodos, ListTodosRequest } from "@todos/core";
 
 export default (listTodos: IListTodos): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {

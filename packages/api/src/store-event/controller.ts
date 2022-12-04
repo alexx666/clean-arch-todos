@@ -1,4 +1,4 @@
-import { Event } from "@alexx666/todos-core";
+import { Event } from "@todos/core";
 import { Handler, SQSEvent } from "aws-lambda";
 import { StoreEventHandler } from "./store-event";
 

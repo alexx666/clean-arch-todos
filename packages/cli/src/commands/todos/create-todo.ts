@@ -1,6 +1,6 @@
 import { Command } from "commander";
 
-import { CreateTodo, ICreateTodoHandler } from "@alexx666/todos-core";
+import { CreateTodo, ICreateTodoHandler } from "@todos/core";
 
 export default function (handler: ICreateTodoHandler) {
 	return new Command("create")

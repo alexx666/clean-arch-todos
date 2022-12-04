@@ -1,4 +1,4 @@
-import { DynamoEventRepository } from "@alexx666/todos-core";
+import { DynamoEventRepository } from "@todos/core";
 
 import createHandler from "./controller";
 import { StoreEventHandler } from "./store-event";

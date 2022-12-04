@@ -1,4 +1,4 @@
-import { CreateListHandler, CREATE_LIST, Mediator, DynamoListRepository, SNSMediator } from "@alexx666/todos-core";
+import { CreateListHandler, CREATE_LIST, Mediator, DynamoListRepository, SNSMediator } from "@todos/core";
 
 import createHandler from "./controller";
 

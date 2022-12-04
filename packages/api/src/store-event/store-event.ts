@@ -1,4 +1,4 @@
-import { Event, EventRepository } from "@alexx666/todos-core";
+import { Event, EventRepository } from "@todos/core";
 
 export class StoreEventHandler {
 

@@ -2,18 +2,10 @@
 	"name": "clean-arch",
 	"version": "1.0.0",
 	"private": true,
-	"workspaces": [
-		"packages/*"
-	],
 	"scripts": {
-		"lint": "npx nx lint web",
-		"serve": "npx nx serve",
-		"test": "jest --passWithNoTests -c jest.config.ts",
-		"test:watch": "npm t -- --watch",
-		"clean": "tsc -b --clean tsconfig.build.json",
-		"prebuild": "npm run clean",
-		"build": "tsc -b tsconfig.build.json",
-		"build:watch": "npm run build -- -w",
+		"lint": "nx run-many --target=lint --all=true",
+		"build": "nx run-many --target=build --all=true",
+		"test": "nx run-many --target=test --all=true",
 		"build:docs": "typedoc --options .typedoc/config.json",
 		"registry": "verdaccio -c .verdaccio/config.yml",
 		"postinstall": "ngcc --properties es2020 browser module main",
@@ -73,6 +65,8 @@
 		"@ngrx/effects": "^14.0.1",
 		"@ngrx/store": "^14.0.1",
 		"@ngrx/store-devtools": "^14.0.1",
+		"commander": "^9.4.1",
+		"dotenv": "^16.0.3",
 		"rxjs": "^7.5.5",
 		"tslib": "^2.0.0",
 		"zone.js": "~0.11.4"

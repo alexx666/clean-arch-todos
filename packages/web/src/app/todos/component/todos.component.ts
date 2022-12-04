@@ -1,4 +1,4 @@
-import { TodoItem } from '@alexx666/todos-core';
+import { TodoItem } from '@todos/core';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';

@@ -1,4 +1,4 @@
-import { List } from "../../../domain";
+import { List } from "../../../infrastructure/domain";
 import { IMediator, ListRepository } from "../../../ports";
 import { CommandHandler } from "../../../shared";
 

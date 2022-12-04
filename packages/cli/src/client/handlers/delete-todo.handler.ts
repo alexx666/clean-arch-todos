@@ -1,4 +1,4 @@
-import { DeleteTodo, IDeleteTodoHandler } from "@alexx666/todos-core";
+import { DeleteTodo, IDeleteTodoHandler } from "@todos/core";
 
 import { Config } from "../config";
 import { Request } from "../request";

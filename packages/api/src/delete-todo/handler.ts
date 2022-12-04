@@ -1,4 +1,4 @@
-import { DeleteTodoHandler, DELETE_TODO, Mediator, DynamoListRepository, SNSMediator } from "@alexx666/todos-core";
+import { DeleteTodoHandler, DELETE_TODO, Mediator, DynamoListRepository, SNSMediator } from "@todos/core";
 
 import createHandler from "./controller";
 

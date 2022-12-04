@@ -2,7 +2,7 @@
 import { Command } from "commander";
 
 // Request/Response models
-import { IListTodos, ListTodosRequest } from "@alexx666/todos-core";
+import { IListTodos, ListTodosRequest } from "@todos/core";
 
 export default function (handler: IListTodos) {
 	return new Command("list")

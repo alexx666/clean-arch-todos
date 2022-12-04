@@ -1,4 +1,4 @@
-import { CreateTodo, CreateTodoResponse, ICreateTodoHandler } from "@alexx666/todos-core";
+import { CreateTodo, CreateTodoResponse, ICreateTodoHandler } from "@todos/core";
 
 import { Config } from "../config";
 import { Request } from "../request";

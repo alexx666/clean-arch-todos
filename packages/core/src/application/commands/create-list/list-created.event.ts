@@ -1,4 +1,4 @@
-import { List } from "../../../domain";
+import { List } from "../../../infrastructure/domain";
 import { DomainEvent } from "../../../shared";
 
 // FIXME: duplicated definition

@@ -99,6 +99,6 @@
 		"type:app"
 	],
 	"implicitDependencies": [
-		"@alexx666/todos-core"
+		"core"
 	]
 }

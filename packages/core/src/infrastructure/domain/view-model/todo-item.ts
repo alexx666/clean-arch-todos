@@ -1,5 +1,5 @@
-import { TodoDetails } from "../../application"; // FIXME: should not import application code
-import { Event, Events } from "../../shared";
+import { TodoDetails } from "../../../application"; // FIXME: should not import application code
+import { Event, Events } from "../../../shared";
 
 /**
  * Input parameters for {@link TodoItem} construction

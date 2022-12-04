@@ -4,6 +4,7 @@
 
 ### AWS SAM
 .aws-sam/
+build/
 
 ### Verdaccio
 .verdaccio/storage/

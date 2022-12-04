@@ -1,4 +1,4 @@
-import { Todo } from "../../../domain";
+import { Todo } from "../../../infrastructure/domain";
 import { DomainEvent } from "../../../shared";
 
 // FIXME: duplicate definition

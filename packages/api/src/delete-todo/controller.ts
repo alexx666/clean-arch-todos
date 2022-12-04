@@ -4,7 +4,7 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import { DeleteTodo, DeleteTodoParameters, IMediator } from "@alexx666/todos-core";
+import { DeleteTodo, DeleteTodoParameters, IMediator } from "@todos/core";
 
 export default (mediator: IMediator): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {

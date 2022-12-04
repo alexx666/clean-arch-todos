@@ -1,55 +1,55 @@
 {
 	"projectType": "application",
-	"sourceRoot": "packages/api/src",
+	"sourceRoot": "packages/cli/src",
 	"prefix": "packages",
 	"targets": {
 		"build": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "packages/api",
+				"cwd": "packages/cli",
 				"parallel": false,
 				"commands": [
 					"tsc -b --clean tsconfig.json",
 					"tsc -b tsconfig.json",
-					"sam build -t cfn/template.yml -s . --beta-features"
+					"esbuild build/todos.js --bundle --outfile=dist/todos.js --platform=node --allow-overwrite"
 				]
 			}
 		},
 		"start": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "packages/api",
-				"command": "sam local start-api --warm-containers EAGER --env-vars cfn/env.json"
+				"cwd": "packages/cli",
+				"command": "node dist/todos"
 			}
 		},
-		"deploy": {
+		"debug": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "packages/api",
-				"command": "sam deploy -g --config-env dev"
+				"cwd": "packages/cli",
+				"command": "node --inspect dist/todos"
 			}
 		},
 		"lint": {
 			"executor": "@nrwl/linter:eslint",
 			"options": {
 				"lintFilePatterns": [
-					"packages/api/**/*.ts"
+					"packages/cli/**/*.ts"
 				]
 			}
 		},
 		"test": {
 			"executor": "@nrwl/jest:jest",
 			"outputs": [
-				"coverage/packages/api"
+				"coverage/packages/cli"
 			],
 			"options": {
-				"jestConfig": "packages/api/jest.config.ts",
+				"jestConfig": "packages/cli/jest.config.ts",
 				"passWithNoTests": true
 			}
 		}
 	},
 	"tags": [
-		"scope:api",
+		"scope:client",
 		"type:app"
 	],
 	"implicitDependencies": [

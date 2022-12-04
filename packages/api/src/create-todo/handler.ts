@@ -1,4 +1,4 @@
-import { CreateTodoHandler, CREATE_TODO, CryptoUuid, Mediator, DynamoListRepository, SNSMediator } from "@alexx666/todos-core";
+import { CreateTodoHandler, CREATE_TODO, CryptoUuid, Mediator, DynamoListRepository, SNSMediator } from "@todos/core";
 
 import createHandler from "./controller";
 
