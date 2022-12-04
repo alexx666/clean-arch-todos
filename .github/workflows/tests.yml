@@ -18,7 +18,7 @@ on:
       - "docs/**"
 
 jobs:
-  ci:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -37,8 +37,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Lint
-        run: npm run lint -ws --include-workspace-root
+      # - name: Lint
+      #   run: npm run lint -ws --include-workspace-root
 
       - name: Build
         run: npm run build
