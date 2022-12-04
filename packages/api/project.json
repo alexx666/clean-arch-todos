@@ -1,0 +1,58 @@
+{
+	"projectType": "application",
+	"sourceRoot": "packages/api/src",
+	"prefix": "packages",
+	"targets": {
+		"build": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "packages/api",
+				"parallel": false,
+				"commands": [
+					"tsc -b --clean tsconfig.json",
+					"tsc -b tsconfig.json",
+					"sam build -t cfn/template.yml -s . --beta-features"
+				]
+			}
+		},
+		"start": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "packages/api",
+				"command": "sam local start-api --warm-containers EAGER --env-vars cfn/env.json"
+			}
+		},
+		"deploy": {
+			"executor": "nx:run-commands",
+			"options": {
+				"cwd": "packages/api",
+				"command": "sam deploy -g --config-env dev"
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": [
+					"packages/api/**/*.ts"
+				]
+			}
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": [
+				"coverage/packages/api"
+			],
+			"options": {
+				"jestConfig": "packages/api/jest.config.ts",
+				"passWithNoTests": true
+			}
+		}
+	},
+	"tags": [
+		"scope:api",
+		"type:app"
+	],
+	"implicitDependencies": [
+		"@alexx666/todos-core"
+	]
+}
