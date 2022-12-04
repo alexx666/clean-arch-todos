@@ -4,12 +4,11 @@ Globals:
   Function:
     MemorySize: 512
     Runtime: nodejs16.x
-    Layers:
-      - !Ref TodoLibrary
     Environment:
       Variables:
         DYNAMO_TABLE_NAME: !Ref EventStore
         SNS_TOPIC_ARN: !Ref Mediator
+        # NODE_OPTIONS: --enable-source-maps
     Tags:
       Project: !Ref Project
       Environment: !Ref Environment
@@ -108,24 +107,12 @@ Resources:
         - Key: Environment
           Value: !Ref Environment
 
-  TodoLibrary:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      CompatibleRuntimes:
-        - nodejs16.x
-      ContentUri: ../
-      Description: Todo Package Library
-      LayerName: todo-pkg-lib
-      RetentionPolicy: Delete
-    Metadata:
-      BuildMethod: nodejs16.x
-
   CreateList:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-create-list
       Timeout: 30
-      CodeUri: ../dist/create-list/
+      CodeUri: src/create-list/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -139,6 +126,8 @@ Resources:
             RestApiId: !Ref TodosAPI
             Path: /lists
             Method: POST
+    Metadata:
+      BuildMethod: esbuild
 
   CreateListLogGroup:
     Type: AWS::Logs::LogGroup
@@ -156,7 +145,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${AWS::StackName}-create-todo
       Timeout: 30
-      CodeUri: ../dist/create-todo/
+      CodeUri: src/create-todo/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -170,6 +159,8 @@ Resources:
             RestApiId: !Ref TodosAPI
             Path: /lists/{listId}/todos
             Method: POST
+    Metadata:
+      BuildMethod: esbuild
 
   CreateTodoLogGroup:
     Type: AWS::Logs::LogGroup
@@ -187,7 +178,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${AWS::StackName}-delete-todo
       Timeout: 30
-      CodeUri: ../dist/delete-todo/
+      CodeUri: src/delete-todo/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -201,6 +192,8 @@ Resources:
             RestApiId: !Ref TodosAPI
             Path: /lists/{listId}/todos/{todoId}
             Method: DELETE
+    Metadata:
+      BuildMethod: esbuild
 
   DeleteTodoLogGroup:
     Type: AWS::Logs::LogGroup
@@ -218,7 +211,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${AWS::StackName}-list-todos
       Timeout: 30
-      CodeUri: ../dist/list-todos/
+      CodeUri: src/list-todos/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -231,6 +224,8 @@ Resources:
             RestApiId: !Ref TodosAPI
             Path: /lists/{listId}/todos
             Method: GET
+    Metadata:
+      BuildMethod: esbuild
 
   ListTodosLogGroup:
     Type: AWS::Logs::LogGroup
@@ -268,7 +263,7 @@ Resources:
     Properties:
       Timeout: 900
       FunctionName: !Sub ${AWS::StackName}-store-event
-      CodeUri: ../dist/store-event/
+      CodeUri: src/store-event/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -279,6 +274,8 @@ Resources:
             BatchSize: 10
             Enabled: true
             Queue: !GetAtt StoreEventQueue.Arn
+    Metadata:
+      BuildMethod: esbuild
 
   StoreEventLogGroup:
     Type: AWS::Logs::LogGroup
@@ -290,5 +287,8 @@ Resources:
           Value: !Ref Project
         - Key: Environment
           Value: !Ref Environment
-# Outputs:
-#   set of outputs
+
+Outputs:
+  ClikcableAPIUrl:
+    Description: API url
+    Value: !Sub https://${TodosAPI}.execute-api.${AWS::Region}.amazonaws.com/${Version}

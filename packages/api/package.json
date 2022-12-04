@@ -19,7 +19,7 @@
 		"clean": "tsc -b --clean tsconfig.json",
 		"prebuild": "npm run clean",
 		"start": "sam local start-api --warm-containers EAGER --env-vars cfn/env.json",
-		"build": "tsc -b tsconfig.json && sam build -t cfn/template.yml",
+		"build": "tsc -b tsconfig.json && sam build -t cfn/template.yml -s . --beta-features",
 		"deploy": "sam deploy -g",
 		"test": "jest --passWithNoTests -c jest.config.js"
 	},
