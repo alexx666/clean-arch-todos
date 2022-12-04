@@ -15,7 +15,7 @@ export class CreateListHandler implements ICreateListHandler {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ name: command.params.listName }),
+			body: JSON.stringify(command.params),
 		})
 
 		return request.send();

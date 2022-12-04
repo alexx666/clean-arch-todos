@@ -14,12 +14,7 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({
-				id: command.params.id,
-				description: command.params.description,
-				start: command.params.start,
-				end: command.params.end,
-			}),
+			body: JSON.stringify(command.params),
 		})
 
 		return request.send();
