@@ -1,4 +1,2 @@
-export * from "./node";
-export * from "./in-memory";
-export * from "./in-process";
+export * from "./mocks";
 export * from "./aws";

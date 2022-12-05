@@ -1,8 +1,7 @@
 import { List, Todo } from "../../../domain";
-import { ListRepository } from "../../../ports";
+import { ListRepository, Mediator } from "../../../ports";
 import { DeleteTodoHandler } from "./delete-todo.handler";
 import { DeleteTodo } from "./delete-todo.command";
-import { Mediator } from "../../../infrastructure";
 import { TodoRemovedHandler } from "./todo-removed.handler";
 import { TODO_REMOVED } from "./todo-removed.event";
 

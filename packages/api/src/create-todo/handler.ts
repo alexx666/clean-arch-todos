@@ -1,4 +1,6 @@
-import { CreateTodoHandler, CREATE_TODO, CryptoUuid, Mediator, DynamoListRepository, SNSMediator } from "@todos/core";
+import { CreateTodoHandler, CREATE_TODO, Mediator, DynamoListRepository, SNSMediator } from "@todos/core";
+
+import { CryptoUuid } from "../crypro-uuid";
 
 import createHandler from "./controller";
 

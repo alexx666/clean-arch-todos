@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 
-import { UuidGenerator } from "../../../ports";
+import { UuidGenerator } from "@todos/core";
 
 export class CryptoUuid implements UuidGenerator {
 	public generate() {

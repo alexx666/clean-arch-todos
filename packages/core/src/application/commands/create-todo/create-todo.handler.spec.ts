@@ -1,6 +1,5 @@
-import { ListRepository } from "../../../ports";
+import { ListRepository, Mediator, UuidGenerator } from "../../../ports";
 import { List, Todo } from "../../../domain";
-import { Mediator, CryptoUuid } from "../../../infrastructure";
 
 import { CreateTodoHandler } from "./create-todo.handler";
 import { CreateTodo } from "./create-todo.command";
@@ -28,6 +27,10 @@ const list = new List({
 	allowExpired: false,
 });
 
+const mockUuidGenerator: UuidGenerator = {
+	generate: () => "randomUuid",
+}
+
 const mockSuccessGateway: ListRepository = {
 	findByName: (_: string) => Promise.resolve(list)
 };
@@ -43,7 +46,7 @@ di.set(TODO_ADDED, new TodoAddedHandler());
 
 describe("[CreateTodo] Success Cases", () => {
 
-	const createTodoHandler = new CreateTodoHandler(mockSuccessGateway, new CryptoUuid(), mediator);
+	const createTodoHandler = new CreateTodoHandler(mockSuccessGateway, mockUuidGenerator, mediator);
 
 	it("should return a the mocked todo in a valid CreateTodoResponse object", async () => {
 		await createTodoHandler.execute(new CreateTodo(request));
@@ -54,7 +57,7 @@ describe("[CreateTodo] Success Cases", () => {
 });
 
 describe("[CreateTodo] Fail Cases", () => {
-	const createTodoHandler = new CreateTodoHandler(mockFailureGateway, new CryptoUuid(), mediator);
+	const createTodoHandler = new CreateTodoHandler(mockFailureGateway, mockUuidGenerator, mediator);
 
 	it("should return throw an error with the gateways message", async () => {
 		try {
