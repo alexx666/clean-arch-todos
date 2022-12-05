@@ -10,10 +10,7 @@ const snsMediator = new SNSMediator({
 	topic: String(process.env.SNS_TOPIC_ARN)
 })
 
-const di = new Map();
-
-const mediator = new Mediator(di);
-
-di.set(CREATE_LIST, new CreateListHandler(snsMediator, dynamoListRepo));
+const mediator = new Mediator()
+	.register(CREATE_LIST, new CreateListHandler(snsMediator, dynamoListRepo));
 
 export const handler = createHandler(mediator);

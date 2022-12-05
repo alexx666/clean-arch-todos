@@ -10,10 +10,7 @@ const snsMediator = new SNSMediator({
 	topic: String(process.env.SNS_TOPIC_ARN)
 })
 
-const di = new Map();
-
-const mediator = new Mediator(di);
-
-di.set(DELETE_TODO, new DeleteTodoHandler(snsMediator, dynamoListRepo));
+const mediator = new Mediator()
+	.register(DELETE_TODO, new DeleteTodoHandler(snsMediator, dynamoListRepo));
 
 export const handler = createHandler(mediator);
