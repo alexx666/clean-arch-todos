@@ -3,5 +3,5 @@ export interface Config {
 }
 
 export const config: Config = {
-	apiUrl: String(process.env.API_URL),
+	apiUrl: process.env.API_URL ?? "http://localhost:3000",
 };
