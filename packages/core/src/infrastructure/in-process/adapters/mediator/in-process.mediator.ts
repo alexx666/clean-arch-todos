@@ -15,7 +15,7 @@ export class Mediator implements IMediator {
 		return handler.execute(command);
 	}
 
-	public register<Output>(commandName: string, handler: CommandHandler<C, Promise<Output>>) {
+	public register<C extends Command, Output>(commandName: string, handler: CommandHandler<C, Promise<Output>>) {
 		this.handlers.set(commandName, handler);
 		return this;
 	}
