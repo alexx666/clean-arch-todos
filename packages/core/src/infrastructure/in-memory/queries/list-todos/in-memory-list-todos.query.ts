@@ -1,6 +1,6 @@
 import { IListTodos, ListTodosRequest, ListTodosResponse } from "../../../../application";
 import { Events } from "../../../../shared";
-import { TodoItem } from "../../../domain";
+import { TodoItem } from "../../../../domain";
 
 export class InMemoryListTodos implements IListTodos {
 	constructor(private readonly events: Events = new Events()) { }

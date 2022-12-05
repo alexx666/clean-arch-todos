@@ -1,4 +1,4 @@
-import { TodoItem } from "../../infrastructure/domain";
+import { TodoItem } from "../../domain";
 
 /**
  * Query request specifying the Todos to be returned

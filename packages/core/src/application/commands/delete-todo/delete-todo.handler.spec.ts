@@ -1,4 +1,4 @@
-import { List, Todo } from "../../../infrastructure/domain";
+import { List, Todo } from "../../../domain";
 import { ListRepository } from "../../../ports";
 import { DeleteTodoHandler } from "./delete-todo.handler";
 import { DeleteTodo } from "./delete-todo.command";

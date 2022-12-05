@@ -1,4 +1,4 @@
-import { List, Todo } from "../../../domain";
+import { List, Todo } from "../../../../domain";
 import { Events } from "../../../../shared";
 import { ListCreated, TodoAdded } from "../../../../application";
 

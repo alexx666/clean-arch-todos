@@ -1,5 +1,5 @@
 import { ListCreated } from "../../../../application";
-import { List } from "../../../domain";
+import { List } from "../../../../domain";
 import { Events } from "../../../../shared";
 
 import { InMemoryListRepository } from "./in-memory-list.repository";

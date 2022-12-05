@@ -1,5 +1,5 @@
 import { ListRepository } from "../../../ports";
-import { List, Todo } from "../../../infrastructure/domain";
+import { List, Todo } from "../../../domain";
 import { Mediator, CryptoUuid } from "../../../infrastructure";
 
 import { CreateTodoHandler } from "./create-todo.handler";

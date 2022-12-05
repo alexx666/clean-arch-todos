@@ -2,7 +2,7 @@ import { DynamoDB } from "aws-sdk";
 
 import { Event, Events } from "../../../../shared";
 import { IListTodos, ListTodosRequest, ListTodosResponse } from "../../../../application";
-import { TodoItem } from "../../../domain";
+import { TodoItem } from "../../../../domain";
 import { DynamoConfig } from "../../config";
 
 export class DynamoListTodos implements IListTodos {

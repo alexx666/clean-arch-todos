@@ -1,4 +1,4 @@
-import { Todo } from "../../../infrastructure/domain";
+import { Todo } from "../../../domain";
 
 import { DomainEvent } from "../../../shared";
 
