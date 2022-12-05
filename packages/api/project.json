@@ -7,12 +7,7 @@
 			"executor": "nx:run-commands",
 			"options": {
 				"cwd": "packages/api",
-				"parallel": false,
-				"commands": [
-					"tsc -b --clean tsconfig.json",
-					"tsc -b tsconfig.json",
-					"sam build -t cfn/template.yml -s . --beta-features"
-				]
+				"command": "sam build -t cfn/template.yml -s . --beta-features"
 			}
 		},
 		"start": {
