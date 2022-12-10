@@ -5,6 +5,7 @@
 ### AWS SAM
 .aws-sam/
 build/
+env.json
 
 ### Verdaccio
 .verdaccio/storage/

@@ -1,4 +1,5 @@
 {
+	"name": "api",
 	"projectType": "application",
 	"sourceRoot": "packages/api/src",
 	"prefix": "packages",
@@ -12,15 +13,13 @@
 		"start": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "dist/packages/api",
-				"command": "sam local start-api --warm-containers EAGER"
+				"command": "sam local start-api --warm-containers EAGER -t dist/packages/api/template.yaml -n packages/api/cfn/env.json"
 			}
 		},
 		"deploy": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "dist/packages/api",
-				"command": "sam deploy -g --config-env dev"
+				"command": "sam deploy -g --config-env dev --config-file $(pwd)/packages/api/cfn/samconfig.toml -t dist/packages/api/template.yaml"
 			}
 		},
 		"lint": {
@@ -34,7 +33,7 @@
 		"test": {
 			"executor": "@nrwl/jest:jest",
 			"outputs": [
-				"coverage/packages/api"
+				"{workspaceRoot}/coverage/packages/api"
 			],
 			"options": {
 				"jestConfig": "packages/api/jest.config.ts",

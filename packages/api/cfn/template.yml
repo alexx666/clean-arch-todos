@@ -292,3 +292,7 @@ Outputs:
   ClikcableAPIUrl:
     Description: API url
     Value: !Sub https://${TodosAPI}.execute-api.${AWS::Region}.amazonaws.com/${Version}
+
+  SNSTopicArn:
+    Description: SNS Topic ARN
+    Value: !Ref Mediator

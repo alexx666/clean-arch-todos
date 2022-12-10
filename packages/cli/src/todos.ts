@@ -10,7 +10,7 @@ import * as commands from "./commands";
 
 config();
 
-const pkgPath = join(__dirname, "../package.json");
+const pkgPath = join(__dirname, "./package.json");
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const pkg = JSON.parse(readFileSync(pkgPath, "utf-8"));
 

@@ -1,34 +1,31 @@
 {
+	"name": "cli",
 	"projectType": "application",
 	"sourceRoot": "packages/cli/src",
 	"prefix": "packages",
 	"targets": {
 		"build": {
-			"executor": "@nrwl/esbuild:esbuild",
+			"executor": "@nrwl/node:webpack",
 			"options": {
 				"main": "packages/cli/src/todos.ts",
 				"tsConfig": "packages/cli/tsconfig.app.json",
 				"outputPath": "dist/packages/cli",
-				"external": [
-					"commander",
-					"dotenv"
-				],
-				"esbuildOptions": {
-					"sourcemap": true
-				},
-				"platform": "node"
+				"generatePackageJson": true,
+				"sourceMap": true,
+				"progress": true,
+				"externalDependencies": "none"
 			}
 		},
 		"start": {
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "node dist/packages/cli/todos"
+				"command": "node dist/packages/cli/main"
 			}
 		},
 		"debug": {
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "node --inspect dist/packages/cli/todos"
+				"command": "node --inspect dist/packages/cli/main"
 			}
 		},
 		"lint": {
@@ -42,7 +39,7 @@
 		"test": {
 			"executor": "@nrwl/jest:jest",
 			"outputs": [
-				"coverage/packages/cli"
+				"{workspaceRoot}/coverage/packages/cli"
 			],
 			"options": {
 				"jestConfig": "packages/cli/jest.config.ts",
