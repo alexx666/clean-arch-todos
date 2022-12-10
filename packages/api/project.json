@@ -10,7 +10,7 @@
 				"command": "sam build -t packages/api/cfn/template.yml -s . --beta-features -b dist/packages/api"
 			}
 		},
-		"start": {
+		"serve": {
 			"executor": "nx:run-commands",
 			"options": {
 				"command": "sam local start-api --warm-containers EAGER -t dist/packages/api/template.yaml -n packages/api/cfn/env.json"

@@ -6,6 +6,7 @@
 		"lint": "nx run-many --target=lint --all=true",
 		"build": "nx run-many --target=build --all=true",
 		"test": "nx run-many --target=test --all=true",
+		"serve": "nx run-many --target=serve --all=true",
 		"build:docs": "typedoc --options .typedoc/config.json",
 		"registry": "verdaccio -c .verdaccio/config.yml",
 		"postinstall": "ngcc --properties es2020 browser module main",
