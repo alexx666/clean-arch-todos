@@ -4,29 +4,31 @@
 	"prefix": "packages",
 	"targets": {
 		"build": {
-			"executor": "nx:run-commands",
+			"executor": "@nrwl/esbuild:esbuild",
 			"options": {
-				"cwd": "packages/cli",
-				"parallel": false,
-				"commands": [
-					"tsc -b --clean tsconfig.json",
-					"tsc -b tsconfig.json",
-					"esbuild build/todos.js --bundle --outfile=dist/todos.js --platform=node --allow-overwrite"
-				]
+				"main": "packages/cli/src/todos.ts",
+				"tsConfig": "packages/cli/tsconfig.app.json",
+				"outputPath": "dist/packages/cli",
+				"external": [
+					"commander",
+					"dotenv"
+				],
+				"esbuildOptions": {
+					"sourcemap": true
+				},
+				"platform": "node"
 			}
 		},
 		"start": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "packages/cli",
-				"command": "node dist/todos"
+				"command": "node dist/packages/cli/todos"
 			}
 		},
 		"debug": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "packages/cli",
-				"command": "node --inspect dist/todos"
+				"command": "node --inspect dist/packages/cli/todos"
 			}
 		},
 		"lint": {

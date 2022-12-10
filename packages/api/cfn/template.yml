@@ -112,7 +112,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${AWS::StackName}-create-list
       Timeout: 30
-      CodeUri: src/create-list/
+      CodeUri: packages/api/src/create-list/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -145,7 +145,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${AWS::StackName}-create-todo
       Timeout: 30
-      CodeUri: src/create-todo/
+      CodeUri: packages/api/src/create-todo/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -178,7 +178,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${AWS::StackName}-delete-todo
       Timeout: 30
-      CodeUri: src/delete-todo/
+      CodeUri: packages/api/src/delete-todo/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -211,7 +211,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${AWS::StackName}-list-todos
       Timeout: 30
-      CodeUri: src/list-todos/
+      CodeUri: packages/api/src/list-todos/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess
@@ -263,7 +263,7 @@ Resources:
     Properties:
       Timeout: 900
       FunctionName: !Sub ${AWS::StackName}-store-event
-      CodeUri: src/store-event/
+      CodeUri: packages/api/src/store-event/
       Handler: handler.handler
       Policies:
         - AmazonDynamoDBFullAccess

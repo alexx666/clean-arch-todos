@@ -25,6 +25,7 @@
 		"@commitlint/config-conventional": "^17.0.3",
 		"@nrwl/angular": "^14.4.2",
 		"@nrwl/cypress": "14.4.2",
+		"@nrwl/esbuild": "^14.7.8",
 		"@nrwl/eslint-plugin-nx": "14.4.2",
 		"@nrwl/jest": "14.4.2",
 		"@nrwl/linter": "14.4.2",

@@ -3,16 +3,6 @@
 	"sourceRoot": "packages/core/src",
 	"prefix": "packages",
 	"targets": {
-		"build": {
-			"executor": "nx:run-commands",
-			"options": {
-				"parallel": false,
-				"commands": [
-					"tsc -b --clean packages/core/tsconfig.json",
-					"tsc -b packages/core/tsconfig.json"
-				]
-			}
-		},
 		"lint": {
 			"executor": "@nrwl/linter:eslint",
 			"options": {

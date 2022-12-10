@@ -6,21 +6,20 @@
 		"build": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "packages/api",
-				"command": "sam build -t cfn/template.yml -s . --beta-features"
+				"command": "sam build -t packages/api/cfn/template.yml -s . --beta-features -b dist/packages/api"
 			}
 		},
 		"start": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "packages/api",
-				"command": "sam local start-api --warm-containers EAGER --env-vars cfn/env.json"
+				"cwd": "dist/packages/api",
+				"command": "sam local start-api --warm-containers EAGER"
 			}
 		},
 		"deploy": {
 			"executor": "nx:run-commands",
 			"options": {
-				"cwd": "packages/api",
+				"cwd": "dist/packages/api",
 				"command": "sam deploy -g --config-env dev"
 			}
 		},

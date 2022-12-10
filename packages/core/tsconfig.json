@@ -1,16 +1,13 @@
 {
 	"extends": "../../tsconfig.json",
-	"compilerOptions": {
-		"composite": true,
-		"outDir": "dist",
-		"rootDir": "src",
-		"declarationDir": "typings",
-	},
-	"exclude": [
-		"jest.config.ts",
-		"**/*.spec.ts",
-		"test",
-		"dist",
-		"typings",
+	"files": [],
+	"include": [],
+	"references": [
+		{
+			"path": "./tsconfig.lib.json"
+		},
+		{
+			"path": "./tsconfig.spec.json"
+		}
 	]
 }

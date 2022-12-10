@@ -1,22 +1,5 @@
 {
 	"extends": "../../tsconfig.json",
-	"compilerOptions": {
-		"composite": true,
-		"outDir": "dist",
-		"rootDir": "src",
-		"declarationDir": "typings",
-	},
-	"references": [
-		{
-			"path": "../core"
-		}
-	],
-	"exclude": [
-		"jest.config.ts",
-		"**/*.spec.ts",
-		"test",
-		"dist",
-		"typings",
-		".aws-sam",
-	]
+	"files": [],
+	"include": []
 }
