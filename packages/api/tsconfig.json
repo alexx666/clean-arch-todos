@@ -1,8 +1,13 @@
 {
-  "extends": "../../tsconfig.json",
-  "files": [],
-  "include": [],
-  "exclude": [
-    "jest.config.ts"
-  ]
+	"extends": "../../tsconfig.json",
+	"files": [],
+	"include": [],
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "./tsconfig.spec.json"
+		}
+	]
 }
