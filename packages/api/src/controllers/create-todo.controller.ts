@@ -4,11 +4,11 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import headers from "../cors-headers";
+import headers from "./cors-headers";
 
-import { CreateTodo, CreateTodoParameters, IMediator } from "@todos/core";
+import { CreateTodo, CreateTodoParameters, ICreateTodoHandler } from "@todos/core";
 
-export default (mediator: IMediator): Handler =>
+export default (interactor: ICreateTodoHandler): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -29,7 +29,7 @@ export default (mediator: IMediator): Handler =>
 				listName: decodeURI(params.listId),
 			} as CreateTodoParameters;
 
-			const result = await mediator.send(new CreateTodo(request));
+			const result = await interactor.execute(new CreateTodo(request));
 
 			response.body = JSON.stringify(result);
 		} catch (error) {

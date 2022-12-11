@@ -4,11 +4,11 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import headers from "../cors-headers";
+import headers from "./cors-headers";
 
 import { IListTodos, ListTodosRequest } from "@todos/core";
 
-export default (listTodos: IListTodos): Handler =>
+export default (interactor: IListTodos): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -27,7 +27,7 @@ export default (listTodos: IListTodos): Handler =>
 				listName: String(params.listId),
 			};
 
-			const result = await listTodos.execute(request);
+			const result = await interactor.execute(request);
 
 			response.body = JSON.stringify({
 				...result,

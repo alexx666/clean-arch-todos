@@ -4,11 +4,11 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import headers from "../cors-headers";
+import headers from "./cors-headers";
 
-import { DeleteTodo, DeleteTodoParameters, IMediator } from "@todos/core";
+import { DeleteTodo, DeleteTodoParameters, IDeleteTodoHandler } from "@todos/core";
 
-export default (mediator: IMediator): Handler =>
+export default (interactor: IDeleteTodoHandler): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -29,7 +29,7 @@ export default (mediator: IMediator): Handler =>
 				id: params.todoId,
 			};
 
-			await mediator.send(new DeleteTodo(request));
+			await interactor.execute(new DeleteTodo(request));
 		} catch (error) {
 			console.error(error);
 

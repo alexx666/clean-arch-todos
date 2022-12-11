@@ -4,11 +4,11 @@ import {
 	Handler,
 } from "aws-lambda";
 
-import headers from "../cors-headers";
+import headers from "./cors-headers";
 
-import { CreateList, CreateListParameters, IMediator } from "@todos/core";
+import { CreateList, CreateListParameters, ICreateListHandler } from "@todos/core";
 
-export default (mediator: IMediator): Handler =>
+export default (interactor: ICreateListHandler): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
@@ -30,7 +30,7 @@ export default (mediator: IMediator): Handler =>
 				allowExpired: body.allowExpired ?? true,
 			} as CreateListParameters;
 
-			await mediator.send(new CreateList(request));
+			await interactor.execute(new CreateList(request));
 		} catch (error) {
 			console.error(error);
 
