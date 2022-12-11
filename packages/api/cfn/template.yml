@@ -301,3 +301,7 @@ Outputs:
   SNSTopicArn:
     Description: SNS Topic ARN
     Value: !Ref Mediator
+
+  EventStoreName:
+    Describe: DynamoDB table name
+    Value: !Ref EventStore

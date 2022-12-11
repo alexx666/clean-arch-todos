@@ -56,12 +56,6 @@ _Build Source_
 npm run build
 ```
 
-_Build Docs_
-
-```
-npm run build:docs
-```
-
 ### Deploy
 
 _Configure AWS CLI_
