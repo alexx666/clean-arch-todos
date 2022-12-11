@@ -1,7 +1,6 @@
 import { CreateList, ICreateListHandler } from "@todos/core";
 
-import { Config } from "../config";
-import { Request } from "../request";
+import { Config, Request } from "../infrastructure";
 
 export class CreateListHandler implements ICreateListHandler {
 

@@ -13,9 +13,10 @@
 		"build": {
 			"executor": "@nrwl/esbuild:esbuild",
 			"options": {
-				"main": "packages/cli/src/todos.ts",
+				"main": "packages/cli/src/main.ts",
 				"tsConfig": "packages/cli/tsconfig.app.json",
 				"outputPath": "dist/packages/cli",
+				"outputFileName": "todos",
 				"assets": [
 					"packages/cli/README.md"
 				],
@@ -26,7 +27,9 @@
 				"platform": "node",
 				"external": [
 					"commander",
-					"dotenv"
+					"dotenv",
+					"reflect-metadata",
+					"tsyringe"
 				]
 			}
 		},

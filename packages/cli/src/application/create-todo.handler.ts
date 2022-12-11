@@ -1,7 +1,6 @@
 import { CreateTodo, CreateTodoResponse, ICreateTodoHandler } from "@todos/core";
 
-import { Config } from "../config";
-import { Request } from "../request";
+import { Config, Request } from "../infrastructure";
 
 export class CreateTodoHandler implements ICreateTodoHandler {
 
