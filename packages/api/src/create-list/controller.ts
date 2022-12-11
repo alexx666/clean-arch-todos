@@ -4,6 +4,8 @@ import {
 	Handler,
 } from "aws-lambda";
 
+import headers from "../cors-headers";
+
 import { CreateList, CreateListParameters, IMediator } from "@todos/core";
 
 export default (mediator: IMediator): Handler =>
@@ -13,13 +15,7 @@ export default (mediator: IMediator): Handler =>
 		const response: APIGatewayProxyResult = {
 			statusCode: 201,
 			body: "",
-			headers: {
-				"Access-Control-Allow-Headers":
-					"Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-				"Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE,PUT",
-				"Access-Control-Allow-Origin": "*",
-				"Content-Type": "application/json",
-			},
+			headers,
 		};
 
 		try {

@@ -4,21 +4,18 @@ import {
 	Handler,
 } from "aws-lambda";
 
+import headers from "../cors-headers";
+
 import { IListTodos, ListTodosRequest } from "@todos/core";
 
 export default (listTodos: IListTodos): Handler =>
 	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 		console.debug("Event:", event);
 
-		const response: Partial<APIGatewayProxyResult> = {
+		const response: APIGatewayProxyResult = {
 			statusCode: 200,
-			headers: {
-				"Access-Control-Allow-Headers":
-					"Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-				"Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE,PUT",
-				"Access-Control-Allow-Origin": "*",
-				"Content-Type": "application/json",
-			},
+			headers,
+			body: "",
 		};
 
 		try {
@@ -47,5 +44,5 @@ export default (listTodos: IListTodos): Handler =>
 
 		console.debug("Response:", response);
 
-		return response as APIGatewayProxyResult;
+		return response;
 	};
