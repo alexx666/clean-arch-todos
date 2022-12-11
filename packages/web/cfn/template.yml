@@ -1,0 +1,49 @@
+Description: Clean Arch Todos Web
+
+Parameters:
+  Project:
+    Type: String
+    Default: CleanArchTodos
+
+  Environment:
+    Type: String
+    Default: dev
+
+Resources:
+  WebServer:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::Region}.${Environment}.todos
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        ErrorDocument: index.html
+        IndexDocument: index.html
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
+  WebServerPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref WebServer
+      PolicyDocument:
+        {
+          "Version": "2012-10-17",
+          "Statement":
+            [
+              {
+                "Sid": "Allow-Public-Access-To-Bucket",
+                "Effect": "Allow",
+                "Principal": "*",
+                "Action": "s3:GetObject",
+                "Resource": !Sub "arn:aws:s3:::${AWS::Region}.${Environment}.todos/*",
+              },
+            ],
+        }
+
+Outputs:
+  WebSiteUrl:
+    Description: URL for hosted website
+    Value: !GetAtt WebServer.WebsiteURL

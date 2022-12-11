@@ -1,0 +1,12 @@
+version = 0.1
+[dev]
+[dev.deploy]
+[dev.deploy.parameters]
+stack_name = "todo-web"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-67u53hb19nc2"
+s3_prefix = "todo-web"
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Project=\"CleanArchTodos\" Environment=\"dev\""
+image_repositories = []
