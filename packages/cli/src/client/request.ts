@@ -1,5 +1,6 @@
 import { IncomingMessage } from "http";
-import { request, RequestOptions } from "http";
+import { request as httpRequest, RequestOptions as HttpRequestOptions } from "http";
+import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from "https"
 import { URL } from "url";
 
 interface Headers {
@@ -18,14 +19,22 @@ interface ErrorMessage {
 	error: string;
 }
 
+enum Protocols {
+	HTTP = "http:",
+	HTTPS = "https:",
+}
+
 export class Request<TResponse> {
 	private static errorRegex = /^(4|5)[\d]{2}$/;
 
-	private readonly options: RequestOptions;
+	private readonly options: HttpRequestOptions | HttpsRequestOptions;
 	private readonly body?: string | Buffer;
+	private protocol: Protocols;
 
 	constructor(options: RequestParameters) {
 		const urlParams = new URL(options.url);
+
+		this.protocol = urlParams.protocol as Protocols;
 
 		this.options = {
 			host: urlParams.hostname,
@@ -36,6 +45,14 @@ export class Request<TResponse> {
 		};
 
 		this.body = options.body;
+	}
+
+	public get protocolBasedRequest() {
+		switch (this.protocol) {
+			case Protocols.HTTPS: return httpsRequest;
+			case Protocols.HTTP: return httpRequest
+			default: throw new Error(`Unsupported protocol`);
+		}
 	}
 
 	public send(): Promise<TResponse> {
@@ -54,7 +71,7 @@ export class Request<TResponse> {
 				res.on("error", reject);
 			};
 
-			const req = request(this.options, handler);
+			const req = this.protocolBasedRequest(this.options, handler);
 
 			req.on("error", reject);
 
