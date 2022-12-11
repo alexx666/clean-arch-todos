@@ -3,31 +3,29 @@
 		"../../.eslintrc.json"
 	],
 	"ignorePatterns": [
-		"!**/*",
-		"**/*.spec.ts",
-		"**/*.d.ts"
+		"!**/*"
 	],
 	"overrides": [
 		{
-			"env": {
-				"es6": true,
-				"node": true
-			},
-			"files": "*.ts",
-			"extends": [
-				"plugin:@typescript-eslint/recommended",
-				"plugin:@typescript-eslint/recommended-requiring-type-checking",
-				"prettier"
+			"files": [
+				"*.ts",
+				"*.tsx",
+				"*.js",
+				"*.jsx"
 			],
-			"parser": "@typescript-eslint/parser",
-			"parserOptions": {
-				"project": "tsconfig.json",
-				"sourceType": "module"
-			},
-			"plugins": [
-				"eslint-plugin-jsdoc",
-				"eslint-plugin-prefer-arrow",
-				"@typescript-eslint"
+			"rules": {}
+		},
+		{
+			"files": [
+				"*.ts",
+				"*.tsx"
+			],
+			"rules": {}
+		},
+		{
+			"files": [
+				"*.js",
+				"*.jsx"
 			],
 			"rules": {}
 		}
