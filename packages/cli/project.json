@@ -1,31 +1,45 @@
 {
 	"name": "cli",
 	"projectType": "application",
-	"sourceRoot": "packages/cli/src",
+	"sourceRoot": "packages/cli",
 	"prefix": "packages",
 	"targets": {
+		"publish": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "npm publish dist/packages/cli"
+			}
+		},
 		"build": {
-			"executor": "@nrwl/node:webpack",
+			"executor": "@nrwl/esbuild:esbuild",
 			"options": {
 				"main": "packages/cli/src/todos.ts",
 				"tsConfig": "packages/cli/tsconfig.app.json",
 				"outputPath": "dist/packages/cli",
-				"generatePackageJson": true,
-				"sourceMap": true,
-				"progress": true,
-				"externalDependencies": "none"
+				"assets": [
+					"packages/cli/README.md"
+				],
+				"format": [
+					"cjs"
+				],
+				"target": "es2020",
+				"platform": "node",
+				"external": [
+					"commander",
+					"dotenv"
+				]
 			}
 		},
 		"start": {
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "node dist/packages/cli/main"
+				"command": "node dist/packages/cli/todos.cjs"
 			}
 		},
 		"debug": {
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "node --inspect dist/packages/cli/main"
+				"command": "node --inspect dist/packages/cli/todos.cjs"
 			}
 		},
 		"lint": {

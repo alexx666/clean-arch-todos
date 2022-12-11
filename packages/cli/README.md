@@ -3,5 +3,5 @@
 ### Running
 
 ```
-npm start -w packages/cli -- <command> <options>
+todoscli <command> <options>
 ```
