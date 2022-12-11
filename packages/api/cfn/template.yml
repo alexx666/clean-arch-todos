@@ -6,7 +6,6 @@ Globals:
       AllowMethods: "'OPTIONS,POST,GET,DELETE,PUT'"
       AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
       AllowOrigin: "'*'"
-      AllowCredentials: "'*'"
   Function:
     MemorySize: 512
     Runtime: nodejs16.x
