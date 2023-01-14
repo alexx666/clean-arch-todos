@@ -1,4 +1,10 @@
 {
 	".": "1.0.0",
-	"packages/cli": "1.0.0"
+	"extra-files": [
+		{
+			"type": "json",
+			"path": "packages/cli/package.json",
+			"jsonpath": "$.version"
+		}
+	]
 }
