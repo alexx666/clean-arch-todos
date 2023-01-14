@@ -1,4 +1,4 @@
-name: tests
+name: release
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - "docs/**"
 
 jobs:
-  test:
+  release:
     runs-on: ubuntu-latest
 
     steps:
