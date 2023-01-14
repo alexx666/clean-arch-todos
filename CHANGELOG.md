@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/alexx666/clean-arch-todos/compare/clean-arch-v1.1.0...clean-arch-v1.1.1) (2023-01-14)
+
+
+### Bug Fixes
+
+* **automation:** add correct id to release step so that the rest of the process may finish ([359cf40](https://github.com/alexx666/clean-arch-todos/commit/359cf40222cc3626a6ccc332f1ffe703f786ebbf))
+
 ## [1.1.0](https://github.com/alexx666/clean-arch-todos/compare/clean-arch-v1.0.0...clean-arch-v1.1.0) (2023-01-14)
 
 
