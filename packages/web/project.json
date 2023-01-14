@@ -7,13 +7,11 @@
 		"deploy": {
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "sam deploy -g --config-env dev --config-file $(pwd)/packages/web/cfn/samconfig.toml -t packages/web/cfn/template.yml"
-			}
-		},
-		"publish": {
-			"executor": "nx:run-commands",
-			"options": {
-				"command": "aws s3 sync dist/packages/web s3://$BUCKET_NAME --delete"
+				"parallel": false,
+				"commands": [
+					"sam deploy -g --config-env dev --config-file $(pwd)/packages/web/cfn/samconfig.toml -t packages/web/cfn/template.yml",
+					"aws s3 sync dist/packages/web s3://$BUCKET_NAME --delete"
+				]
 			}
 		},
 		"build": {

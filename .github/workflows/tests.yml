@@ -1,12 +1,6 @@
 name: tests
 
 on:
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - "**/README.md"
-      - "docs/**"
   pull_request:
     branches:
       - master
@@ -17,31 +11,49 @@ on:
       - "**/README.md"
       - "docs/**"
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+env:
+  NX_BASE: origin/master
+  NX_HEAD: HEAD
 
-    strategy:
-      matrix:
-        node-version: [16.x]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Source
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: ".node-version"
+          cache: "npm"
 
       - name: Install
         run: npm ci
 
       - name: Lint
-        run: npm run lint
+        run: npm run lint:affected
 
-      - name: Build
-        run: npm run build
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".node-version"
+          cache: "npm"
+
+      - name: Install
+        run: npm ci
 
       - name: Test
-        run: npm run test
+        run: npm run test:affected
