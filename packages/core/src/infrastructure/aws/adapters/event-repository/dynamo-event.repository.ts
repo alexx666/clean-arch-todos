@@ -1,4 +1,5 @@
 import { DynamoDB } from "aws-sdk";
+
 import { EventRepository } from "../../../../ports";
 import { Event } from "../../../../shared";
 
@@ -9,7 +10,13 @@ export class DynamoEventRepository implements EventRepository {
 	private readonly ddb: DynamoDB.DocumentClient;
 
 	constructor(private readonly config: DynamoConfig) {
-		this.ddb = new DynamoDB.DocumentClient();
+
+		console.log({ config });
+
+		this.ddb = new DynamoDB.DocumentClient({
+			endpoint: config.endpoint,
+			sslEnabled: config.sslEnabled,
+		});
 	}
 
 	public async saveAll(events: Event[]): Promise<void> {

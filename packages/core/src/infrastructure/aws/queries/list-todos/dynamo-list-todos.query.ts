@@ -9,7 +9,10 @@ export class DynamoListTodos implements IListTodos {
 	private readonly ddb: DynamoDB.DocumentClient;
 
 	constructor(private readonly config: DynamoConfig) {
-		this.ddb = new DynamoDB.DocumentClient();
+		this.ddb = new DynamoDB.DocumentClient({
+			endpoint: config.endpoint,
+			sslEnabled: config.sslEnabled,
+		});
 	}
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {

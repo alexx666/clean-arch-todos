@@ -13,7 +13,11 @@
 		"serve": {
 			"executor": "nx:run-commands",
 			"options": {
-				"command": "sam local start-api --warm-containers EAGER -t dist/packages/api/template.yaml -n packages/api/cfn/env.json"
+				"parallel": true,
+				"commands": [
+					"sam local start-api --warm-containers LAZY -t dist/packages/api/template.yaml -n packages/api/cfn/env.json",
+					"sam local start-lambda --warm-containers LAZY -t dist/packages/api/template.yaml -n packages/api/cfn/env.json"
+				]
 			}
 		},
 		"deploy": {
