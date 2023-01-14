@@ -3,6 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux,vscode,node,typings
 
 ### AWS SAM
+docker/
 .aws-sam/
 build/
 env.json

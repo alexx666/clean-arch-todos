@@ -75,18 +75,15 @@ npx nx deploy api
 
 ### Running
 
-_Serve Web_
-
-> Note: change the API in the `environments.ts` to the one provided by the outputs section printed out after deploying the API
+_Serve Web and API_, along with a local version of DynamoDB.
 
 ```
-npx nx serve web
+npm run serve
 ```
 
 _Run CLI_
 
 ```
-export API_URL=<output-api-url-from-deployment>
 npx nx start cli -- <command> <options>
 ```
 
@@ -95,5 +92,5 @@ npx nx start cli -- <command> <options>
 ### Notes
 
 - Requests directly to the API are available via [Thunder Client](https://www.thunderclient.com/) which has been included as a recommended extension
-- Testing CLI package publishing can be done using [verdaccio](https://verdaccio.org/)
-- The API can also be executed locally using docker and running `npx nx start api`. However, you will need an existing DynamoDB and SNS Topic created in your account (the simplest way is to deploy the API to AWS and configure [`packages/api/cfn/env.json`](../packages/api/cfn/env.json) file with the values from the deployed stack)
+- Testing CLI package publishing can be done using [verdaccio](https://verdaccio.org/). It's served using docker when invokking `npm run serve`
+- For complete local development a local SNS and SQS services are needed.

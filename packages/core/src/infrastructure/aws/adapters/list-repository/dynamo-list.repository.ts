@@ -9,7 +9,12 @@ export class DynamoListRepository implements ListRepository {
 	private readonly ddb: DynamoDB.DocumentClient;
 
 	constructor(private readonly config: DynamoConfig) {
-		this.ddb = new DynamoDB.DocumentClient();
+		console.log({ config });
+
+		this.ddb = new DynamoDB.DocumentClient({
+			endpoint: config.endpoint,
+			sslEnabled: config.sslEnabled,
+		});
 	}
 
 	public async findByName(id: string): Promise<List | undefined> {
