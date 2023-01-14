@@ -1,7 +1,7 @@
 # `clean-arch-todos`
 
 [![tests](https://github.com/alexx666/clean-arch-todos/actions/workflows/tests.yml/badge.svg)](https://github.com/alexx666/clean-arch-todos/actions/workflows/tests.yml)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FFFFF?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 A Monorepo for practicing and studying software architecture and system design using the following concepts:
