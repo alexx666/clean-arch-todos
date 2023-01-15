@@ -1,16 +1,22 @@
 version: "3.8"
 
 services:
-  dynamodb-local:
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
     restart: always
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
-    image: "amazon/dynamodb-local:latest"
-    container_name: dynamodb-local
+    image: localstack/localstack
     ports:
-      - "8000:8000"
+      - "127.0.0.1:4566:4566" # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559" # external services port range
+    environment:
+      - DEBUG=${DEBUG-}
+      - AWS_DEFAULT_REGION=eu-west-1
+      - SERVICES=s3,dynamodb,sns,sqs
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-}
+      - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - "./docker/dynamodb:/home/dynamodblocal/data"
-    working_dir: /home/dynamodblocal
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
 
   verdaccio:
     image: verdaccio/verdaccio

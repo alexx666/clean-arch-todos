@@ -9,7 +9,13 @@ export class SNSMediator implements IMediator {
 	private readonly sns: SNS;
 
 	constructor(private readonly config: SNSConfig) {
-		this.sns = new SNS();
+
+		console.log({ config });
+
+		this.sns = new SNS({
+			endpoint: config.endpoint,
+			sslEnabled: config.sslEnabled,
+		});
 	}
 
 	public async send(command: Command): Promise<void> {

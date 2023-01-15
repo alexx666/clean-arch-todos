@@ -8,12 +8,14 @@ const cryptoUuid = new CryptoUuid();
 
 const dynamoListRepo = new DynamoListRepository({
 	table: String(process.env.DYNAMO_TABLE_NAME),
-	endpoint: process.env.DYNAMODB_ENDPOINT,
-	sslEnabled: process.env.DYNAMODB_ENDPOINT === undefined,
+	endpoint: process.env.AWS_ENDPOINT_URL,
+	sslEnabled: process.env.AWS_ENDPOINT_URL === undefined,
 })
 
 const snsMediator = new SNSMediator({
-	topic: String(process.env.SNS_TOPIC_ARN)
+	topic: String(process.env.SNS_TOPIC_ARN),
+	endpoint: process.env.AWS_ENDPOINT_URL,
+	sslEnabled: process.env.AWS_ENDPOINT_URL === undefined,
 })
 
 const createTodoInteractor = new CreateTodoHandler(dynamoListRepo, cryptoUuid, snsMediator);
