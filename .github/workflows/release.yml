@@ -4,46 +4,15 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - "**/README.md"
-      - "docs/**"
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Release Check
+      - name: Release
         uses: google-github-actions/release-please-action@v3
-        id: release
         with:
           command: manifest
           token: ${{secrets.GITHUB_TOKEN}}
           default-branch: master
-
-      - name: Checkout Source
-        if: ${{ steps.release.outputs.releases_created }}
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        if: ${{ steps.release.outputs.releases_created }}
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: ".node-version"
-          cache: "npm"
-          registry-url: "https://npm.pkg.github.com"
-          scope: "@alexx666"
-
-      - name: Install
-        if: ${{ steps.release.outputs.releases_created }}
-        run: npm ci
-
-      - name: Build
-        if: ${{ steps.release.outputs.releases_created }}
-        run: npm run build
-
-      - name: Publish
-        if: ${{ steps.release.outputs.releases_created }}
-        run: npm run publish -- --@alexx666:registry="https://npm.pkg.github.com"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
