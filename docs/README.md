@@ -29,7 +29,10 @@ The project is comprised of the following packages:
 - [`nodejs v16.x`](https://nodejs.org/es/download/)
 - [`npm v8.x`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 - [`docker`](https://docs.docker.com/engine/install/)
+- [`aws-cli v2`](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - [`aws-sam-cli`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html#install-sam-cli-instructions)
+- [`aws-cli-local`](https://docs.localstack.cloud/user-guide/integrations/aws-cli/)
+- [`aws-sam-cli-local`](https://docs.localstack.cloud/user-guide/integrations/aws-sam/)
 
 ## Getting Started
 

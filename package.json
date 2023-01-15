@@ -3,11 +3,11 @@
 	"version": "1.1.1",
 	"private": true,
 	"scripts": {
+		"compose": "docker compose up -d",
 		"lint": "nx run-many --target=lint --all=true",
 		"build": "nx run-many --target=build --all=true",
 		"test": "nx run-many --target=test --all=true",
-		"preserve": "docker compose up -d",
-		"serve": "nx run-many --target=serve --all=true",
+		"serve": "npm run compose && nx run-many --target=serve --all=true",
 		"lint:affected": "nx affected --target=lint",
 		"build:affected": "nx affected --target=build",
 		"test:affected": "nx affected --target=test",

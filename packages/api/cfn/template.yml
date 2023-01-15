@@ -1,11 +1,11 @@
 Transform: AWS::Serverless-2016-10-31
 
 Globals:
-  Api:
-    Cors:
-      AllowMethods: "'OPTIONS,POST,GET,DELETE,PUT'"
-      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-      AllowOrigin: "'*'"
+  # Api:
+  #   Cors:
+  #     AllowMethods: "'OPTIONS,POST,GET,DELETE,PUT'"
+  #     AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+  #     AllowOrigin: "'*'"
   Function:
     MemorySize: 512
     Runtime: nodejs16.x
