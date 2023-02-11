@@ -10,40 +10,124 @@ Parameters:
     Default: dev
 
 Resources:
-  WebServer:
+  SourceBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::Region}.${Environment}.todos
-      AccessControl: PublicRead
-      WebsiteConfiguration:
-        ErrorDocument: index.html
-        IndexDocument: index.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      AccessControl: Private
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+      LoggingConfiguration:
+        DestinationBucketName: !Ref LoggingBucket
+        LogFilePrefix: todo-logs
       Tags:
         - Key: Project
           Value: !Ref Project
         - Key: Environment
           Value: !Ref Environment
 
-  WebServerPolicy:
+  LoggingBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::Region}.${Environment}.todos.logs
+      AccessControl: LogDeliveryWrite
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
+  SourceBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref WebServer
+      Bucket: !Ref SourceBucket
       PolicyDocument:
-        {
-          "Version": "2012-10-17",
-          "Statement":
-            [
-              {
-                "Sid": "Allow-Public-Access-To-Bucket",
-                "Effect": "Allow",
-                "Principal": "*",
-                "Action": "s3:GetObject",
-                "Resource": !Sub "arn:aws:s3:::${AWS::Region}.${Environment}.todos/*",
-              },
-            ],
-        }
+        Id: CloudFrontOriginAccessIdentityReadPermissionsPolicyId
+        Version: 2012-10-17
+        Statement:
+          - Sid: CloudFrontOriginAccessIdentityReadPermissionsStatementId
+            Effect: Allow
+            Principal:
+              CanonicalUser: !GetAtt OriginAccessIdentity.S3CanonicalUserId
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${SourceBucket}/*"
+
+  OriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Sub Origin Access Identity for ${SourceBucket}
+
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    DependsOn: SourceBucket
+    Properties:
+      DistributionConfig:
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - HEAD
+            - GET
+          CachedMethods:
+            - HEAD
+            - GET
+          Compress: true
+          DefaultTTL: 86400
+          ForwardedValues:
+            QueryString: false
+          MaxTTL: 31536000
+          MinTTL: 0
+          SmoothStreaming: false
+          TargetOriginId: !Sub S3-${SourceBucket}
+          ViewerProtocolPolicy: redirect-to-https
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: /index.html
+        Enabled: true
+        HttpVersion: http2
+        IPV6Enabled: true
+        Origins:
+          - DomainName: !Sub ${SourceBucket}.s3.amazonaws.com
+            Id: !Sub S3-${SourceBucket}
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${OriginAccessIdentity}
+        PriceClass: PriceClass_All
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
 
 Outputs:
   WebSiteUrl:
     Description: URL for hosted website
-    Value: !GetAtt WebServer.WebsiteURL
+    Value: !GetAtt Distribution.DomainName
+
+  DistributionId:
+    Description: CloudFront Distribution Id for invalidation purposes
+    Value: !Ref Distribution
+    Export:
+      Name: !Sub ${AWS::StackName}-DistributionId
