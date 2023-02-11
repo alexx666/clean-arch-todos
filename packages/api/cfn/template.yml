@@ -101,6 +101,8 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: !Sub ${AWS::StackName}-event-store
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
