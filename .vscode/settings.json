@@ -10,5 +10,5 @@
 		"source.fixAll.eslint": true
 	},
 	"debug.javascript.autoAttachFilter": "onlyWithFlag",
-	"snyk.features.codeQuality": false
+	"snyk.features.codeQuality": false,
 }
