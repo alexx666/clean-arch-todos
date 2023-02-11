@@ -69,6 +69,7 @@ Resources:
     Type: AWS::SNS::Topic
     Properties:
       TopicName: !Sub ${AWS::StackName}-mediator
+      KmsMasterKeyId: alias/aws/sns
       Tags:
         - Key: Project
           Value: !Ref Project
@@ -85,7 +86,8 @@ Resources:
           - Sid: Allow-SNS-SendMessage
             Effect: Allow
             Principal:
-              AWS: "*"
+              Services:
+                - sns.amazonaws.com
             Action:
               - sqs:SendMessage
             Resource: "*"
@@ -251,6 +253,7 @@ Resources:
       MessageRetentionPeriod: 1209600
       QueueName: !Sub ${AWS::StackName}-store-queue
       VisibilityTimeout: 900
+      SqsManagedSseEnabled: true
       Tags:
         - Key: Project
           Value: !Ref Project
