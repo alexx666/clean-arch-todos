@@ -1,13 +1,15 @@
 version: "3.8"
 
+name: todos
+
 services:
   localstack:
-    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_main}"
+    container_name: "${LOCALSTACK_DOCKER_NAME-localstack}"
     restart: always
     image: localstack/localstack
     ports:
-      - "127.0.0.1:4566:4566" # LocalStack Gateway
-      - "127.0.0.1:4510-4559:4510-4559" # external services port range
+      - 127.0.0.1:4566:4566 # LocalStack Gateway
+      - 127.0.0.1:4510-4559:4510-4559 # external services port range
     environment:
       - DEBUG=${DEBUG-}
       - AWS_DEFAULT_REGION=eu-west-1
@@ -15,23 +17,23 @@ services:
       - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-}
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - ${LOCALSTACK_VOLUME_DIR:-.localstack}:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
 
   verdaccio:
     image: verdaccio/verdaccio
     restart: always
-    container_name: "verdaccio"
+    container_name: verdaccio
     networks:
       - node-network
     environment:
       - VERDACCIO_PORT=4873
     ports:
-      - "4873:4873"
+      - 4873:4873
     volumes:
-      - ".verdaccio/storage:/verdaccio/storage"
-      - ".verdaccio/config.yml:/verdaccio/conf/config.yml"
-      - ".verdaccio/plugins:/verdaccio/plugins"
+      - ./verdaccio/storage:/verdaccio/storage
+      - ./verdaccio/config.yml:/verdaccio/conf/config.yml
+      - ./verdaccio/plugins:/verdaccio/plugins
 
 networks:
   node-network:
