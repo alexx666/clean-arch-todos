@@ -9,6 +9,9 @@ Parameters:
     Type: String
     Default: dev
 
+  ApiUrl:
+    Type: String
+
 Resources:
   SourceBucket:
     Type: AWS::S3::Bucket
@@ -112,6 +115,35 @@ Resources:
             Id: !Sub S3-${SourceBucket}
             S3OriginConfig:
               OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${OriginAccessIdentity}
+          - CustomOriginConfig:
+              OriginKeepaliveTimeout: 5
+              OriginReadTimeout: 30
+              OriginProtocolPolicy: https-only
+              OriginSSLProtocols:
+                - TLSv1.2
+            DomainName: !Ref ApiUrl
+            Id: API-GW
+        CacheBehaviors:
+          - PathPattern: /v1/*
+            TargetOriginId: API-GW
+            AllowedMethods:
+              - HEAD
+              - DELETE
+              - POST
+              - GET
+              - OPTIONS
+              - PUT
+              - PATCH
+            CachedMethods:
+              - HEAD
+              - GET
+            Compress: false
+            DefaultTTL: 0
+            MaxTTL: 0
+            MinTTL: 0
+            SmoothStreaming: false
+            ViewerProtocolPolicy: redirect-to-https
+            CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
         PriceClass: PriceClass_All
         ViewerCertificate:
           CloudFrontDefaultCertificate: true

@@ -86,7 +86,7 @@ Resources:
           - Sid: Allow-SNS-SendMessage
             Effect: Allow
             Principal:
-              Services:
+              Service:
                 - sns.amazonaws.com
             Action:
               - sqs:SendMessage
@@ -307,5 +307,5 @@ Outputs:
     Value: !Ref Mediator
 
   EventStoreName:
-    Describe: DynamoDB table name
+    Description: DynamoDB table name
     Value: !Ref EventStore
