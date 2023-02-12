@@ -10,9 +10,6 @@ export class ListTodos implements IListTodos {
 		const request = new Request<ListTodosResponse>({
 			url: `${this.config.apiUrl}/lists/${input.listName}/todos`,
 			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
 		});
 
 		return request.send();

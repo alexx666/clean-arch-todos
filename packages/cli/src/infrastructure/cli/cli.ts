@@ -28,11 +28,14 @@ export class CLI {
 	}
 
 	public async start(args: string[]) {
+		let exitCode = 0;
 		try {
 			await program.parseAsync(args);
 		} catch (error) {
-			console.error("Error:", (error as Error).message);
-			console.debug((error as Error).stack);
+			console.error("Error:", error);
+			exitCode = 1;
 		}
+
+		process.exit(exitCode);
 	}
 }

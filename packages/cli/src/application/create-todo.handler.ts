@@ -10,9 +10,6 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 		const request = new Request<CreateTodoResponse>({
 			url: `${this.config.apiUrl}/lists/${command.params.listName}/todos`,
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify(command.params),
 		})
 

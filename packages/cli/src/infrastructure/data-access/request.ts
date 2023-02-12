@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { IncomingMessage } from "http";
 import { request as httpRequest, RequestOptions as HttpRequestOptions } from "http";
 import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from "https"
@@ -11,12 +12,7 @@ interface RequestParameters {
 	url: string;
 	method: "POST" | "PUT" | "DELETE" | "GET";
 	body?: string | Buffer;
-	headers: Headers;
-}
-
-// FIXME: define as generic param in Request
-interface ErrorMessage {
-	error: string;
+	headers?: Headers;
 }
 
 enum Protocols {
@@ -41,7 +37,11 @@ export class Request<TResponse> {
 			port: urlParams.port,
 			method: options.method,
 			path: urlParams.pathname,
-			headers: options.headers,
+			headers: {
+				"Content-Type": "application/json",
+				...(options.headers ?? {}),
+				"X-Request-Id": randomUUID()
+			},
 		};
 
 		this.body = options.body;
@@ -64,16 +64,16 @@ export class Request<TResponse> {
 
 				res.on("data", (data: string) =>
 					isError
-						? reject(new Error((JSON.parse(data) as ErrorMessage).error))
+						? reject(new Error(data))
 						: resolve(JSON.parse(data) as TResponse)
 				);
 
-				res.on("error", reject);
+				res.on("error", (error) => reject(error.message));
 			};
 
 			const req = this.protocolBasedRequest(this.options, handler);
 
-			req.on("error", reject);
+			req.on("error", (error) => reject(error.message));
 
 			if (this.body) req.write(this.body);
 

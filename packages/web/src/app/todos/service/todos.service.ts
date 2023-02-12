@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { CreateListParameters, CreateTodoParameters, DeleteTodoParameters, ListTodosRequest, ListTodosResponse } from "@todos/core";
+import { v4 } from "uuid";
 
 @Injectable({
 	providedIn: 'root'
@@ -14,7 +15,13 @@ export class TodosService {
 	public getTodos(request: ListTodosRequest) {
 		const url = encodeURI(`${environment.url}/lists/${request.listName}/todos`);
 
-		return this.http.get<ListTodosResponse>(url).pipe(map((response) => response.items)).pipe(
+		const options = {
+			headers: {
+				"X-Request-Id": v4(),
+			}
+		}
+
+		return this.http.get<ListTodosResponse>(url, options).pipe(map((response) => response.items)).pipe(
 			catchError((response) => { throw new Error(response.error.error) })
 		)
 	}
@@ -24,7 +31,13 @@ export class TodosService {
 
 		const body = { listName: request.listName };
 
-		return this.http.post(url, body).pipe(
+		const options = {
+			headers: {
+				"X-Request-Id": v4(),
+			}
+		}
+
+		return this.http.post(url, body, options).pipe(
 			catchError((response) => { throw new Error(response.error.error) })
 		);
 	}
@@ -39,7 +52,13 @@ export class TodosService {
 			end: request.end
 		}
 
-		return this.http.post(url, body).pipe(
+		const options = {
+			headers: {
+				"X-Request-Id": v4(),
+			}
+		}
+
+		return this.http.post(url, body, options).pipe(
 			catchError((response) => { throw new Error(response.error.error) })
 		);
 	}
@@ -48,7 +67,13 @@ export class TodosService {
 	public deleteTodo(request: DeleteTodoParameters) {
 		const url = encodeURI(`${environment.url}/lists/${request.listName}/todos/${request.id}`);
 
-		return this.http.delete<void>(url).pipe(
+		const options = {
+			headers: {
+				"X-Request-Id": v4(),
+			}
+		}
+
+		return this.http.delete<void>(url, options).pipe(
 			catchError((response) => { throw new Error(JSON.parse(response).error) })
 		);
 	}

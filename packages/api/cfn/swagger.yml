@@ -7,6 +7,13 @@ info:
 tags:
   - name: todos
 
+x-amazon-apigateway-request-validators:
+  basic:
+    validateRequestBody: true
+    validateRequestParameters: true
+
+x-amazon-apigateway-request-validator: basic
+
 paths:
   /lists/{listId}/todos:
     get:
@@ -40,7 +47,13 @@ paths:
       summary: Create Todo
       operationId: createTodo
       parameters:
-        - name: id
+        - name: X-Request-Id
+          in: header
+          required: true
+          description: Request identifier
+          schema:
+            type: string
+        - name: listId
           in: path
           required: true
           schema:
@@ -73,6 +86,12 @@ paths:
       summary: Delete Todo
       operationId: deleteTodo
       parameters:
+        - name: X-Request-Id
+          in: header
+          required: true
+          description: Request identifier
+          schema:
+            type: string
         - name: listId
           in: path
           required: true
@@ -99,6 +118,13 @@ paths:
         - todos
       summary: Create List
       operationId: createList
+      parameters:
+        - name: X-Request-Id
+          in: header
+          required: true
+          description: Request identifier
+          schema:
+            type: string
       requestBody:
         description: List parameters
         required: true

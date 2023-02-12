@@ -144,6 +144,7 @@ Resources:
             SmoothStreaming: false
             ViewerProtocolPolicy: redirect-to-https
             CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad
+            OriginRequestPolicyId: !Ref OriginRequestPolicy
         PriceClass: PriceClass_All
         ViewerCertificate:
           CloudFrontDefaultCertificate: true
@@ -152,6 +153,22 @@ Resources:
           Value: !Ref Project
         - Key: Environment
           Value: !Ref Environment
+
+  OriginRequestPolicy:
+    Type: AWS::CloudFront::OriginRequestPolicy
+    Properties:
+      OriginRequestPolicyConfig:
+        Name: !Sub ${AWS::StackName}-${Environment}
+        HeadersConfig:
+          HeaderBehavior: whitelist
+          Headers:
+            - Accept
+            - User-Agent
+            - X-Request-Id
+        CookiesConfig:
+          CookieBehavior: all
+        QueryStringsConfig:
+          QueryStringBehavior: all
 
 Outputs:
   WebSiteUrl:

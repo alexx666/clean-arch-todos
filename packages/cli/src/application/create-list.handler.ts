@@ -11,9 +11,6 @@ export class CreateListHandler implements ICreateListHandler {
 		const request = new Request<void>({
 			url: `${this.config.apiUrl}/lists`,
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify(command.params),
 		})
 

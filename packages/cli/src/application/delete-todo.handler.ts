@@ -11,9 +11,6 @@ export class DeleteTodoHandler implements IDeleteTodoHandler {
 		const request = new Request<void>({
 			url: `${this.config.apiUrl}/lists/${command.params.listName}/todos/${command.params.id}`,
 			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-			},
 		})
 
 		return request.send();
