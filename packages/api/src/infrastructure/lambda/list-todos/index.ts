@@ -1,6 +1,6 @@
-import { listTodos } from "../../../controllers";
+import { APIGatewayProxyEvent } from "aws-lambda";
 
+import { ListTodosController } from "../../../controllers";
 import { interactor } from "../../data-access";
 
-
-export const handler = listTodos(interactor);
+export const handler = async (event: APIGatewayProxyEvent) => new ListTodosController(interactor).handle(event);

@@ -1,10 +1,15 @@
 import { Event } from "@todos/core";
-import { Handler, SQSEvent } from "aws-lambda";
+import { SQSEvent } from "aws-lambda";
 import { StoreEventHandler } from "../application/store-event";
 
 // TODO: event deduplication
-export default (interactor: StoreEventHandler): Handler => async (event: SQSEvent) => {
-	const events = event.Records.map(record => JSON.parse(record.body) as Event);
+export class StoreEventController {
+	constructor(private interactor: StoreEventHandler) { }
 
-	await interactor.execute(events);
+	public async handle(event: SQSEvent) {
+		const events = event.Records.map(record => JSON.parse(record.body) as Event);
+
+		await this.interactor.execute(events);
+	}
 }
+

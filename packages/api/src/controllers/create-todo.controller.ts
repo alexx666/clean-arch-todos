@@ -1,15 +1,17 @@
 import {
 	APIGatewayProxyEvent,
 	APIGatewayProxyResult,
-	Handler,
 } from "aws-lambda";
-
-import headers from "./cors-headers";
 
 import { CreateTodo, CreateTodoParameters, ICreateTodoHandler } from "@todos/core";
 
-export default (interactor: ICreateTodoHandler): Handler =>
-	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+import { idempotent, headers } from "../infrastructure/util";
+
+export class CreateTodoController {
+	constructor(private interactor: ICreateTodoHandler) { }
+
+	@idempotent()
+	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 
 		const response: APIGatewayProxyResult = {
@@ -29,7 +31,7 @@ export default (interactor: ICreateTodoHandler): Handler =>
 				listName: decodeURI(params.listId),
 			} as CreateTodoParameters;
 
-			const result = await interactor.execute(new CreateTodo(request));
+			const result = await this.interactor.execute(new CreateTodo(request));
 
 			response.body = JSON.stringify(result);
 		} catch (error) {
@@ -44,4 +46,5 @@ export default (interactor: ICreateTodoHandler): Handler =>
 		console.debug("Response:", response);
 
 		return response;
-	};
+	}
+}

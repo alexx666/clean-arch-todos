@@ -1,7 +1,6 @@
 // TODO: refactor into config + factories
 
 import { DynamoEventRepository, DynamoListRepository, DynamoListTodos, SNSMediator } from "@todos/core";
-import { DynamoDB } from "aws-sdk";
 
 import { CryptoUuid } from "../util";
 

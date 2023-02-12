@@ -1,15 +1,18 @@
 import {
 	APIGatewayProxyEvent,
 	APIGatewayProxyResult,
-	Handler,
 } from "aws-lambda";
 
-import headers from "./cors-headers";
+import { headers } from "../infrastructure/util";
 
 import { IListTodos, ListTodosRequest } from "@todos/core";
 
-export default (interactor: IListTodos): Handler =>
-	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+
+export class ListTodosController {
+
+	constructor(private interactor: IListTodos) { }
+
+	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 
 		const response: APIGatewayProxyResult = {
@@ -27,7 +30,7 @@ export default (interactor: IListTodos): Handler =>
 				listName: String(params.listId),
 			};
 
-			const result = await interactor.execute(request);
+			const result = await this.interactor.execute(request);
 
 			response.body = JSON.stringify({
 				...result,
@@ -45,4 +48,5 @@ export default (interactor: IListTodos): Handler =>
 		console.debug("Response:", response);
 
 		return response;
-	};
+	}
+}

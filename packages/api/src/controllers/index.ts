@@ -1,5 +1,5 @@
-export { default as createList } from "./create-list.controller";
-export { default as createTodo } from "./create-todo.controller";
-export { default as deleteTodo } from "./delete-todo.controller";
-export { default as listTodos } from "./list-todos.controller";
-export { default as storeEvent } from "./store-event.controller";
+export * from "./create-list.controller";
+export * from "./create-todo.controller";
+export * from "./delete-todo.controller";
+export * from "./list-todos.controller";
+export * from "./store-event.controller";

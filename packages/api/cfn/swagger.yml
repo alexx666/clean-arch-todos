@@ -22,6 +22,12 @@ paths:
       summary: List Todos
       operationId: listTodos
       parameters:
+        - name: X-Request-Id
+          in: header
+          required: true
+          description: Request identifier
+          schema:
+            type: string
         - name: listId
           in: path
           required: true

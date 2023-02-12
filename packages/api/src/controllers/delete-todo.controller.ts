@@ -1,15 +1,19 @@
 import {
 	APIGatewayProxyEvent,
 	APIGatewayProxyResult,
-	Handler,
 } from "aws-lambda";
-
-import headers from "./cors-headers";
 
 import { DeleteTodo, DeleteTodoParameters, IDeleteTodoHandler } from "@todos/core";
 
-export default (interactor: IDeleteTodoHandler): Handler =>
-	async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+import { idempotent, headers } from "../infrastructure/util";
+
+
+export class DeleteTodoController {
+
+	constructor(private interactor: IDeleteTodoHandler) { }
+
+	@idempotent()
+	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 
 		const response: APIGatewayProxyResult = {
@@ -29,7 +33,7 @@ export default (interactor: IDeleteTodoHandler): Handler =>
 				id: params.todoId,
 			};
 
-			await interactor.execute(new DeleteTodo(request));
+			await this.interactor.execute(new DeleteTodo(request));
 		} catch (error) {
 			console.error(error);
 
@@ -42,4 +46,5 @@ export default (interactor: IDeleteTodoHandler): Handler =>
 		console.debug("Response:", response);
 
 		return response;
-	};
+	}
+}
