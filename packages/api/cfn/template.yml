@@ -42,6 +42,14 @@ Parameters:
     Type: String
     Default: ""
 
+  MaximumBatchingWindowInSeconds:
+    Type: Number
+    Default: 5
+
+  MaximumConcurrency:
+    Type: Number
+    Default: 5
+
 # Mappings:
 #   set of mappings
 
@@ -285,6 +293,9 @@ Resources:
             BatchSize: 10
             Enabled: true
             Queue: !GetAtt StoreEventQueue.Arn
+            MaximumBatchingWindowInSeconds: !Ref MaximumBatchingWindowInSeconds
+            ScalingConfig:
+              MaximumConcurrency: !Ref MaximumConcurrency
     Metadata:
       BuildMethod: esbuild
 
