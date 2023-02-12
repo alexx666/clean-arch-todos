@@ -12,8 +12,9 @@ Globals:
     Handler: index.handler
     Environment:
       Variables:
-        DYNAMO_TABLE_NAME: !Ref EventStore
-        SNS_TOPIC_ARN: !Ref Mediator
+        IDEMPOTENCY_TABLE_NAME: !Ref IdempotencyCache
+        EVENT_STORE_TABLE_NAME: !Ref EventStore
+        SNS_MEDIATOR_TOPIC_ARN: !Ref Mediator
         AWS_ENDPOINT_URL: !Ref DynamoDbEndpoint
         # NODE_OPTIONS: --enable-source-maps
     Tags:
@@ -44,11 +45,11 @@ Parameters:
 
   MaximumBatchingWindowInSeconds:
     Type: Number
-    Default: 5
+    Default: 0
 
   MaximumConcurrency:
     Type: Number
-    Default: 5
+    Default: 2
 
 # Mappings:
 #   set of mappings
@@ -124,6 +125,30 @@ Resources:
           KeyType: HASH
         - AttributeName: timestamp
           KeyType: RANGE
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
+  IdempotencyCache:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub ${AWS::StackName}-idempotency-cache
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiration
+        Enabled: true
       Tags:
         - Key: Project
           Value: !Ref Project
