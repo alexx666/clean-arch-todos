@@ -4,6 +4,8 @@ import { request as httpRequest, RequestOptions as HttpRequestOptions } from "ht
 import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from "https"
 import { URL } from "url";
 
+import { retryable } from "../util/retry";
+
 interface Headers {
 	[key: string]: string | number;
 }
@@ -55,6 +57,7 @@ export class Request<TResponse> {
 		}
 	}
 
+	@retryable()
 	public send(): Promise<TResponse> {
 		return new Promise((resolve, reject) => {
 			const handler = (res: IncomingMessage) => {
