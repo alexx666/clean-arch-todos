@@ -18,7 +18,7 @@ export const retryable = (config: RetryConfig = defaultRetryConfig) => (_: any, 
 
 		const { maxRetries, backoffStrategy, decider } = config;
 
-		const initialBackoff = 100; // TODO: random jitter
+		const initialBackoff = 300;
 
 		let shouldRetry = true;
 		let retries = 0;
@@ -34,7 +34,7 @@ export const retryable = (config: RetryConfig = defaultRetryConfig) => (_: any, 
 				retries += 1;
 				shouldRetry = retries < maxRetries;
 
-				const backoff = backoffStrategy.next(retries, initialBackoff);
+				const backoff = backoffStrategy.jitter(retries, initialBackoff);
 
 				console.debug("Retrying in:", backoff)
 

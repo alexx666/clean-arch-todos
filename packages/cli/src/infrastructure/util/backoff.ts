@@ -1,3 +1,3 @@
 export interface BackoffStrategy {
-	next(retries: number, initialBackoff: number): number;
+	jitter(retries: number, initialBackoff: number): number;
 }
