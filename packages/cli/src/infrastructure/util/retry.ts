@@ -1,19 +1,24 @@
-// TODO: Refactor to OOP
-// FIXME: implement decider
-function isNotRetryable(error: Error): boolean {
-	return false;
-}
+import { Time } from "./time";
+import { ExponentialBackoff } from "./exponential.backoff";
+import { HTTPDecider } from "./http.decider";
+import { RetryConfig } from "./config";
 
-function delay(ms: number) {
-	return new Promise((resolve) => setTimeout(resolve, ms))
-}
+const defaultRetryConfig: RetryConfig = {
+	maxRetries: Number(process.env.MAX_RETRIES ?? 5),
+	decider: new HTTPDecider(),
+	backoffStrategy: new ExponentialBackoff(),
+};
 
-export const retryable = () => (_: any, __: string, descriptor: PropertyDescriptor) => {
+export const retryable = (config: RetryConfig = defaultRetryConfig) => (_: any, __: string, descriptor: PropertyDescriptor) => {
 	const originalMethod = descriptor.value;
 
 	descriptor.value = async function (...args: any[]) {
-		const maxRetries = 5;
-		const initialBackoff = 100;
+
+		console.debug("Retry config:", config);
+
+		const { maxRetries, backoffStrategy, decider } = config;
+
+		const initialBackoff = 100; // TODO: random jitter
 
 		let shouldRetry = true;
 		let retries = 0;
@@ -24,16 +29,16 @@ export const retryable = () => (_: any, __: string, descriptor: PropertyDescript
 			} catch (error) {
 				console.debug("Operation failed with error:", error);
 
-				if (isNotRetryable(error as Error)) throw error;
+				if (decider.notRetryable(error as Error)) throw error;
 
 				retries += 1;
 				shouldRetry = retries < maxRetries;
 
-				const backoff = Math.pow(2, retries) * initialBackoff; // exponencial
+				const backoff = backoffStrategy.next(retries, initialBackoff);
 
 				console.debug("Retrying in:", backoff)
 
-				await delay(backoff);
+				await Time.delay(backoff);
 
 				console.debug("Retries left:", maxRetries - retries);
 			}
