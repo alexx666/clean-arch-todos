@@ -13,7 +13,7 @@
 		"build": {
 			"executor": "@nrwl/esbuild:esbuild",
 			"options": {
-				"main": "packages/cli/src/main.ts",
+				"main": "packages/cli/src/infrastructure/bin/main.ts",
 				"tsConfig": "packages/cli/tsconfig.app.json",
 				"outputPath": "dist/packages/cli",
 				"outputFileName": "todos",

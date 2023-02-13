@@ -11,7 +11,7 @@ import { config } from "dotenv";
 import { readFileSync } from "fs";
 import { join } from "path";
 
-import { CLI, commands } from "./infrastructure";
+import { CLI, commands } from "../cli";
 
 const pkgPath = join(__dirname, "./package.json");
 const pkg = JSON.parse(readFileSync(pkgPath, "utf-8"));
