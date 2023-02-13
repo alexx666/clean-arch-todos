@@ -259,6 +259,7 @@ dist
 ### Snyk ###
 # DeepCode
 .dccache
+**/.iac-data
 
 ### Typings ###
 ## Ignore downloaded typings
