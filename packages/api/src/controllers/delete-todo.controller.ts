@@ -5,14 +5,14 @@ import {
 
 import { DeleteTodo, DeleteTodoParameters, IDeleteTodoHandler } from "@todos/core";
 
-import { idempotent, headers } from "../infrastructure/util";
+import { idempotent, headers, defaultIdempotencyConfig } from "../infrastructure/util";
 
 
 export class DeleteTodoController {
 
 	constructor(private interactor: IDeleteTodoHandler) { }
 
-	@idempotent()
+	@idempotent(defaultIdempotencyConfig)
 	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 

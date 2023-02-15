@@ -1,15 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Time } from "./time";
-import { ExponentialBackoff } from "./exponential.backoff";
-import { HTTPDecider } from "./http.decider";
+
 import { RetryConfig } from "./config";
 
-const defaultRetryConfig: RetryConfig = {
-	maxRetries: Number(process.env.MAX_RETRIES ?? 5),
-	decider: new HTTPDecider(),
-	backoffStrategy: new ExponentialBackoff(),
-};
-
-export const retryable = (config: RetryConfig = defaultRetryConfig) => (_: any, __: string, descriptor: PropertyDescriptor) => {
+export const retryable = (config: RetryConfig) => (_: any, __: string, descriptor: PropertyDescriptor) => {
 	const originalMethod = descriptor.value;
 
 	descriptor.value = async function (...args: any[]) {
@@ -23,7 +17,7 @@ export const retryable = (config: RetryConfig = defaultRetryConfig) => (_: any, 
 		let shouldRetry = true;
 		let retries = 0;
 
-		do {
+		while (shouldRetry) {
 			try {
 				await originalMethod.apply(this, args);
 			} catch (error) {
@@ -31,17 +25,20 @@ export const retryable = (config: RetryConfig = defaultRetryConfig) => (_: any, 
 
 				if (decider.notRetryable(error as Error)) throw error;
 
-				retries += 1;
 				shouldRetry = retries < maxRetries;
 
 				const backoff = backoffStrategy.jitter(retries, initialBackoff);
+
+				console.debug("Retries left:", maxRetries - retries);
+
+				if (!shouldRetry) throw error;
 
 				console.debug("Retrying in:", backoff)
 
 				await Time.delay(backoff);
 
-				console.debug("Retries left:", maxRetries - retries);
+				retries += 1;
 			}
-		} while (shouldRetry);
+		}
 	}
 }

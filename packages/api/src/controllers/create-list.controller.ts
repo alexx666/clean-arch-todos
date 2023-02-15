@@ -5,12 +5,12 @@ import {
 
 import { CreateList, CreateListParameters, ICreateListHandler } from "@todos/core";
 
-import { idempotent, headers } from "../infrastructure/util";
+import { idempotent, headers, defaultIdempotencyConfig } from "../infrastructure/util";
 
 export class CreateListController {
 	constructor(private interactor: ICreateListHandler) { }
 
-	@idempotent()
+	@idempotent(defaultIdempotencyConfig)
 	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 

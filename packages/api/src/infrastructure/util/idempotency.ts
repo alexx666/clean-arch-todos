@@ -1,63 +1,40 @@
-import { DynamoDB } from "aws-sdk";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IdempotencyConfig } from "./idempotency.config";
 
-// REVIEW: generalize by providing parameters
-// TODO: handle timedout requests
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const idempotent = () => (_: any, __: string, descriptor: PropertyDescriptor) => {
+export const idempotent = (config: IdempotencyConfig) => (_: any, __: string, descriptor: PropertyDescriptor) => {
 	const originalMethod = descriptor.value;
+
+	const { cache } = config;
 
 	descriptor.value = async function (...args: any[]) {
 
-		const ONE_HOUR = 60 * 60;
-		const THIRTY_SECONDS = 30;
-
+		// REVIEW: define location in parameters
 		const requestId = args[0].headers["X-Request-Id"];
 
 		console.debug("Received request:", requestId);
 
-		const dynamoDbDocumentClient = new DynamoDB.DocumentClient();
-		const idempotencyTable = String(process.env.IDEMPOTENCY_TABLE_NAME);
+		const cachedRequest = await cache.get(requestId);
 
-		const { Item: cachedRequest } = await dynamoDbDocumentClient.get({
-			TableName: idempotencyTable,
-			Key: { id: requestId },
-		}).promise();
-
-		console.debug("Request cached:", !!cachedRequest);
+		const NOW = Date.now() / 1000;
 
 		const requestResponded = !!cachedRequest && !!cachedRequest.response;
+		const requestInProgress = !!cachedRequest && !cachedRequest.response && cachedRequest.timeout > NOW;
 
-		if (requestResponded) {
-			console.debug("Returning cached response:", cachedRequest.response);
-			return cachedRequest.response;
-		}
+		console.debug("Request:", { cached: !!cachedRequest, responded: requestResponded, inProgress: requestInProgress });
+
+		if (requestResponded) return cachedRequest.response;
+		// TODO: format to API gateway response
+		if (requestInProgress) throw new Error("Request already in progress!");
 
 		console.debug("Locking request:", requestId);
 
-		const NOW = Math.floor(Date.now() / 1000);
-
-		await dynamoDbDocumentClient.put({
-			TableName: idempotencyTable,
-			Item: {
-				id: requestId,
-				timeout: NOW + THIRTY_SECONDS,
-				expiration: NOW + ONE_HOUR,
-			}
-		}).promise();
+		await cache.lock(requestId);
 
 		console.debug("Handeling request:", requestId);
 
 		const response = await originalMethod.apply(this, args);
 
-		await dynamoDbDocumentClient.update({
-			TableName: idempotencyTable,
-			Key: {
-				id: requestId
-			},
-			UpdateExpression: "SET #r = :r",
-			ExpressionAttributeNames: { "#r": "response" },
-			ExpressionAttributeValues: { ":r": response }
-		}).promise();
+		await cache.update(requestId, response);
 
 		return response;
 	}

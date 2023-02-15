@@ -3,6 +3,7 @@ import { IncomingMessage } from "http";
 import { request as httpRequest, RequestOptions as HttpRequestOptions } from "http";
 import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from "https"
 import { URL } from "url";
+import { defaultRetryConfig } from "../util/default.config";
 
 import { retryable } from "../util/retry";
 
@@ -57,7 +58,7 @@ export class Request<TResponse> {
 		}
 	}
 
-	@retryable()
+	@retryable(defaultRetryConfig)
 	public send(): Promise<TResponse> {
 		return new Promise((resolve, reject) => {
 			const handler = (res: IncomingMessage) => {

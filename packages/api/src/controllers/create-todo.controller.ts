@@ -5,12 +5,12 @@ import {
 
 import { CreateTodo, CreateTodoParameters, ICreateTodoHandler } from "@todos/core";
 
-import { idempotent, headers } from "../infrastructure/util";
+import { idempotent, headers, defaultIdempotencyConfig } from "../infrastructure/util";
 
 export class CreateTodoController {
 	constructor(private interactor: ICreateTodoHandler) { }
 
-	@idempotent()
+	@idempotent(defaultIdempotencyConfig)
 	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 
