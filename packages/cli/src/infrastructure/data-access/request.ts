@@ -4,6 +4,7 @@ import { request as httpRequest, RequestOptions as HttpRequestOptions } from "ht
 import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from "https"
 import { URL } from "url";
 import { defaultRetryConfig } from "../util/default.config";
+import { HTTPError } from "../util/http.error";
 
 import { retryable } from "../util/retry";
 
@@ -68,7 +69,7 @@ export class Request<TResponse> {
 
 				res.on("data", (data: string) =>
 					isError
-						? reject(new Error(data))
+						? reject(new HTTPError(Number(res.statusCode), data))
 						: resolve(JSON.parse(data) as TResponse)
 				);
 
