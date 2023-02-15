@@ -1,5 +1,5 @@
 import { List, Todo } from "../../../../domain";
-import { Events } from "../../../../shared";
+import { Events } from "../../../../kernel";
 import { ListCreated, TodoAdded } from "../../../../application";
 
 import { InMemoryListTodos } from "./in-memory-list-todos.query";

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 // TODO: refactor into config + factories
 
 import {
@@ -9,7 +10,6 @@ import {
 
 import { CryptoUuid } from "../util";
 
-// eslint-disable-next-line no-useless-escape
 const urlPattern =
 	/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
