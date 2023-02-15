@@ -9,6 +9,15 @@
 		"strict": true,
 		"baseUrl": ".",
 		"paths": {
+			"@todos/web": [
+				"packages/web/src/index.ts"
+			],
+			"@todos/api": [
+				"packages/api/src/index.ts"
+			],
+			"@todos/cli": [
+				"packages/cli/src/index.ts"
+			],
 			"@todos/core": [
 				"packages/core/src/index.ts"
 			]
