@@ -28,11 +28,13 @@ export class List {
 					break;
 
 				case type === "TodoAdded":
-					listParams.todos?.push(new Todo({
-						...(details as TodoParameters),
-						startDate: new Date((details as TodoParameters).startDate),
-						endDate: new Date((details as TodoParameters).endDate),
-					}));
+					listParams.todos?.push(
+						new Todo({
+							...(details as TodoParameters),
+							startDate: new Date((details as TodoParameters).startDate),
+							endDate: new Date((details as TodoParameters).endDate),
+						})
+					);
 
 					break;
 

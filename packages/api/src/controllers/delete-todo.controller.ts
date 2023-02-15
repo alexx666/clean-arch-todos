@@ -1,19 +1,21 @@
-import {
-	APIGatewayProxyEvent,
-	APIGatewayProxyResult,
-} from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
-import { DeleteTodo, DeleteTodoParameters, IDeleteTodoHandler, idempotent } from "@todos/core";
+import {
+	DeleteTodo,
+	DeleteTodoParameters,
+	IDeleteTodoHandler,
+	idempotent,
+} from "@todos/core";
 
 import { headers, defaultIdempotencyConfig } from "../infrastructure/util";
 
-
 export class DeleteTodoController {
-
 	constructor(private interactor: IDeleteTodoHandler) { }
 
 	@idempotent(defaultIdempotencyConfig)
-	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+	public async handle(
+		event: APIGatewayProxyEvent
+	): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 
 		const response: APIGatewayProxyResult = {

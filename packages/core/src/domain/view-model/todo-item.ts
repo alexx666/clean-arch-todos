@@ -66,7 +66,8 @@ export class TodoItem {
 					params.description = (details as TodoDetails).description;
 					params.start = (details as TodoDetails).startDate;
 					params.end = (details as TodoDetails).endDate;
-					params.expired = Date.now() > new Date((details as TodoDetails).endDate).getTime();
+					params.expired =
+						Date.now() > new Date((details as TodoDetails).endDate).getTime();
 
 					params.isDeleted = false;
 

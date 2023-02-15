@@ -9,15 +9,17 @@ export interface CreateTodoResponse {
 	id: string;
 }
 
-export type ICreateTodoHandler = CommandHandler<CreateTodo, Promise<CreateTodoResponse>>;
+export type ICreateTodoHandler = CommandHandler<
+	CreateTodo,
+	Promise<CreateTodoResponse>
+>;
 
 export class CreateTodoHandler implements ICreateTodoHandler {
-
 	constructor(
 		private readonly repository: ListRepository,
 		private readonly uuidProvider: UuidGenerator,
-		private readonly publisher: IMediator,
-	) { }
+		private readonly publisher: IMediator
+	) {}
 
 	public async execute(command: CreateTodo): Promise<CreateTodoResponse> {
 		const { id: uuid, description, start, end, listName } = command.params;

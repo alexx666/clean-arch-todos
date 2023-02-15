@@ -1,7 +1,13 @@
 import { randomUUID } from "crypto";
 import { IncomingMessage } from "http";
-import { request as httpRequest, RequestOptions as HttpRequestOptions } from "http";
-import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from "https"
+import {
+	request as httpRequest,
+	RequestOptions as HttpRequestOptions,
+} from "http";
+import {
+	request as httpsRequest,
+	RequestOptions as HttpsRequestOptions,
+} from "https";
 import { URL } from "url";
 
 import { defaultRetryConfig } from "./default.config";
@@ -45,7 +51,7 @@ export class Request<TResponse> {
 			headers: {
 				"Content-Type": "application/json",
 				...(options.headers ?? {}),
-				"X-Request-Id": randomUUID()
+				"X-Request-Id": randomUUID(),
 			},
 		};
 
@@ -54,9 +60,12 @@ export class Request<TResponse> {
 
 	public get protocolBasedRequest() {
 		switch (this.protocol) {
-			case Protocols.HTTPS: return httpsRequest;
-			case Protocols.HTTP: return httpRequest
-			default: throw new Error(`Unsupported protocol`);
+			case Protocols.HTTPS:
+				return httpsRequest;
+			case Protocols.HTTP:
+				return httpRequest;
+			default:
+				throw new Error(`Unsupported protocol`);
 		}
 	}
 
@@ -83,7 +92,10 @@ export class Request<TResponse> {
 
 			if (this.body) req.write(this.body);
 
-			console.log("Sending request", JSON.stringify({ ...this.options, body: this.body }, null, 2));
+			console.log(
+				"Sending request",
+				JSON.stringify({ ...this.options, body: this.body }, null, 2)
+			);
 
 			req.end();
 		});

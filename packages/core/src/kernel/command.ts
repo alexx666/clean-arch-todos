@@ -1,4 +1,3 @@
-
 export interface CommandParameters {
 	[key: string]: any;
 }

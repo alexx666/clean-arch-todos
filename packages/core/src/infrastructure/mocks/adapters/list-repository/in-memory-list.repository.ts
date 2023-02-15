@@ -3,7 +3,7 @@ import { Events } from "../../../../kernel";
 import { ListRepository } from "../../../../ports";
 
 export class InMemoryListRepository implements ListRepository {
-	constructor(private readonly events: Events = new Events()) { }
+	constructor(private readonly events: Events = new Events()) {}
 
 	public findByName(id: string): Promise<List | undefined> {
 		const listEvents = this.events.filter((event) => event.params.id === id);

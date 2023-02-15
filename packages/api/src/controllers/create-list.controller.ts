@@ -1,17 +1,21 @@
-import {
-	APIGatewayProxyEvent,
-	APIGatewayProxyResult,
-} from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
-import { CreateList, CreateListParameters, ICreateListHandler, idempotent } from "@todos/core";
+import {
+	CreateList,
+	CreateListParameters,
+	ICreateListHandler,
+	idempotent,
+} from "@todos/core";
 
 import { headers, defaultIdempotencyConfig } from "../infrastructure/util";
 
 export class CreateListController {
-	constructor(private interactor: ICreateListHandler) { }
+	constructor(private interactor: ICreateListHandler) {}
 
 	@idempotent(defaultIdempotencyConfig)
-	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+	public async handle(
+		event: APIGatewayProxyEvent
+	): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 
 		const response: APIGatewayProxyResult = {

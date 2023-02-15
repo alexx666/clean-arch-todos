@@ -1,9 +1,13 @@
-import { IListTodos, ListTodosRequest, ListTodosResponse } from "../../../../application";
+import {
+	IListTodos,
+	ListTodosRequest,
+	ListTodosResponse,
+} from "../../../../application";
 import { Events } from "../../../../kernel";
 import { TodoItem } from "../../../../domain";
 
 export class InMemoryListTodos implements IListTodos {
-	constructor(private readonly events: Events = new Events()) { }
+	constructor(private readonly events: Events = new Events()) {}
 
 	public execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 		const listName = input.listName;

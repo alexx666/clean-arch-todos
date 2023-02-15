@@ -1,17 +1,21 @@
-import {
-	APIGatewayProxyEvent,
-	APIGatewayProxyResult,
-} from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
-import { CreateTodo, CreateTodoParameters, ICreateTodoHandler, idempotent } from "@todos/core";
+import {
+	CreateTodo,
+	CreateTodoParameters,
+	ICreateTodoHandler,
+	idempotent,
+} from "@todos/core";
 
 import { headers, defaultIdempotencyConfig } from "../infrastructure/util";
 
 export class CreateTodoController {
-	constructor(private interactor: ICreateTodoHandler) { }
+	constructor(private interactor: ICreateTodoHandler) {}
 
 	@idempotent(defaultIdempotencyConfig)
-	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+	public async handle(
+		event: APIGatewayProxyEvent
+	): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 
 		const response: APIGatewayProxyResult = {

@@ -1,18 +1,15 @@
-import {
-	APIGatewayProxyEvent,
-	APIGatewayProxyResult,
-} from "aws-lambda";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
 import { headers } from "../infrastructure/util";
 
 import { IListTodos, ListTodosRequest } from "@todos/core";
 
-
 export class ListTodosController {
+	constructor(private interactor: IListTodos) {}
 
-	constructor(private interactor: IListTodos) { }
-
-	public async handle(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+	public async handle(
+		event: APIGatewayProxyEvent
+	): Promise<APIGatewayProxyResult> {
 		console.debug("Event:", event);
 
 		const response: APIGatewayProxyResult = {

@@ -3,8 +3,7 @@ import { IListTodos, ListTodosRequest, ListTodosResponse } from "@todos/core";
 import { Config, Request } from "../infrastructure";
 
 export class ListTodos implements IListTodos {
-
-	constructor(private readonly config: Config) { }
+	constructor(private readonly config: Config) {}
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 		const request = new Request<ListTodosResponse>({
@@ -14,5 +13,4 @@ export class ListTodos implements IListTodos {
 
 		return request.send();
 	}
-
 }

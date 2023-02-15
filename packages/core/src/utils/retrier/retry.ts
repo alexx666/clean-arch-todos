@@ -3,42 +3,43 @@ import { Time } from "./time";
 
 import { RetryConfig } from "./config";
 
-export const retryable = (config: RetryConfig) => (_: any, __: string, descriptor: PropertyDescriptor) => {
-	const originalMethod = descriptor.value;
+export const retryable =
+	(config: RetryConfig) =>
+	(_: any, __: string, descriptor: PropertyDescriptor) => {
+		const originalMethod = descriptor.value;
 
-	descriptor.value = async function (...args: any[]) {
+		descriptor.value = async function (...args: any[]) {
+			console.debug("Retry config:", config);
 
-		console.debug("Retry config:", config);
+			const { maxRetries, backoffStrategy, decider } = config;
 
-		const { maxRetries, backoffStrategy, decider } = config;
+			const initialBackoff = 300;
 
-		const initialBackoff = 300;
+			let shouldRetry = true;
+			let retries = 0;
 
-		let shouldRetry = true;
-		let retries = 0;
+			while (shouldRetry) {
+				try {
+					await originalMethod.apply(this, args);
+				} catch (error) {
+					console.debug("Operation failed with error:", error);
 
-		while (shouldRetry) {
-			try {
-				await originalMethod.apply(this, args);
-			} catch (error) {
-				console.debug("Operation failed with error:", error);
+					if (decider.notRetryable(error as Error)) throw error;
 
-				if (decider.notRetryable(error as Error)) throw error;
+					shouldRetry = retries < maxRetries;
 
-				shouldRetry = retries < maxRetries;
+					const backoff = backoffStrategy.jitter(retries, initialBackoff);
 
-				const backoff = backoffStrategy.jitter(retries, initialBackoff);
+					console.debug("Retries left:", maxRetries - retries);
 
-				console.debug("Retries left:", maxRetries - retries);
+					if (!shouldRetry) throw error;
 
-				if (!shouldRetry) throw error;
+					console.debug("Retrying in:", backoff);
 
-				console.debug("Retrying in:", backoff)
+					await Time.delay(backoff);
 
-				await Time.delay(backoff);
-
-				retries += 1;
+					retries += 1;
+				}
 			}
-		}
-	}
-}
+		};
+	};

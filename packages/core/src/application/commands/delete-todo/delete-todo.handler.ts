@@ -7,11 +7,10 @@ import { TodoRemoved } from "./todo-removed.event";
 export type IDeleteTodoHandler = CommandHandler<DeleteTodo, Promise<void>>;
 
 export class DeleteTodoHandler implements IDeleteTodoHandler {
-
 	constructor(
 		private readonly publisher: IMediator,
 		private readonly repository: ListRepository
-	) { }
+	) {}
 
 	public async execute(command: DeleteTodo): Promise<void> {
 		const { listName, id } = command.params;

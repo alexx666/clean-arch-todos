@@ -8,14 +8,18 @@ import { ListCreated } from "./list-created.event";
 export type ICreateListHandler = CommandHandler<CreateList, Promise<void>>;
 
 export class CreateListHandler implements ICreateListHandler {
-
 	constructor(
 		private readonly publisher: IMediator,
 		private readonly repository: ListRepository
-	) { }
+	) {}
 
 	public async execute(command: CreateList): Promise<void> {
-		const { listName: name, allowDuplicates, maxTodos, allowExpired } = command.params;
+		const {
+			listName: name,
+			allowDuplicates,
+			maxTodos,
+			allowExpired,
+		} = command.params;
 
 		const existingList = await this.repository.findByName(name);
 

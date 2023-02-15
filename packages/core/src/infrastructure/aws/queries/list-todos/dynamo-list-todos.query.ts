@@ -1,7 +1,11 @@
 import { DynamoDB } from "aws-sdk";
 
 import { Event, Events } from "../../../../kernel";
-import { IListTodos, ListTodosRequest, ListTodosResponse } from "../../../../application";
+import {
+	IListTodos,
+	ListTodosRequest,
+	ListTodosResponse,
+} from "../../../../application";
 import { TodoItem } from "../../../../domain";
 import { DynamoConfig } from "../../config";
 
