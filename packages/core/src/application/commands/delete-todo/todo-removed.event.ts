@@ -1,6 +1,6 @@
 import { Todo } from "../../../domain";
 
-import { DomainEvent } from "../../../shared";
+import { DomainEvent } from "../../../kernel";
 
 export const TODO_REMOVED = "TodoRemoved";
 

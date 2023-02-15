@@ -3,9 +3,9 @@ import {
 	APIGatewayProxyResult,
 } from "aws-lambda";
 
-import { CreateList, CreateListParameters, ICreateListHandler } from "@todos/core";
+import { CreateList, CreateListParameters, ICreateListHandler, idempotent } from "@todos/core";
 
-import { idempotent, headers, defaultIdempotencyConfig } from "../infrastructure/util";
+import { headers, defaultIdempotencyConfig } from "../infrastructure/util";
 
 export class CreateListController {
 	constructor(private interactor: ICreateListHandler) { }

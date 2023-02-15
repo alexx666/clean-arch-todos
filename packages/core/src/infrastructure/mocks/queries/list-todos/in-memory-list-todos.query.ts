@@ -1,5 +1,5 @@
 import { IListTodos, ListTodosRequest, ListTodosResponse } from "../../../../application";
-import { Events } from "../../../../shared";
+import { Events } from "../../../../kernel";
 import { TodoItem } from "../../../../domain";
 
 export class InMemoryListTodos implements IListTodos {

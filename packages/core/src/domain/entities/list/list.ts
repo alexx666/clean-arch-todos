@@ -1,5 +1,5 @@
 import { ListDetails } from "../../../application"; // FIXME: should not import application code
-import { Events, Event } from "../../../shared";
+import { Events, Event } from "../../../kernel";
 import { Name } from "../../value-objects";
 import { ListPolicy } from "../list-policy/list-policy";
 import { Todo, TodoParameters } from "../todo/todo";

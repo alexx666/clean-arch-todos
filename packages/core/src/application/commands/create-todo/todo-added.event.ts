@@ -1,5 +1,5 @@
 import { Todo } from "../../../domain";
-import { DomainEvent } from "../../../shared";
+import { DomainEvent } from "../../../kernel";
 
 // FIXME: duplicate definition
 export interface TodoDetails {

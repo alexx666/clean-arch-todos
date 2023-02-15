@@ -1,6 +1,6 @@
 import { List } from "../../../domain";
 import { IMediator, ListRepository } from "../../../ports";
-import { CommandHandler } from "../../../shared";
+import { CommandHandler } from "../../../kernel";
 
 import { CreateList } from "./create-list.command";
 import { ListCreated } from "./list-created.event";

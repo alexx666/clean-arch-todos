@@ -3,9 +3,9 @@ import {
 	APIGatewayProxyResult,
 } from "aws-lambda";
 
-import { DeleteTodo, DeleteTodoParameters, IDeleteTodoHandler } from "@todos/core";
+import { DeleteTodo, DeleteTodoParameters, IDeleteTodoHandler, idempotent } from "@todos/core";
 
-import { idempotent, headers, defaultIdempotencyConfig } from "../infrastructure/util";
+import { headers, defaultIdempotencyConfig } from "../infrastructure/util";
 
 
 export class DeleteTodoController {

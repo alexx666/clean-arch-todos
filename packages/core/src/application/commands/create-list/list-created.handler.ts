@@ -1,4 +1,4 @@
-import { CommandHandler } from "../../../shared";
+import { CommandHandler } from "../../../kernel";
 
 import { ListCreated } from "./list-created.event";
 

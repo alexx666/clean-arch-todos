@@ -1,4 +1,4 @@
-import { Command, CommandHandler } from "../shared";
+import { Command, CommandHandler } from "../kernel";
 
 export interface IMediator {
 	send<Output>(command: Command): Promise<Output | void>;

@@ -1,5 +1,5 @@
 import { List } from "../../../domain";
-import { DomainEvent } from "../../../shared";
+import { DomainEvent } from "../../../kernel";
 
 // FIXME: duplicated definition
 export interface ListDetails {

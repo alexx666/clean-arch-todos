@@ -3,10 +3,11 @@ import { IncomingMessage } from "http";
 import { request as httpRequest, RequestOptions as HttpRequestOptions } from "http";
 import { request as httpsRequest, RequestOptions as HttpsRequestOptions } from "https"
 import { URL } from "url";
-import { defaultRetryConfig } from "../util/default.config";
-import { HTTPError } from "../util/http.error";
 
-import { retryable } from "../util/retry";
+import { defaultRetryConfig } from "./default.config";
+import { HTTPError } from "./http.error";
+
+import { retryable } from "@todos/core";
 
 interface Headers {
 	[key: string]: string | number;

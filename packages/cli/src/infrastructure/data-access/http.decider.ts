@@ -1,4 +1,5 @@
-import { RetryDecider } from "./decider";
+import { RetryDecider } from "@todos/core";
+
 import { HTTPError } from "./http.error";
 
 export class HTTPDecider implements RetryDecider<HTTPError> {

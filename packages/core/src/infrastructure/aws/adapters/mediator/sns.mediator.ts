@@ -1,7 +1,7 @@
 import { SNS } from "aws-sdk";
 
 import { IMediator } from "../../../../ports";
-import { Command } from "../../../../shared";
+import { Command } from "../../../../kernel";
 import { SNSConfig } from "../../config";
 
 export class SNSMediator implements IMediator {

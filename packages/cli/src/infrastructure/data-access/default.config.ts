@@ -1,5 +1,5 @@
-import { RetryConfig } from "./config";
-import { ExponentialBackoff } from "./exponential.backoff";
+import { ExponentialBackoff, RetryConfig } from "@todos/core";
+
 import { HTTPDecider } from "./http.decider";
 
 export const defaultRetryConfig: RetryConfig = {

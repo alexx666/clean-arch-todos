@@ -1,5 +1,5 @@
 import { List } from "../../../../domain";
-import { Events } from "../../../../shared";
+import { Events } from "../../../../kernel";
 import { ListRepository } from "../../../../ports";
 
 export class InMemoryListRepository implements ListRepository {

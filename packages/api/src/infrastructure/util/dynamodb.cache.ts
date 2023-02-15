@@ -1,5 +1,5 @@
 import { DynamoDB } from "aws-sdk";
-import { CacheEntry, IdempotencyCache } from "./idempotency-cache";
+import { CacheEntry, IdempotencyCache } from "@todos/core";
 
 export class DynamoDBCache implements IdempotencyCache {
 

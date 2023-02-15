@@ -1,5 +1,6 @@
 export * from "./application";
 export * from "./ports";
 export * from "./infrastructure";
-export * from "./shared";
+export * from "./kernel";
+export * from "./utils";
 export * from "./domain";

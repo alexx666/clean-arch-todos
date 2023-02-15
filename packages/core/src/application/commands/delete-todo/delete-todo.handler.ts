@@ -1,5 +1,5 @@
 import { IMediator, ListRepository } from "../../../ports";
-import { CommandHandler } from "../../../shared";
+import { CommandHandler } from "../../../kernel";
 
 import { DeleteTodo } from "./delete-todo.command";
 import { TodoRemoved } from "./todo-removed.event";

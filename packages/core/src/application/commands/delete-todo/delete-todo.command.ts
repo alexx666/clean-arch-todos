@@ -1,4 +1,4 @@
-import { Command, CommandParameters } from "../../../shared";
+import { Command, CommandParameters } from "../../../kernel";
 
 export const DELETE_TODO = "DeleteTodo";
 

@@ -1,7 +1,7 @@
 import { DynamoDB } from "aws-sdk";
 
 import { List } from "../../../../domain";
-import { Event } from "../../../../shared";
+import { Event } from "../../../../kernel";
 import { ListRepository } from "../../../../ports";
 import { DynamoConfig } from "../../config";
 

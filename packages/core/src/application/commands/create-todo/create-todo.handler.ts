@@ -1,6 +1,6 @@
 import { Todo } from "../../../domain";
 import { IMediator, ListRepository, UuidGenerator } from "../../../ports";
-import { CommandHandler } from "../../../shared";
+import { CommandHandler } from "../../../kernel";
 
 import { CreateTodo } from "./create-todo.command";
 import { TodoAdded } from "./todo-added.event";

@@ -1,4 +1,4 @@
-import { CommandHandler } from "../../../shared";
+import { CommandHandler } from "../../../kernel";
 import { TodoAdded } from "./todo-added.event";
 
 export type ITodoAddedHandler = CommandHandler<TodoAdded, void>;
