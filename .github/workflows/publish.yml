@@ -25,9 +25,9 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: npx nx build cli
 
       - name: Publish
-        run: npm run publish -- --@alexx666:registry="https://npm.pkg.github.com"
+        run: npx nx publish cli --@alexx666:registry="https://npm.pkg.github.com"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
