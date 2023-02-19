@@ -8,8 +8,13 @@ describe('idempotent', () => {
 		update: jest.fn(),
 	};
 
+	const identifier = {
+		getIdentity: jest.fn()
+	}
+
 	const config: IdempotencyConfig = {
 		cache,
+		identifier,
 	};
 
 	class TestClass {
@@ -27,10 +32,12 @@ describe('idempotent', () => {
 		const testInstance = new TestClass();
 		const requestId = 'testRequestId';
 		const cachedResponse = { result: [1, 2, 3] };
+		identifier.getIdentity.mockReturnValue(requestId);
 		cache.get.mockResolvedValue({ response: cachedResponse });
 
 		const result = await testInstance.testMethod({ headers: { 'X-Request-Id': requestId } });
 
+		expect(identifier.getIdentity).toHaveBeenCalled()
 		expect(cache.get).toHaveBeenCalledWith(requestId);
 		expect(result).toEqual(cachedResponse);
 		expect(cache.lock).not.toHaveBeenCalled();
@@ -47,6 +54,7 @@ describe('idempotent', () => {
 			'Request already in progress!'
 		);
 
+		expect(identifier.getIdentity).toHaveBeenCalled()
 		expect(cache.get).toHaveBeenCalledWith(requestId);
 		expect(cache.lock).not.toHaveBeenCalled();
 		expect(cache.update).not.toHaveBeenCalled();
@@ -55,16 +63,16 @@ describe('idempotent', () => {
 	it('should lock the request, handle it, and update the cache when it is a new request', async () => {
 		const testInstance = new TestClass();
 		const requestId = 'testRequestId';
-		const response = { result: [1, 2, 3] };
-		const originalMethod = jest.spyOn(testInstance, 'testMethod').mockResolvedValue(response);
+		const input = { headers: { 'X-Request-Id': requestId } };
+		identifier.getIdentity.mockReturnValue(requestId);
+		cache.get.mockResolvedValue(undefined);
 
-		const result = await testInstance.testMethod({ headers: { 'X-Request-Id': requestId } });
+		const result = await testInstance.testMethod(input);
 
-		// FIXME: the following assertions dont work
-		// expect(cache.get).toHaveBeenCalledWith(requestId);
-		// expect(cache.lock).toHaveBeenCalledWith(requestId);
-		// expect(cache.update).toHaveBeenCalledWith(requestId, response);
-		expect(originalMethod).toHaveBeenCalledWith({ headers: { 'X-Request-Id': requestId } });
-		expect(result).toEqual(response);
+		expect(identifier.getIdentity).toHaveBeenCalled()
+		expect(cache.get).toHaveBeenCalledWith(requestId);
+		expect(cache.lock).toHaveBeenCalledWith(requestId);
+		expect(cache.update).toHaveBeenCalledWith(requestId, { result: [input] });
+		expect(result).toEqual({ result: [input] });
 	});
 });

@@ -14,6 +14,7 @@ Globals:
       Variables:
         IDEMPOTENCY_TABLE_NAME: !Ref IdempotencyCache
         EVENT_STORE_TABLE_NAME: !Ref EventStore
+        REQUEST_ID_HEADER: !Ref RequestIdHeader
         SNS_MEDIATOR_TOPIC_ARN: !Ref Mediator
         AWS_ENDPOINT_URL: !Ref DynamoDbEndpoint
         # NODE_OPTIONS: --enable-source-maps
@@ -50,6 +51,10 @@ Parameters:
   MaximumConcurrency:
     Type: Number
     Default: 2
+
+  RequestIdHeader:
+    Type: String
+    Default: X-Request-Id
 
 # Mappings:
 #   set of mappings
