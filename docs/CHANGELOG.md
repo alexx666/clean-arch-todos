@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.2.0](https://github.com/alexx666/clean-arch-todos/compare/clean-arch-v1.1.1...clean-arch-v1.2.0) (2023-02-19)
+
+
+### Features
+
+* add idempotency table ([49e5fdb](https://github.com/alexx666/clean-arch-todos/commit/49e5fdb864c31aefdab434453c28feea1618e807))
+* **cli:** implement http decider ([114b25b](https://github.com/alexx666/clean-arch-todos/commit/114b25bf4e29999780e2b2f1918bb1f862ddcb16))
+* **cli:** implement simple exponential retry strategy ([f0cfac0](https://github.com/alexx666/clean-arch-todos/commit/f0cfac010d9b11ccb0a49c54a9b0a98f3e5925e4))
+* deploy web with private bucket and behind CDN ([1099486](https://github.com/alexx666/clean-arch-todos/commit/109948683dfc710dbd035333fb3a3fea9d7be045))
+* implement commun CDN for front and back ([47beb6e](https://github.com/alexx666/clean-arch-todos/commit/47beb6e2a52ab10047115428a68a5bbc22f7ec4d))
+* implement idempotency for all commands handled by the api ([732ce93](https://github.com/alexx666/clean-arch-todos/commit/732ce93bbfdab712337f6c7c23b99159c1d2a1c1))
+* make create-list operation idempotent (tests pending) ([c6572b6](https://github.com/alexx666/clean-arch-todos/commit/c6572b653df9e09f7d09574bd5272cebc79026d0))
+* require and send token to identify request ([884e244](https://github.com/alexx666/clean-arch-todos/commit/884e244800896a1652c0ee62a9cb87b9ed4afc94))
+
+
+### Bug Fixes
+
+* aliviate backpressure when storing events ([5ff70c2](https://github.com/alexx666/clean-arch-todos/commit/5ff70c2e39a2c31b5c47689f5d50febbaa791398))
+* **api:** add point in time recovery to events database ([276e273](https://github.com/alexx666/clean-arch-todos/commit/276e2730b6e6818d171e3d567b5622c268e3209c))
+* **api:** improve handling of api configuration ([47beb6e](https://github.com/alexx666/clean-arch-todos/commit/47beb6e2a52ab10047115428a68a5bbc22f7ec4d))
+* **ci:** add PAT secret for release action ([3d1eb7e](https://github.com/alexx666/clean-arch-todos/commit/3d1eb7e241aa51d1c04ff8cf56f95cfe8ede8697))
+* **ci:** update publish conditions ([3d1eb7e](https://github.com/alexx666/clean-arch-todos/commit/3d1eb7e241aa51d1c04ff8cf56f95cfe8ede8697))
+* remove linting and test issues after refactor ([085adb8](https://github.com/alexx666/clean-arch-todos/commit/085adb8d58b68e3994b000f30c9ded71742e862a))
+* **security:** add SNS principal to queue policy ([1cbb10c](https://github.com/alexx666/clean-arch-todos/commit/1cbb10cc9bc32b5e3278fcf9747131d2c4f7ed47))
+* **security:** set encryption for SNS & SQS ([1cbb10c](https://github.com/alexx666/clean-arch-todos/commit/1cbb10cc9bc32b5e3278fcf9747131d2c4f7ed47))
+
 ## [1.1.1](https://github.com/alexx666/clean-arch-todos/compare/clean-arch-v1.1.0...clean-arch-v1.1.1) (2023-01-14)
 
 
