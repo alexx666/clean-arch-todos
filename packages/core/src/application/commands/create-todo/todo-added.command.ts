@@ -1,5 +1,5 @@
 import { Todo } from "../../../domain";
-import { DomainEvent } from "../../../kernel";
+import { Command } from "../../../kernel";
 
 // FIXME: duplicate definition
 export interface TodoDetails {
@@ -13,18 +13,14 @@ export interface TodoDetails {
 export const TODO_ADDED = "TodoAdded";
 
 /**
- * {@link DomainEvent} emitted when a {@link Todo} is added to a {@link List}.
+ * {@link Command} emitted when a {@link Todo} is added to a {@link List}.
  * Holds the details of the {@link Todo} in a {@link TodoDetails} object
  */
-export class TodoAdded implements DomainEvent<TodoDetails> {
+export class TodoAdded implements Command<TodoDetails> {
 	public readonly name: string = TODO_ADDED;
 	public readonly params: TodoDetails;
-	public readonly timestamp: number = Date.now();
-	public readonly stream: string;
 
 	constructor(todo: Todo) {
-		this.stream = `List:${todo.listName}`;
-
 		this.params = {
 			id: todo.id,
 			listName: todo.listName,

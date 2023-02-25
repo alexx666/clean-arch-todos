@@ -2,17 +2,14 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
 import {
 	CreateTodo,
-	CreateTodoParameters,
 	ICreateTodoHandler,
-	idempotent,
 } from "@todos/core";
 
-import { headers, defaultIdempotencyConfig } from "../infrastructure/util";
+import { headers } from "../infrastructure/util";
 
 export class CreateTodoController {
-	constructor(private interactor: ICreateTodoHandler) {}
+	constructor(private interactor: ICreateTodoHandler) { }
 
-	@idempotent(defaultIdempotencyConfig)
 	public async handle(
 		event: APIGatewayProxyEvent
 	): Promise<APIGatewayProxyResult> {
@@ -29,13 +26,15 @@ export class CreateTodoController {
 
 			if (!body) throw new Error("Request has no body!");
 			if (!params?.listId) throw new Error("Request has no path parameters!");
+			if (!event.headers["X-Request-Id"]) throw new Error("X-Request-Id not provided");
 
-			const request = {
+			const request = new CreateTodo({
 				...JSON.parse(body),
+				id: event.headers["X-Request-Id"],
 				listName: decodeURI(params.listId),
-			} as CreateTodoParameters;
+			});
 
-			const result = await this.interactor.execute(new CreateTodo(request));
+			const result = await this.interactor.execute(request);
 
 			response.body = JSON.stringify(result);
 		} catch (error) {

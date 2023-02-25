@@ -10,16 +10,14 @@ import {
 } from "https";
 import { URL } from "url";
 
-import { defaultRetryConfig } from "./default.config";
 import { HTTPError } from "./http.error";
-
-import { retryable } from "@todos/core";
 
 interface Headers {
 	[key: string]: string | number;
 }
 
 interface RequestParameters {
+	requestId?: string;
 	url: string;
 	method: "POST" | "PUT" | "DELETE" | "GET";
 	body?: string | Buffer;
@@ -51,7 +49,7 @@ export class Request<TResponse> {
 			headers: {
 				"Content-Type": "application/json",
 				...(options.headers ?? {}),
-				"X-Request-Id": randomUUID(),
+				"X-Request-Id": options.requestId ?? randomUUID(),
 			},
 		};
 
@@ -69,7 +67,6 @@ export class Request<TResponse> {
 		}
 	}
 
-	@retryable(defaultRetryConfig)
 	public send(): Promise<TResponse> {
 		return new Promise((resolve, reject) => {
 			const handler = (res: IncomingMessage) => {

@@ -1,7 +1,7 @@
 import { DynamoDB } from "aws-sdk";
 
 import { EventRepository } from "../../../../ports";
-import { Event } from "../../../../kernel";
+import { Command } from "../../../../kernel";
 
 import { DynamoConfig } from "../../config";
 
@@ -17,7 +17,7 @@ export class DynamoEventRepository implements EventRepository {
 		});
 	}
 
-	public async saveAll(events: Event[]): Promise<void> {
+	public async saveAll(events: Command[]): Promise<void> {
 		const writeRequests = events.map((event) => ({
 			PutRequest: { Item: event },
 		}));

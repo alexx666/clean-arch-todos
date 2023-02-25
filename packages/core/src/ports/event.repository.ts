@@ -1,5 +1,5 @@
-import { Event } from "../kernel";
+import { Command } from "../kernel";
 
-export default interface EventRepository {
-	saveAll(events: Event[]): Promise<void>;
+export interface EventRepository {
+	saveAll(events: Command[]): Promise<void>;
 }

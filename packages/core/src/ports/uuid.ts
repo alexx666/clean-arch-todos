@@ -1,3 +1,5 @@
-export default interface UuidGenerator {
+export const UUIDS = "uuids";
+
+export interface UuidGenerator {
 	generate(): string;
 }

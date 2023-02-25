@@ -1,14 +1,15 @@
 import { inject, injectable } from "tsyringe";
 
-import { CreateTodo, CREATE_TODO, ICreateTodoHandler } from "@todos/core";
+import { CreateTodo, CREATE_TODO, ICreateTodoHandler, UuidGenerator, UUIDS } from "@todos/core";
 
 @injectable()
 export class CreateTodoController {
-	constructor(@inject(CREATE_TODO) private interactor: ICreateTodoHandler) { }
+	constructor(@inject(CREATE_TODO) private interactor: ICreateTodoHandler, @inject(UUIDS) private uuids: UuidGenerator) { }
 
 	public async handle({ listName, description, start, end }: any) {
 
 		const request = new CreateTodo({
+			id: this.uuids.generate(),
 			listName: String(listName),
 			description: String(description),
 			start: String(start),

@@ -2,17 +2,14 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
 import {
 	DeleteTodo,
-	DeleteTodoParameters,
 	IDeleteTodoHandler,
-	idempotent,
 } from "@todos/core";
 
-import { headers, defaultIdempotencyConfig } from "../infrastructure/util";
+import { headers } from "../infrastructure/util";
 
 export class DeleteTodoController {
 	constructor(private interactor: IDeleteTodoHandler) { }
 
-	@idempotent(defaultIdempotencyConfig)
 	public async handle(
 		event: APIGatewayProxyEvent
 	): Promise<APIGatewayProxyResult> {
@@ -30,12 +27,12 @@ export class DeleteTodoController {
 			if (!params?.listId || !params?.todoId)
 				throw new Error("Request has no path parameters!");
 
-			const request: DeleteTodoParameters = {
+			const request = new DeleteTodo({
 				listName: params.listId,
 				id: params.todoId,
-			};
+			});
 
-			await this.interactor.execute(new DeleteTodo(request));
+			await this.interactor.execute(request);
 		} catch (error) {
 			console.error(error);
 

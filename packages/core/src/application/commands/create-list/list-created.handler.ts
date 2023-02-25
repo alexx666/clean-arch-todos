@@ -1,6 +1,6 @@
 import { CommandHandler } from "../../../kernel";
 
-import { ListCreated } from "./list-created.event";
+import { ListCreated } from "./list-created.command";
 
 export type IListCreatedHandler = CommandHandler<ListCreated, void>;
 

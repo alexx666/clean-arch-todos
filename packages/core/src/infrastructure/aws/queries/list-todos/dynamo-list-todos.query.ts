@@ -1,6 +1,6 @@
 import { DynamoDB } from "aws-sdk";
 
-import { Event, Events } from "../../../../kernel";
+import { Commands, Command } from "../../../../kernel";
 import {
 	IListTodos,
 	ListTodosRequest,
@@ -38,8 +38,8 @@ export class DynamoListTodos implements IListTodos {
 			})
 			.promise();
 
-		const groupedTodoEvents = new Events(
-			...(sortedTodoEvents as Event[])
+		const groupedTodoEvents = new Commands(
+			...(sortedTodoEvents as Command[])
 		).groupById();
 
 		const items: TodoItem[] = Object.keys(groupedTodoEvents).reduce(

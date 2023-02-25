@@ -4,15 +4,13 @@ import {
 	CreateList,
 	CreateListParameters,
 	ICreateListHandler,
-	idempotent,
 } from "@todos/core";
 
-import { headers, defaultIdempotencyConfig } from "../infrastructure/util";
+import { headers } from "../infrastructure/util";
 
 export class CreateListController {
-	constructor(private interactor: ICreateListHandler) {}
+	constructor(private interactor: ICreateListHandler) { }
 
-	@idempotent(defaultIdempotencyConfig)
 	public async handle(
 		event: APIGatewayProxyEvent
 	): Promise<APIGatewayProxyResult> {
@@ -26,17 +24,19 @@ export class CreateListController {
 
 		try {
 			if (!event.body) throw new Error("Request has no body!");
+			if (!event.headers["X-Request-Id"]) throw new Error("X-Request-Id not provided");
 
 			const body = JSON.parse(event.body) as CreateListParameters;
 
-			const request = {
-				listName: body.listName,
+			const request = new CreateList({
+				id: event.headers["X-Request-Id"],
+				name: body.listName,
 				maxTodos: body.maxTodos ?? 10,
 				allowDuplicates: body.allowDuplicates ?? false,
 				allowExpired: body.allowExpired ?? true,
-			} as CreateListParameters;
+			});
 
-			await this.interactor.execute(new CreateList(request));
+			await this.interactor.execute(request);
 		} catch (error) {
 			console.error(error);
 

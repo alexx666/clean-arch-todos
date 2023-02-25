@@ -1,10 +1,11 @@
 import { ListDetails } from "../../../application"; // FIXME: should not import application code
-import { Events, Event } from "../../../kernel";
+import { Commands, Command } from "../../../kernel";
 import { Name } from "../../value-objects";
 import { ListPolicy } from "../list-policy/list-policy";
 import { Todo, TodoParameters } from "../todo/todo";
 
 export interface ListParameters {
+	id: string;
 	name: string;
 	maxTodos: number;
 	allowDuplicates: boolean;
@@ -13,7 +14,7 @@ export interface ListParameters {
 }
 
 export class List {
-	public static buildFromStream(events: Events | Event[]): List {
+	public static buildFromStream(events: Commands | Command[]): List {
 		const listParams: Partial<ListParameters> = {};
 
 		for (const { name: type, params: details } of events) {
@@ -58,11 +59,13 @@ export class List {
 	private name: Name;
 	private todos: Array<Todo>;
 
+	public readonly id: string;
 	public readonly policy: ListPolicy;
 
 	constructor(params: ListParameters) {
-		const { name, todos, ...policyConfig } = params;
+		const { id, name, todos, ...policyConfig } = params;
 
+		this.id = id;
 		this.name = Name.create(name);
 		this.policy = new ListPolicy(policyConfig);
 		this.todos = todos ?? [];

@@ -1,7 +1,7 @@
 import { DynamoDB } from "aws-sdk";
 
 import { List } from "../../../../domain";
-import { Event } from "../../../../kernel";
+import { Command } from "../../../../kernel";
 import { ListRepository } from "../../../../ports";
 import { DynamoConfig } from "../../config";
 
@@ -29,6 +29,6 @@ export class DynamoListRepository implements ListRepository {
 
 		if (!events?.length) return;
 
-		return List.buildFromStream(events as Event[]);
+		return List.buildFromStream(events as Command[]);
 	}
 }

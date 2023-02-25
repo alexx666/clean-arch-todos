@@ -1,6 +1,6 @@
 import { CommandHandler } from "../../../kernel";
 
-import { TodoRemoved } from "./todo-removed.event";
+import { TodoRemoved } from "./todo-removed.command";
 
 export type ITodoRemovedHandler = CommandHandler<TodoRemoved, void>;
 

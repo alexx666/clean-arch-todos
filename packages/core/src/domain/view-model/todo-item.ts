@@ -1,5 +1,5 @@
 import { TodoDetails } from "../../application"; // FIXME: should not import application code
-import { Event, Events } from "../../kernel";
+import { Command, Commands } from "../../kernel";
 
 /**
  * Input parameters for {@link TodoItem} construction
@@ -53,10 +53,10 @@ export class TodoItem {
 
 	/**
 	 * Builds {@link TodoItem} objects from its stream of events.
-	 * @param events the history of {@link Events} related to a particular Todo in order of emission.
+	 * @param events the history of {@link Commands} related to a particular Todo in order of emission.
 	 * @returns an instance of {@link TodoItem}
 	 */
-	public static buildFromStream(events: Events | Event[]): TodoItem {
+	public static buildFromStream(events: Commands | Command[]): TodoItem {
 		const params: Partial<TodoItemParameters> = {};
 
 		for (const { name: type, params: details } of events) {

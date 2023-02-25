@@ -7,15 +7,16 @@ import {
 import { Config, Request } from "../infrastructure";
 
 export class CreateTodoHandler implements ICreateTodoHandler {
-	constructor(private readonly config: Config) {}
+	constructor(private readonly config: Config) { }
 
-	public execute(command: CreateTodo): Promise<CreateTodoResponse> {
+	public async execute(command: CreateTodo): Promise<void> {
 		const request = new Request<CreateTodoResponse>({
+			requestId: command.params.id,
 			url: `${this.config.apiUrl}/lists/${command.params.listName}/todos`,
 			method: "POST",
 			body: JSON.stringify(command.params),
 		});
 
-		return request.send();
+		await request.send();
 	}
 }

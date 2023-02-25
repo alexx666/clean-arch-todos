@@ -3,7 +3,7 @@ import { IMediator, ListRepository, UuidGenerator } from "../../../ports";
 import { CommandHandler } from "../../../kernel";
 
 import { CreateTodo } from "./create-todo.command";
-import { TodoAdded } from "./todo-added.event";
+import { TodoAdded } from "./todo-added.command";
 
 export interface CreateTodoResponse {
 	id: string;
@@ -11,7 +11,7 @@ export interface CreateTodoResponse {
 
 export type ICreateTodoHandler = CommandHandler<
 	CreateTodo,
-	Promise<CreateTodoResponse>
+	Promise<void>
 >;
 
 export class CreateTodoHandler implements ICreateTodoHandler {
@@ -19,9 +19,9 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 		private readonly repository: ListRepository,
 		private readonly uuidProvider: UuidGenerator,
 		private readonly publisher: IMediator
-	) {}
+	) { }
 
-	public async execute(command: CreateTodo): Promise<CreateTodoResponse> {
+	public async execute(command: CreateTodo): Promise<void> {
 		const { id: uuid, description, start, end, listName } = command.params;
 
 		const startDate = new Date(start);
@@ -37,7 +37,5 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 		list.add(todo);
 
 		await this.publisher.send(new TodoAdded(todo));
-
-		return { id };
 	}
 }
