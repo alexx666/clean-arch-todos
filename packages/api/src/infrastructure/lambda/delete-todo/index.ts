@@ -6,7 +6,8 @@ import { DeleteTodoController } from "../../../controllers";
 import { cryptoUuid, dynamoListRepo, snsMediator } from "../../data-access";
 import { defaultIdempotencyConfig } from "../../util";
 
-const deleteTodoInterator = new IdempotentCommandHandler(new DeleteTodoHandler(snsMediator, dynamoListRepo, cryptoUuid), defaultIdempotencyConfig);
+const interactor = new DeleteTodoHandler(snsMediator, dynamoListRepo, cryptoUuid);
+const idempotentInterractor = new IdempotentCommandHandler(interactor, defaultIdempotencyConfig);
+const controller = new DeleteTodoController(idempotentInterractor);
 
-export const handler = async (event: APIGatewayProxyEvent) =>
-	new DeleteTodoController(deleteTodoInterator).handle(event);
+export const handler = async (event: APIGatewayProxyEvent) => controller.handle(event);

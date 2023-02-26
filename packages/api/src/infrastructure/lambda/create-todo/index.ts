@@ -6,11 +6,8 @@ import { CreateTodoController } from "../../../controllers";
 import { dynamoListRepo, cryptoUuid, snsMediator } from "../../data-access";
 import { defaultIdempotencyConfig } from "../../util";
 
-const createTodoInteractor = new IdempotentCommandHandler(new CreateTodoHandler(
-	dynamoListRepo,
-	cryptoUuid,
-	snsMediator
-), defaultIdempotencyConfig);
+const interactor = new CreateTodoHandler(dynamoListRepo, cryptoUuid, snsMediator);
+const idempotentInteractor = new IdempotentCommandHandler(interactor, defaultIdempotencyConfig);
+const controller = new CreateTodoController(idempotentInteractor);
 
-export const handler = async (event: APIGatewayProxyEvent) =>
-	new CreateTodoController(createTodoInteractor).handle(event);
+export const handler = async (event: APIGatewayProxyEvent) => controller.handle(event);
