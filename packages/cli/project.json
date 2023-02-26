@@ -24,11 +24,7 @@
 					"cjs"
 				],
 				"target": "es2020",
-				"platform": "node",
-				"external": [
-					"commander",
-					"dotenv"
-				]
+				"platform": "node"
 			}
 		},
 		"start": {
