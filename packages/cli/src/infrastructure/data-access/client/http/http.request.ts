@@ -29,7 +29,7 @@ enum Protocols {
 	HTTPS = "https:",
 }
 
-export class Request<TResponse> {
+export class HTTPRequest<TResponse> {
 	private static errorRegex = /^(4|5)[\d]{2}$/;
 
 	private readonly options: HttpRequestOptions | HttpsRequestOptions;
@@ -72,7 +72,7 @@ export class Request<TResponse> {
 	public send(): Promise<TResponse> {
 		return new Promise((resolve, reject) => {
 			const handler = (res: IncomingMessage) => {
-				const isError = Request.errorRegex.test(String(res.statusCode));
+				const isError = HTTPRequest.errorRegex.test(String(res.statusCode));
 
 				res.setEncoding("utf8");
 

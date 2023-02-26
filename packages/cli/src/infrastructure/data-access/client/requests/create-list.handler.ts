@@ -1,12 +1,14 @@
 import { CreateList, ICreateListHandler } from "@todos/core";
 
-import { Config, Request } from "../infrastructure";
+import { ClientConfig } from "../config";
+import { HTTPRequest } from "../http";
 
 export class CreateListHandler implements ICreateListHandler {
-	constructor(private readonly config: Config) { }
+
+	constructor(private readonly config: ClientConfig) { }
 
 	public execute(command: CreateList): Promise<void> {
-		const request = new Request<void>({
+		const request = new HTTPRequest<void>({
 			requestId: command.id,
 			url: `${this.config.apiUrl}/lists`,
 			method: "POST",

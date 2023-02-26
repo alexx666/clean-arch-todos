@@ -1,10 +1,12 @@
-import { inject, injectable } from "tsyringe";
+import { delay, inject, injectable } from "tsyringe";
 
-import { CreateList, CREATE_LIST, ICreateListHandler, UuidGenerator, UUIDS } from "@todos/core";
+import { CreateList, UuidGenerator, UUIDS } from "@todos/core";
+
+import { Client } from "../infrastructure";
 
 @injectable()
 export class CreateListController {
-	constructor(@inject(CREATE_LIST) private interactor: ICreateListHandler, @inject(UUIDS) private uuids: UuidGenerator) { }
+	constructor(@inject(delay(() => Client)) private client: Client, @inject(UUIDS) private uuids: UuidGenerator) { }
 
 	public async handle({ listName, maxTodos, allowDuplicates, allowExpired }: any) {
 		const request = new CreateList(this.uuids.generate(), {
@@ -14,7 +16,7 @@ export class CreateListController {
 			allowExpired: Boolean(allowExpired ?? true),
 		});
 
-		const result = await this.interactor.execute(request);
+		const result = await this.client.send(request);
 
 		console.log("List Created!");
 		console.table(result);

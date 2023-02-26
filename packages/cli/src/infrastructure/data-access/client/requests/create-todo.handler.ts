@@ -1,16 +1,13 @@
-import {
-	CreateTodo,
-	CreateTodoResponse,
-	ICreateTodoHandler,
-} from "@todos/core";
+import { CreateTodo, CreateTodoResponse, ICreateTodoHandler } from "@todos/core";
 
-import { Config, Request } from "../infrastructure";
+import { ClientConfig } from "../config";
+import { HTTPRequest } from "../http";
 
 export class CreateTodoHandler implements ICreateTodoHandler {
-	constructor(private readonly config: Config) { }
+	constructor(private readonly config: ClientConfig) { }
 
 	public async execute(command: CreateTodo): Promise<void> {
-		const request = new Request<CreateTodoResponse>({
+		const request = new HTTPRequest<CreateTodoResponse>({
 			requestId: command.id,
 			url: `${this.config.apiUrl}/lists/${command.params.listName}/todos`,
 			method: "POST",

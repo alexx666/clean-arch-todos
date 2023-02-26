@@ -1,10 +1,11 @@
-import { inject, injectable } from "tsyringe";
+import { delay, inject, injectable } from "tsyringe";
 
-import { CreateTodo, CREATE_TODO, ICreateTodoHandler, UuidGenerator, UUIDS } from "@todos/core";
+import { CreateTodo, UuidGenerator, UUIDS } from "@todos/core";
+import { Client } from "../infrastructure";
 
 @injectable()
 export class CreateTodoController {
-	constructor(@inject(CREATE_TODO) private interactor: ICreateTodoHandler, @inject(UUIDS) private uuids: UuidGenerator) { }
+	constructor(@inject(delay(() => Client)) private client: Client, @inject(UUIDS) private uuids: UuidGenerator) { }
 
 	public async handle({ listName, description, start, end }: any) {
 
@@ -15,7 +16,7 @@ export class CreateTodoController {
 			end: String(end),
 		});
 
-		const result = await this.interactor.execute(request);
+		const result = await this.client.send(request);
 
 		console.log("Todo Added!");
 		console.table(result);

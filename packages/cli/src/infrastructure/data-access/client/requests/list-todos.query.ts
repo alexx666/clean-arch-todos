@@ -1,12 +1,13 @@
 import { IListTodos, ListTodosRequest, ListTodosResponse } from "@todos/core";
 
-import { Config, Request } from "../infrastructure";
+import { ClientConfig } from "../config";
+import { HTTPRequest } from "../http";
 
 export class ListTodos implements IListTodos {
-	constructor(private readonly config: Config) { }
+	constructor(private readonly config: ClientConfig) { }
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
-		const request = new Request<ListTodosResponse>({
+		const request = new HTTPRequest<ListTodosResponse>({
 			url: `${this.config.apiUrl}/lists/${input.listName}/todos`,
 			method: "GET",
 		});
