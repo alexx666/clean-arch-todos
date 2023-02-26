@@ -8,7 +8,7 @@ export interface CommandRegistration {
 	useFactory: HandlerFactoryMethod;
 }
 
-export class InternalLazyMediator implements IMediator {
+export class LocalLazyMediator implements IMediator {
 
 	constructor(private readonly registry: Map<string, HandlerFactoryMethod> = new Map()) { }
 

@@ -1,11 +1,11 @@
-import { Command, CommandParameters, CREATE_LIST, CREATE_TODO, DELETE_TODO, IMediator, InternalLazyMediator, RetriableCommandHandler, RetryConfig } from "@todos/core";
+import { Command, CommandParameters, CREATE_LIST, CREATE_TODO, DELETE_TODO, IMediator, LocalLazyMediator, RetriableCommandHandler, RetryConfig } from "@todos/core";
 
 import { CreateTodoHandler, CreateListHandler, DeleteTodoHandler } from "./requests";
 import { ClientConfig, defaultConfig, defaultOptions } from "./config";
 
 export class Client implements IMediator {
 
-	private readonly mediator = new InternalLazyMediator();
+	private readonly mediator = new LocalLazyMediator();
 
 	constructor(config: ClientConfig = defaultConfig, options: RetryConfig = defaultOptions) {
 		this.mediator
