@@ -1,4 +1,4 @@
-import { Command, Commands, IListTodos, ListTodosRequest, ListTodosResponse, TodoItem } from "@todos/core";
+import { Command, Commands, IListTodos, ListTodosRequest, ListTodosResponse, TodoItem, TodoItemProjectionMapper } from "@todos/core";
 
 import { DynamoDB } from "aws-sdk";
 
@@ -40,7 +40,7 @@ export class DynamoListTodos implements IListTodos {
 		const items: TodoItem[] = Object.keys(groupedTodoEvents).reduce(
 			(todos: TodoItem[], id: string) => [
 				...todos,
-				TodoItem.buildFromStream(groupedTodoEvents[id]),
+				TodoItemProjectionMapper.buildFromStream(groupedTodoEvents[id]),
 			],
 			[]
 		);
