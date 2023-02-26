@@ -10,17 +10,25 @@ export interface CommandRegistration {
 
 export class LocalLazyMediator implements IMediator {
 
+	private readonly instances: Map<string, CommandHandler<Command>> = new Map();
+
 	constructor(private readonly registry: Map<string, HandlerFactoryMethod> = new Map()) { }
 
-	public send<C extends Command, Output>(command: C): Promise<Output> {
+	public send<C extends Command>(command: C): Promise<void> {
+
+		const initializedHandler = this.instances.get(command.name);
+
+		if (initializedHandler) return initializedHandler.execute(command);
 
 		const handlerFactory = this.registry.get(command.name);
 
 		if (!handlerFactory) throw new Error(`No handler for command: ${command.name}`);
 
-		const handler = handlerFactory() as CommandHandler<C, Promise<Output>>;
+		const handler = handlerFactory();
 
-		console.log("Dispatching command", command.name, "handling using", handler.constructor.name);
+		this.instances.set(command.name, handler);
+
+		console.log("Dispatching command", command);
 
 		return handler.execute(command);
 	}
