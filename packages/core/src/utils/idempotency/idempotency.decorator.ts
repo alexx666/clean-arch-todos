@@ -2,12 +2,12 @@ import { Command, CommandHandler } from "../../kernel";
 
 import { IdempotencyCache } from "./idempotency.cache";
 
-export class IdempotencyCommandHandlerDecorator implements CommandHandler {
+export class IdempotentCommandHandler implements CommandHandler {
 
 	constructor(private readonly handler: CommandHandler, private readonly cache: IdempotencyCache) { }
 
 	public async execute(command: Command): Promise<void> {
-		const requestId = command.params.id;
+		const requestId = command.id;
 
 		console.debug("Received request:", requestId);
 

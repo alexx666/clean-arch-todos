@@ -1,4 +1,4 @@
-import { IMediator, ListRepository } from "../../../ports";
+import { IMediator, ListRepository, UuidGenerator } from "../../../ports";
 import { CommandHandler } from "../../../kernel";
 
 import { DeleteTodo } from "./delete-todo.command";
@@ -9,7 +9,8 @@ export type IDeleteTodoHandler = CommandHandler<DeleteTodo, Promise<void>>;
 export class DeleteTodoHandler implements IDeleteTodoHandler {
 	constructor(
 		private readonly publisher: IMediator,
-		private readonly repository: ListRepository
+		private readonly repository: ListRepository,
+		private readonly uuids: UuidGenerator,
 	) { }
 
 	public async execute(command: DeleteTodo): Promise<void> {
@@ -21,6 +22,6 @@ export class DeleteTodoHandler implements IDeleteTodoHandler {
 
 		const deletedTodo = list.remove(id);
 
-		await this.publisher.send(new TodoRemoved(deletedTodo));
+		await this.publisher.send(new TodoRemoved(this.uuids.generate(), deletedTodo));
 	}
 }

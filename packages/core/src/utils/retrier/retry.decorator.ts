@@ -2,7 +2,7 @@ import { Command, CommandHandler } from "../../kernel";
 import { RetryConfig } from "./config";
 import { Time } from "./time";
 
-export class RetryCommandHandlerDecorator implements CommandHandler {
+export class RetriableCommandHandler implements CommandHandler {
 
 	constructor(private readonly handler: CommandHandler, private readonly config: RetryConfig) { }
 

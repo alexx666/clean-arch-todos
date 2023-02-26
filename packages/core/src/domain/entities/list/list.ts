@@ -1,4 +1,4 @@
-import { ListDetails } from "../../../application"; // FIXME: should not import application code
+import { DeleteTodoParameters, ListDetails } from "../../../application"; // FIXME: should not import application code
 import { Commands, Command } from "../../../kernel";
 import { Name } from "../../value-objects";
 import { ListPolicy } from "../list-policy/list-policy";
@@ -41,7 +41,7 @@ export class List {
 
 				case type === "TodoRemoved":
 					listParams.todos = listParams.todos?.filter(
-						(todo) => todo.id !== details.id
+						(todo) => todo.id !== (details as DeleteTodoParameters).id
 					);
 
 					break;

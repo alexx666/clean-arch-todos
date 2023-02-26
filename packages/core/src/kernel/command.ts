@@ -1,11 +1,11 @@
 export interface CommandParameters {
-	id: string;
 	[key: string]: any;
 }
 
 export interface Command<T extends CommandParameters = CommandParameters> {
+	id: string;
 	name: string;
-	params: CommandParameters;
+	params: T;
 }
 
 /**
@@ -23,7 +23,7 @@ export class Commands extends Array<Command> {
 	 */
 	public groupById() {
 		return this.reduce((rv: { [key: string]: Commands }, x: Command) => {
-			(rv[x.params.id] = rv[x.params.id] || []).push(x);
+			(rv[x.id] = rv[x.id] || []).push(x);
 			return rv;
 		}, {});
 	}

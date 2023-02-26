@@ -20,7 +20,7 @@ export class TodoAdded implements Command<TodoDetails> {
 	public readonly name: string = TODO_ADDED;
 	public readonly params: TodoDetails;
 
-	constructor(todo: Todo) {
+	constructor(public readonly id: string, todo: Todo) {
 		this.params = {
 			id: todo.id,
 			listName: todo.listName,

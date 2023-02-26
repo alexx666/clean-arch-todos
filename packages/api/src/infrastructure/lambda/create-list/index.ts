@@ -1,11 +1,11 @@
-import { CreateListHandler, IdempotencyCommandHandlerDecorator } from "@todos/core";
+import { CreateListHandler, IdempotentCommandHandler } from "@todos/core";
 import { APIGatewayProxyEvent } from "aws-lambda";
 
 import { CreateListController } from "../../../controllers";
-import { snsMediator, dynamoListRepo } from "../../data-access";
+import { snsMediator, dynamoListRepo, cryptoUuid } from "../../data-access";
 import { defaultIdempotencyConfig } from "../../util";
 
-const createListInteractor = new IdempotencyCommandHandlerDecorator(new CreateListHandler(snsMediator, dynamoListRepo), defaultIdempotencyConfig);
+const createListInteractor = new IdempotentCommandHandler(new CreateListHandler(snsMediator, dynamoListRepo, cryptoUuid), defaultIdempotencyConfig);
 
 export const handler = async (event: APIGatewayProxyEvent) =>
 	new CreateListController(createListInteractor).handle(event);

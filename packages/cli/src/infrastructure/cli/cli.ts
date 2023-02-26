@@ -1,7 +1,7 @@
 import { registry } from "tsyringe";
 import { Command, program } from "commander";
 
-import { CREATE_TODO, CREATE_LIST, DELETE_TODO, RetryCommandHandlerDecorator, UUIDS } from "@todos/core";
+import { CREATE_TODO, CREATE_LIST, DELETE_TODO, RetriableCommandHandler, UUIDS } from "@todos/core";
 
 import {
 	CreateTodoHandler,
@@ -15,9 +15,9 @@ import { config, defaultRetryConfig } from "../data-access";
 import { randomUUID } from "crypto";
 
 @registry([
-	{ token: CREATE_TODO, useFactory: () => new RetryCommandHandlerDecorator(new CreateTodoHandler(config), defaultRetryConfig) },
-	{ token: CREATE_LIST, useFactory: () => new RetryCommandHandlerDecorator(new CreateListHandler(config), defaultRetryConfig) },
-	{ token: DELETE_TODO, useFactory: () => new RetryCommandHandlerDecorator(new DeleteTodoHandler(config), defaultRetryConfig) },
+	{ token: CREATE_TODO, useFactory: () => new RetriableCommandHandler(new CreateTodoHandler(config), defaultRetryConfig) },
+	{ token: CREATE_LIST, useFactory: () => new RetriableCommandHandler(new CreateListHandler(config), defaultRetryConfig) },
+	{ token: DELETE_TODO, useFactory: () => new RetriableCommandHandler(new DeleteTodoHandler(config), defaultRetryConfig) },
 	{ token: LIST_TODOS, useFactory: () => new ListTodos(config) },
 	{ token: UUIDS, useValue: { generate: () => randomUUID() } }
 ])

@@ -7,8 +7,7 @@ export class CreateListController {
 	constructor(@inject(CREATE_LIST) private interactor: ICreateListHandler, @inject(UUIDS) private uuids: UuidGenerator) { }
 
 	public async handle({ listName, maxTodos, allowDuplicates, allowExpired }: any) {
-		const request = new CreateList({
-			id: this.uuids.generate(),
+		const request = new CreateList(this.uuids.generate(), {
 			name: String(listName),
 			maxTodos: Number(maxTodos ?? 10),
 			allowDuplicates: Boolean(allowDuplicates ?? false),

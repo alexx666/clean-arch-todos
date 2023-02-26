@@ -11,7 +11,7 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 
 	public async execute(command: CreateTodo): Promise<void> {
 		const request = new Request<CreateTodoResponse>({
-			requestId: command.params.id,
+			requestId: command.id,
 			url: `${this.config.apiUrl}/lists/${command.params.listName}/todos`,
 			method: "POST",
 			body: JSON.stringify(command.params),

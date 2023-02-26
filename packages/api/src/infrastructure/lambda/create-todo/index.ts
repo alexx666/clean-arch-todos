@@ -1,11 +1,11 @@
-import { CreateTodoHandler, IdempotencyCommandHandlerDecorator } from "@todos/core";
+import { CreateTodoHandler, IdempotentCommandHandler } from "@todos/core";
 import { APIGatewayProxyEvent } from "aws-lambda";
 
 import { CreateTodoController } from "../../../controllers";
 import { dynamoListRepo, cryptoUuid, snsMediator } from "../../data-access";
 import { defaultIdempotencyConfig } from "../../util";
 
-const createTodoInteractor = new IdempotencyCommandHandlerDecorator(new CreateTodoHandler(
+const createTodoInteractor = new IdempotentCommandHandler(new CreateTodoHandler(
 	dynamoListRepo,
 	cryptoUuid,
 	snsMediator

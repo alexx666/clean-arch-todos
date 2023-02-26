@@ -17,16 +17,16 @@ export type ICreateTodoHandler = CommandHandler<
 export class CreateTodoHandler implements ICreateTodoHandler {
 	constructor(
 		private readonly repository: ListRepository,
-		private readonly uuidProvider: UuidGenerator,
+		private readonly uuids: UuidGenerator,
 		private readonly publisher: IMediator
 	) { }
 
 	public async execute(command: CreateTodo): Promise<void> {
-		const { id: uuid, description, start, end, listName } = command.params;
+		const { description, start, end, listName } = command.params;
 
 		const startDate = new Date(start);
 		const endDate = new Date(end);
-		const id = uuid ?? this.uuidProvider.generate();
+		const id = this.uuids.generate();
 
 		const todo = new Todo({ id, description, startDate, endDate, listName });
 
@@ -36,6 +36,6 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 
 		list.add(todo);
 
-		await this.publisher.send(new TodoAdded(todo));
+		await this.publisher.send(new TodoAdded(this.uuids.generate(), todo));
 	}
 }

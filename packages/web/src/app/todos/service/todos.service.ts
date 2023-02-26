@@ -15,7 +15,7 @@ import { v4 } from "uuid";
 	providedIn: "root",
 })
 export class TodosService {
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) { }
 
 	public getTodos(request: ListTodosRequest) {
 		const url = encodeURI(`${environment.url}/lists/${request.listName}/todos`);
@@ -39,7 +39,7 @@ export class TodosService {
 	public createList(request: CreateListParameters) {
 		const url = encodeURI(`${environment.url}/lists`);
 
-		const body = { listName: request.listName };
+		const body = { listName: request.name };
 
 		const options = {
 			headers: {

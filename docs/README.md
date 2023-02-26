@@ -24,6 +24,8 @@ The project is comprised of the following packages:
 
 ![architecture](./images/architecture.drawio.svg)
 
+For a design overview see [DESIGN.md](./DESIGN.md)
+
 ## Pre-requisites:
 
 - [`nodejs v16.x`](https://nodejs.org/es/download/)

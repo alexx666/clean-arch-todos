@@ -7,7 +7,7 @@ export class CreateListHandler implements ICreateListHandler {
 
 	public execute(command: CreateList): Promise<void> {
 		const request = new Request<void>({
-			requestId: command.params.id,
+			requestId: command.id,
 			url: `${this.config.apiUrl}/lists`,
 			method: "POST",
 			body: JSON.stringify(command.params),

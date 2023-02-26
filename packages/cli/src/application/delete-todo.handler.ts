@@ -7,7 +7,7 @@ export class DeleteTodoHandler implements IDeleteTodoHandler {
 
 	public execute(command: DeleteTodo): Promise<void> {
 		const request = new Request<void>({
-			requestId: command.params.id,
+			requestId: command.id,
 			url: `${this.config.apiUrl}/lists/${command.params.listName}/todos/${command.params.id}`,
 			method: "DELETE",
 		});

@@ -9,5 +9,5 @@ export const TODO_REMOVED = "TodoRemoved";
 export class TodoRemoved implements Command<Todo> {
 	public readonly name: string = TODO_REMOVED;
 
-	constructor(public readonly params: Todo) { }
+	constructor(public readonly id: string, public readonly params: Todo) { }
 }

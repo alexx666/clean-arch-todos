@@ -1,12 +1,12 @@
-import { DeleteTodoHandler, IdempotencyCommandHandlerDecorator } from "@todos/core";
+import { DeleteTodoHandler, IdempotentCommandHandler } from "@todos/core";
 import { APIGatewayProxyEvent } from "aws-lambda";
 
 import { DeleteTodoController } from "../../../controllers";
 
-import { dynamoListRepo, snsMediator } from "../../data-access";
+import { cryptoUuid, dynamoListRepo, snsMediator } from "../../data-access";
 import { defaultIdempotencyConfig } from "../../util";
 
-const deleteTodoInterator = new IdempotencyCommandHandlerDecorator(new DeleteTodoHandler(snsMediator, dynamoListRepo), defaultIdempotencyConfig);
+const deleteTodoInterator = new IdempotentCommandHandler(new DeleteTodoHandler(snsMediator, dynamoListRepo, cryptoUuid), defaultIdempotencyConfig);
 
 export const handler = async (event: APIGatewayProxyEvent) =>
 	new DeleteTodoController(deleteTodoInterator).handle(event);

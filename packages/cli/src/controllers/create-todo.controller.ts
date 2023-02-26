@@ -8,8 +8,7 @@ export class CreateTodoController {
 
 	public async handle({ listName, description, start, end }: any) {
 
-		const request = new CreateTodo({
-			id: this.uuids.generate(),
+		const request = new CreateTodo(this.uuids.generate(), {
 			listName: String(listName),
 			description: String(description),
 			start: String(start),

@@ -23,14 +23,16 @@ export class CreateListController {
 		};
 
 		try {
+
+			const requestId = event.headers["X-Request-Id"];
+
 			if (!event.body) throw new Error("Request has no body!");
-			if (!event.headers["X-Request-Id"]) throw new Error("X-Request-Id not provided");
+			if (!requestId) throw new Error("X-Request-Id not provided");
 
 			const body = JSON.parse(event.body) as CreateListParameters;
 
-			const request = new CreateList({
-				id: event.headers["X-Request-Id"],
-				name: body.listName,
+			const request = new CreateList(requestId, {
+				name: body.name,
 				maxTodos: body.maxTodos ?? 10,
 				allowDuplicates: body.allowDuplicates ?? false,
 				allowExpired: body.allowExpired ?? true,

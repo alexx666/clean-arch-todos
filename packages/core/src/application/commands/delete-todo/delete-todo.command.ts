@@ -10,5 +10,5 @@ export interface DeleteTodoParameters extends CommandParameters {
 export class DeleteTodo implements Command {
 	public readonly name = DELETE_TODO;
 
-	constructor(public readonly params: DeleteTodoParameters) {}
+	constructor(public readonly id: string, public readonly params: DeleteTodoParameters) { }
 }

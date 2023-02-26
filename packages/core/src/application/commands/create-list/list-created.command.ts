@@ -23,7 +23,7 @@ export class ListCreated implements Command<ListDetails> {
 	/**
 	 * @param list a {@link List} entity that was created
 	 */
-	constructor(list: List) {
+	constructor(public readonly id: string, list: List) {
 		this.params = {
 			id: list.listName,
 			name: list.listName,
