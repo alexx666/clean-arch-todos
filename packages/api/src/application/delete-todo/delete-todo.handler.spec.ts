@@ -1,9 +1,9 @@
-import { List, Todo } from "../../../domain";
-import { ListRepository, Mediator } from "../../../ports";
+import { Todo, List, ListRepository, Mediator, TODO_REMOVED, DeleteTodo } from "@todos/core";
+import { randomUUID } from "crypto";
+
 import { DeleteTodoHandler } from "./delete-todo.handler";
-import { DeleteTodo } from "./delete-todo.command";
 import { TodoRemovedHandler } from "./todo-removed.handler";
-import { TODO_REMOVED } from "./todo-removed.event";
+
 
 const listName = "my list";
 const todo = new Todo({
@@ -16,6 +16,7 @@ const todo = new Todo({
 const todos = new Array<Todo>();
 todos.push(todo);
 const list = new List({
+	id: randomUUID(),
 	name: listName,
 	todos,
 	maxTodos: 10,
@@ -35,10 +36,10 @@ describe("[DeleteTodo] Success Cases", () => {
 		di.set(TODO_REMOVED, new TodoRemovedHandler());
 	})
 
-	const deleteTodoHandler: DeleteTodoHandler = new DeleteTodoHandler(mediator, mockSuccessGateway);
+	const deleteTodoHandler = new DeleteTodoHandler(mediator, mockSuccessGateway, { generate: () => randomUUID() });
 
 	it("should return a the mocked todo in a valid DeleteTodoResponse object", async () => {
-		const result = await deleteTodoHandler.execute(new DeleteTodo({ id: "uuid-1", listName }));
+		const result = await deleteTodoHandler.execute(new DeleteTodo(randomUUID(), { id: "uuid-1", listName }));
 
 		expect(result).toBeUndefined();
 		expect.assertions(1);

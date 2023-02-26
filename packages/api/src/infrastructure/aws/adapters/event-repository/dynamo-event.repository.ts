@@ -1,7 +1,6 @@
-import { DynamoDB } from "aws-sdk";
+import { Command, EventRepository } from "@todos/core";
 
-import { EventRepository } from "../../../../ports";
-import { Command } from "../../../../kernel";
+import { DynamoDB } from "aws-sdk";
 
 import { DynamoConfig } from "../../config";
 

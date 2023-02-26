@@ -1,5 +1,5 @@
 import { Todo } from "../../../domain";
-import { Command } from "../../../kernel";
+import { Command } from "../../command";
 
 // FIXME: duplicate definition
 export interface TodoDetails {

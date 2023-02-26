@@ -1,6 +1,7 @@
-import { CreateTodoHandler, IdempotentCommandHandler } from "@todos/core";
+import { IdempotentCommandHandler } from "@todos/core";
 import { APIGatewayProxyEvent } from "aws-lambda";
 
+import { CreateTodoHandler } from "../../../application";
 import { CreateTodoController } from "../../../controllers";
 import { dynamoListRepo, cryptoUuid, snsMediator } from "../../data-access";
 import { defaultIdempotencyConfig } from "../../util";

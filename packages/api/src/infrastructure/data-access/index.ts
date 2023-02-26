@@ -6,7 +6,7 @@ import {
 	DynamoListRepository,
 	DynamoListTodos,
 	SNSMediator,
-} from "@todos/core";
+} from "../aws";
 
 import { CryptoUuid } from "../util";
 

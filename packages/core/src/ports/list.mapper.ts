@@ -1,6 +1,5 @@
-import { ListDetails, DeleteTodoParameters } from "../application";
+import { ListDetails, DeleteTodoParameters, Commands, Command } from "../application";
 import { List, ListParameters, Todo, TodoParameters } from "../domain";
-import { Commands, Command } from "../kernel";
 
 export class ListProjectionMapper {
 	public static buildFromStream(events: Commands | Command[]): List {

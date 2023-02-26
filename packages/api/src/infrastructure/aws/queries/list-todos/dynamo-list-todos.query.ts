@@ -1,12 +1,7 @@
+import { Command, Commands, IListTodos, ListTodosRequest, ListTodosResponse, TodoItem } from "@todos/core";
+
 import { DynamoDB } from "aws-sdk";
 
-import { Commands, Command } from "../../../../kernel";
-import {
-	IListTodos,
-	ListTodosRequest,
-	ListTodosResponse,
-} from "../../../../application";
-import { TodoItem } from "../../../../domain";
 import { DynamoConfig } from "../../config";
 
 export class DynamoListTodos implements IListTodos {

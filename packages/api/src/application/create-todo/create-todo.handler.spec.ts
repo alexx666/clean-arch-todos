@@ -1,10 +1,8 @@
-import { ListRepository, Mediator, UuidGenerator } from "../../../ports";
-import { List, Todo } from "../../../domain";
+import { Todo, List, UuidGenerator, ListRepository, Mediator, TODO_ADDED, CreateTodo } from "@todos/core";
+import { randomUUID } from "crypto";
 
 import { CreateTodoHandler } from "./create-todo.handler";
-import { CreateTodo } from "./create-todo.command";
 import { TodoAddedHandler } from "./todo-added.handler";
-import { TODO_ADDED } from "./todo-added.event";
 
 const errorMessage = "Todo already exists!";
 const now = new Date(Date.now() + 3600);
@@ -20,6 +18,7 @@ const request = {
 const todos = new Array<Todo>();
 
 const list = new List({
+	id: randomUUID(),
 	name: listName,
 	todos,
 	maxTodos: 10,
@@ -49,7 +48,7 @@ describe("[CreateTodo] Success Cases", () => {
 	const createTodoHandler = new CreateTodoHandler(mockSuccessGateway, mockUuidGenerator, mediator);
 
 	it("should return a the mocked todo in a valid CreateTodoResponse object", async () => {
-		await createTodoHandler.execute(new CreateTodo(request));
+		await createTodoHandler.execute(new CreateTodo(randomUUID(), request));
 
 		expect(todos.length).toEqual(1);
 		expect.assertions(1);
@@ -61,7 +60,7 @@ describe("[CreateTodo] Fail Cases", () => {
 
 	it("should return throw an error with the gateways message", async () => {
 		try {
-			await createTodoHandler.execute(new CreateTodo(request));
+			await createTodoHandler.execute(new CreateTodo(randomUUID(), request));
 		} catch (error) {
 			expect((error as Error).message).toEqual(errorMessage);
 			expect.assertions(1);

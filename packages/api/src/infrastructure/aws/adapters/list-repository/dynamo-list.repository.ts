@@ -1,8 +1,7 @@
+import { Command, List, ListProjectionMapper, ListRepository } from "@todos/core";
+
 import { DynamoDB } from "aws-sdk";
 
-import { List } from "../../../../domain";
-import { Command } from "../../../../kernel";
-import { ListRepository, ListProjectionMapper } from "../../../../ports";
 import { DynamoConfig } from "../../config";
 
 export class DynamoListRepository implements ListRepository {

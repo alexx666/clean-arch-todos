@@ -1,11 +1,11 @@
-import { Command, CommandHandler } from "../kernel";
+import { CommandHandler, Command } from "../application";
 
 export interface IMediator {
 	send<Output>(command: Command): Promise<Output | void>;
 }
 
 export class Mediator implements IMediator {
-	constructor(private readonly handlers: Map<string, any> = new Map()) {}
+	constructor(private readonly handlers: Map<string, any> = new Map()) { }
 
 	public send<C extends Command, Output>(command: C): Promise<Output> {
 		if (!this.handlers.has(command.name))

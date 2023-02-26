@@ -1,5 +1,4 @@
-import { TodoDetails } from "../../application"; // FIXME: should not import application code
-import { Command, Commands } from "../../kernel";
+import { TodoDetails, Command, Commands } from "../../application"; // FIXME: should not import application code
 
 /**
  * Input parameters for {@link TodoItem} construction

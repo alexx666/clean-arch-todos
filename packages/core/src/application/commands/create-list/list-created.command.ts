@@ -1,5 +1,5 @@
 import { List } from "../../../domain";
-import { Command } from "../../../kernel";
+import { Command } from "../../command";
 
 // FIXME: duplicated definition
 export interface ListDetails {

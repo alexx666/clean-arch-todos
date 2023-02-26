@@ -1,4 +1,4 @@
-import { Command, CommandHandler } from "../../kernel";
+import { Command, CommandHandler } from "../../application";
 import { RetryConfig } from "./config";
 import { Time } from "./time";
 

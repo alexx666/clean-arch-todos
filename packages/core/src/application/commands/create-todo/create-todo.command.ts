@@ -1,4 +1,4 @@
-import { Command, CommandParameters } from "../../../kernel";
+import { Command, CommandParameters } from "../../command";
 
 export const CREATE_TODO = "CreateTodo";
 
