@@ -16,7 +16,6 @@ Globals:
         EVENT_STORE_TABLE_NAME: !Ref EventStore
         REQUEST_ID_HEADER: !Ref RequestIdHeader
         SNS_MEDIATOR_TOPIC_ARN: !Ref Mediator
-        AWS_ENDPOINT_URL: !Ref DynamoDbEndpoint
         # NODE_OPTIONS: --enable-source-maps
     Tags:
       Project: !Ref Project
@@ -39,10 +38,6 @@ Parameters:
   Environment:
     Type: String
     Default: dev
-
-  DynamoDbEndpoint:
-    Type: String
-    Default: ""
 
   MaximumBatchingWindowInSeconds:
     Type: Number
