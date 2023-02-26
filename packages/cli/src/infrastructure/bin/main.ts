@@ -1,11 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
-import "reflect-metadata";
-
 import { config } from "dotenv";
 
 import { readFileSync } from "fs";

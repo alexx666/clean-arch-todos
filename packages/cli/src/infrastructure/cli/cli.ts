@@ -1,16 +1,5 @@
-import { registry } from "tsyringe";
 import { Command, program } from "commander";
 
-import { UUIDS } from "@todos/core";
-
-import { Client } from "../data-access";
-
-import { randomUUID } from "crypto";
-
-@registry([
-	{ token: Client, useValue: new Client() },
-	{ token: UUIDS, useValue: { generate: () => randomUUID() } }
-])
 export class CLI {
 	constructor(version: string, availableCommands: Command[]) {
 		program.version(version);

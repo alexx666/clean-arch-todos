@@ -1,11 +1,10 @@
-import { delay, inject, injectable } from "tsyringe";
 
-import { CreateTodo, UuidGenerator, UUIDS } from "@todos/core";
+import { CreateTodo, UuidGenerator } from "@todos/core";
+
 import { Client } from "../infrastructure";
 
-@injectable()
 export class CreateTodoController {
-	constructor(@inject(delay(() => Client)) private client: Client, @inject(UUIDS) private uuids: UuidGenerator) { }
+	constructor(private client: Client, private uuids: UuidGenerator) { }
 
 	public async handle({ listName, description, start, end }: any) {
 
