@@ -37,6 +37,8 @@ export class Request<TResponse> {
 	private protocol: Protocols;
 
 	constructor(options: RequestParameters) {
+
+		const requestIdHeader = String(process.env.REQUEST_ID_HEADER ?? "X-Request-Id");
 		const urlParams = new URL(options.url);
 
 		this.protocol = urlParams.protocol as Protocols;
@@ -49,7 +51,7 @@ export class Request<TResponse> {
 			headers: {
 				"Content-Type": "application/json",
 				...(options.headers ?? {}),
-				"X-Request-Id": options.requestId ?? randomUUID(),
+				[requestIdHeader]: options.requestId ?? randomUUID(),
 			},
 		};
 

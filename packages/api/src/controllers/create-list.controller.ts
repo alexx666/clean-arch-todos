@@ -24,10 +24,11 @@ export class CreateListController {
 
 		try {
 
-			const requestId = event.headers["X-Request-Id"];
+			const requestIdHeader = String(process.env.REQUEST_ID_HEADER);
+			const requestId = event.headers[requestIdHeader];
 
 			if (!event.body) throw new Error("Request has no body!");
-			if (!requestId) throw new Error("X-Request-Id not provided");
+			if (!requestId) throw new Error(`${requestIdHeader} not provided`);
 
 			const body = JSON.parse(event.body) as CreateListParameters;
 

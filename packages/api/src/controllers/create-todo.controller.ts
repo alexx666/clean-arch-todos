@@ -24,11 +24,12 @@ export class CreateTodoController {
 		try {
 			const { body, pathParameters: params } = event;
 
-			const requestId = event.headers["X-Request-Id"];
+			const requestIdHeader = String(process.env.REQUEST_ID_HEADER);
+			const requestId = event.headers[requestIdHeader];
 
 			if (!body) throw new Error("Request has no body!");
 			if (!params?.listId) throw new Error("Request has no path parameters!");
-			if (!requestId) throw new Error("X-Request-Id not provided");
+			if (!requestId) throw new Error(`${requestIdHeader} not provided`);
 
 			const request = new CreateTodo(requestId, {
 				...JSON.parse(body),

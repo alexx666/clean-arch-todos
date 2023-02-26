@@ -23,12 +23,12 @@ export class DeleteTodoController {
 
 		try {
 			const { pathParameters: params } = event;
-			const requestId = event.headers["X-Request-Id"];
 
-			if (!params?.listId || !params?.todoId)
-				throw new Error("Request has no path parameters!");
+			const requestIdHeader = String(process.env.REQUEST_ID_HEADER);
+			const requestId = event.headers[requestIdHeader];
 
-			if (!requestId) throw new Error("X-Request-Id not provided");
+			if (!params?.listId || !params?.todoId) throw new Error("Request has no path parameters!");
+			if (!requestId) throw new Error(`${requestIdHeader} not provided`);
 
 			const request = new DeleteTodo(requestId, {
 				listName: params.listId,
