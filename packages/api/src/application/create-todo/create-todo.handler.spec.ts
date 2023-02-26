@@ -1,4 +1,4 @@
-import { Todo, List, UuidGenerator, ListRepository, Mediator, TODO_ADDED, CreateTodo } from "@todos/core";
+import { Todo, List, UuidGenerator, ListRepository, LocalLazyMediator, TODO_ADDED, CreateTodo } from "@todos/core";
 import { randomUUID } from "crypto";
 
 import { CreateTodoHandler } from "./create-todo.handler";
@@ -38,10 +38,8 @@ const mockFailureGateway: ListRepository = {
 	findByName: (_: string) => Promise.reject(new Error(errorMessage))
 };
 
-const di = new Map();
-const mediator = new Mediator(di);
-
-di.set(TODO_ADDED, new TodoAddedHandler());
+const mediator = new LocalLazyMediator()
+	.on({ command: TODO_ADDED, useFactory: () => new TodoAddedHandler() });
 
 describe("[CreateTodo] Success Cases", () => {
 
@@ -51,7 +49,6 @@ describe("[CreateTodo] Success Cases", () => {
 		await createTodoHandler.execute(new CreateTodo(randomUUID(), request));
 
 		expect(todos.length).toEqual(1);
-		expect.assertions(1);
 	});
 });
 
@@ -63,7 +60,6 @@ describe("[CreateTodo] Fail Cases", () => {
 			await createTodoHandler.execute(new CreateTodo(randomUUID(), request));
 		} catch (error) {
 			expect((error as Error).message).toEqual(errorMessage);
-			expect.assertions(1);
 		}
 	});
 });

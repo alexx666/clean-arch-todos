@@ -1,4 +1,4 @@
-import { Todo, List, ListRepository, Mediator, TODO_REMOVED, DeleteTodo } from "@todos/core";
+import { Todo, List, ListRepository, LocalLazyMediator, TODO_REMOVED, DeleteTodo } from "@todos/core";
 import { randomUUID } from "crypto";
 
 import { DeleteTodoHandler } from "./delete-todo.handler";
@@ -29,11 +29,10 @@ describe("[DeleteTodo] Success Cases", () => {
 		findByName: (_: string) => Promise.resolve(list)
 	};
 
-	const di = new Map();
-	const mediator = new Mediator(di);
+	const mediator = new LocalLazyMediator();
 
 	beforeAll(() => {
-		di.set(TODO_REMOVED, new TodoRemovedHandler());
+		mediator.on({ command: TODO_REMOVED, useFactory: () => new TodoRemovedHandler() });
 	})
 
 	const deleteTodoHandler = new DeleteTodoHandler(mediator, mockSuccessGateway, { generate: () => randomUUID() });
@@ -42,6 +41,5 @@ describe("[DeleteTodo] Success Cases", () => {
 		const result = await deleteTodoHandler.execute(new DeleteTodo(randomUUID(), { id: "uuid-1", listName }));
 
 		expect(result).toBeUndefined();
-		expect.assertions(1);
 	});
 });

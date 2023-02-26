@@ -1,7 +1,7 @@
 import { ITodoAddedHandler, TodoAdded } from "@todos/core";
 
 export class TodoAddedHandler implements ITodoAddedHandler {
-	public execute(command: TodoAdded): void {
+	public async execute(command: TodoAdded): Promise<void> {
 		console.log(
 			"Handling event",
 			command.name,
