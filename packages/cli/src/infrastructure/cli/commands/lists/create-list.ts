@@ -1,6 +1,6 @@
 import { RetriableCommandHandler } from "@todos/core";
 import { Command } from "commander";
-import { randomUUID } from "crypto";
+import { randomUUID as generate } from "crypto";
 
 import { CreateListHandler } from "../../../../application";
 import { CreateListController } from "../../../../controllers";
@@ -14,7 +14,7 @@ export default new Command("create")
 		const requestBuilder = new HTTPRequestBuilder(defaultConfig);
 		const handler = new CreateListHandler(requestBuilder);
 		const retriableHandler = new RetriableCommandHandler(handler, defaultOptions);
-		const controller = new CreateListController(retriableHandler, { generate: randomUUID });
+		const controller = new CreateListController(retriableHandler, { generate });
 
 		return controller.handle(cmd)
 	});

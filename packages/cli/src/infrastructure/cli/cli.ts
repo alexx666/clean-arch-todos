@@ -14,7 +14,7 @@ export class CLI {
 		try {
 			await program.parseAsync(args);
 		} catch (error) {
-			console.error("Error:", error);
+			console.debug(error);
 			exitCode = 1;
 		}
 

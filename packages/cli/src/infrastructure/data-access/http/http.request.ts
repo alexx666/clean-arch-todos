@@ -10,16 +10,16 @@ import {
 } from "https";
 import { URL } from "url";
 
+import { Method, Request } from "../../../ports";
 import { HTTPError } from "./http.error";
 
-interface Headers {
+export interface Headers {
 	[key: string]: string | number;
 }
 
 interface RequestParameters {
-	requestId?: string;
 	url: string;
-	method: "POST" | "PUT" | "DELETE" | "GET";
+	method: Method;
 	body?: string | Buffer;
 	headers?: Headers;
 }
@@ -29,7 +29,7 @@ enum Protocols {
 	HTTPS = "https:",
 }
 
-export class HTTPRequest<TResponse> {
+export class HTTPRequest implements Request {
 	private static errorRegex = /^(4|5)[\d]{2}$/;
 
 	private readonly options: HttpRequestOptions | HttpsRequestOptions;
@@ -51,7 +51,6 @@ export class HTTPRequest<TResponse> {
 			headers: {
 				"Content-Type": "application/json",
 				...(options.headers ?? {}),
-				[requestIdHeader]: options.requestId ?? randomUUID(),
 			},
 		};
 
@@ -69,7 +68,7 @@ export class HTTPRequest<TResponse> {
 		}
 	}
 
-	public send(): Promise<TResponse> {
+	public send<O>(): Promise<O> {
 		return new Promise((resolve, reject) => {
 			const handler = (res: IncomingMessage) => {
 				const isError = HTTPRequest.errorRegex.test(String(res.statusCode));
@@ -79,7 +78,7 @@ export class HTTPRequest<TResponse> {
 				res.on("data", (data: string) =>
 					isError
 						? reject(new HTTPError(Number(res.statusCode), data))
-						: resolve(JSON.parse(data) as TResponse)
+						: resolve(JSON.parse(data) as O)
 				);
 
 				res.on("error", (error) => reject(error.message));
