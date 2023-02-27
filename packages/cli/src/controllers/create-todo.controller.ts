@@ -1,10 +1,8 @@
 
-import { CreateTodo, UuidGenerator } from "@todos/core";
-
-import { Client } from "../infrastructure";
+import { CreateTodo, ICreateTodoHandler, UuidGenerator } from "@todos/core";
 
 export class CreateTodoController {
-	constructor(private client: Client, private uuids: UuidGenerator) { }
+	constructor(private handler: ICreateTodoHandler, private uuids: UuidGenerator) { }
 
 	public async handle({ listName, description, start, end }: any) {
 
@@ -15,7 +13,7 @@ export class CreateTodoController {
 			end: String(end),
 		});
 
-		const result = await this.client.send(request);
+		const result = await this.handler.execute(request);
 
 		console.log("Todo Added!");
 		console.table(result);

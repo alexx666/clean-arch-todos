@@ -1,9 +1,7 @@
-import { CreateList, UuidGenerator } from "@todos/core";
-
-import { Client } from "../infrastructure";
+import { CreateList, ICreateListHandler, UuidGenerator } from "@todos/core";
 
 export class CreateListController {
-	constructor(private client: Client, private uuids: UuidGenerator) { }
+	constructor(private handler: ICreateListHandler, private uuids: UuidGenerator) { }
 
 	public async handle({ listName, maxTodos, allowDuplicates, allowExpired }: any) {
 		const request = new CreateList(this.uuids.generate(), {
@@ -13,7 +11,7 @@ export class CreateListController {
 			allowExpired: Boolean(allowExpired ?? true),
 		});
 
-		const result = await this.client.send(request);
+		const result = await this.handler.execute(request);
 
 		console.log("List Created!");
 		console.table(result);
