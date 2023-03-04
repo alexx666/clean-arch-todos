@@ -28,7 +28,6 @@ export class IdempotentCommandHandler implements CommandHandler {
 		});
 
 		if (requestResponded) return cachedRequest.response;
-		// TODO: format to API gateway response
 		if (requestInProgress) throw new Error("Request already in progress!");
 
 		console.debug("Locking request:", requestId);
@@ -37,10 +36,10 @@ export class IdempotentCommandHandler implements CommandHandler {
 
 		console.debug("Handeling request:", requestId);
 
-		const response = await this.handler.execute(command);
+		await this.handler.execute(command);
 
-		await this.cache.update(requestId, response);
+		console.debug("Caching response");
 
-		return response;
+		await this.cache.update(requestId, ""); // REVIEW: empty since handlers are return void
 	};
 }
