@@ -7,9 +7,9 @@ export class RetriableCommandHandler implements CommandHandler {
 	constructor(private readonly handler: CommandHandler, private readonly config: RetryConfig) { }
 
 	public async execute(command: Command) {
-		console.debug("Retry config:", this.config);
-
 		const { maxRetries, backoffStrategy, decider } = this.config;
+
+		console.debug("Retry config:", { maxRetries });
 
 		const initialBackoff = 300;
 

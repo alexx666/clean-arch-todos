@@ -17,6 +17,7 @@
 				"tsConfig": "packages/cli/tsconfig.app.json",
 				"outputPath": "dist/packages/cli",
 				"outputFileName": "todos",
+				"minify": true,
 				"assets": [
 					"packages/cli/README.md"
 				],
