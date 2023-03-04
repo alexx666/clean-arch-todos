@@ -4,7 +4,7 @@ import { randomUUID as generate } from "crypto";
 
 import { CreateTodoHandler } from "../../../../application";
 import { CreateTodoController } from "../../../../controllers";
-import { defaultConfig, defaultOptions, HTTPRequestBuilder } from "../../../data-access";
+import { defaultConfig, defaultOptions, HTTPClient } from "../../../http";
 
 export default new Command("create")
 	.alias("mk")
@@ -14,8 +14,8 @@ export default new Command("create")
 	.requiredOption("-s, --start <start>", "todo start date in ISO format")
 	.requiredOption("-e, --end <end>", "todo end date in ISO format")
 	.action((cmd) => {
-		const requestBuilder = new HTTPRequestBuilder(defaultConfig);
-		const handler = new CreateTodoHandler(requestBuilder);
+		const client = new HTTPClient(defaultConfig);
+		const handler = new CreateTodoHandler(client);
 		const retriableHandler = new RetriableCommandHandler(handler, defaultOptions);
 		const controller = new CreateTodoController(retriableHandler, { generate });
 

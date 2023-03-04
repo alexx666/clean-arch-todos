@@ -4,7 +4,7 @@ import { randomUUID as generate } from "crypto";
 
 import { DeleteTodoHandler } from "../../../../application";
 import { DeleteTodoController } from "../../../../controllers";
-import { defaultConfig, defaultOptions, HTTPRequestBuilder } from "../../../data-access";
+import { defaultConfig, defaultOptions, HTTPClient } from "../../../http";
 
 export default new Command("delete")
 	.alias("rm")
@@ -12,8 +12,8 @@ export default new Command("delete")
 	.requiredOption("-l, --list-name <list>", "List ID")
 	.requiredOption("--id <id>", "todo ID")
 	.action((cmd) => {
-		const requestBuilder = new HTTPRequestBuilder(defaultConfig);
-		const handler = new DeleteTodoHandler(requestBuilder);
+		const client = new HTTPClient(defaultConfig);
+		const handler = new DeleteTodoHandler(client);
 		const retriableHandler = new RetriableCommandHandler(handler, defaultOptions);
 		const controller = new DeleteTodoController(retriableHandler, { generate });
 

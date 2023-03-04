@@ -1,13 +1,13 @@
 import { CreateList, ICreateListHandler } from "@todos/core";
 
-import { RequestBuilder } from "../ports";
+import { RequestClient } from "../ports";
 
 export class CreateListHandler implements ICreateListHandler {
 
-	constructor(private readonly builder: RequestBuilder) { }
+	constructor(private readonly client: RequestClient) { }
 
 	public execute(command: CreateList): Promise<void> {
-		const request = this.builder
+		const request = this.client.getBuilder()
 			.setPath(`/lists`)
 			.setMethod("POST")
 			.setHeader("X-Request-Id", command.id)

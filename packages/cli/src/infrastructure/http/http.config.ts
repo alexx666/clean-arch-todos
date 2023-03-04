@@ -1,6 +1,6 @@
 import { ExponentialBackoff } from "@todos/core";
 
-import { HTTPDecider } from "./http";
+import { HTTPDecider } from "./http.decider";
 
 export interface ClientConfig {
 	apiUrl: string;

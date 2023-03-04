@@ -1,7 +1,7 @@
 import { join } from "path";
 
-import { Method, Request, RequestBuilder } from "../../../ports";
-import { ClientConfig } from "../config";
+import { Method, Request, RequestBuilder } from "../../ports";
+import { ClientConfig } from "./http.config";
 import { HTTPRequest, Headers } from "./http.request";
 
 export class HTTPRequestBuilder implements RequestBuilder {

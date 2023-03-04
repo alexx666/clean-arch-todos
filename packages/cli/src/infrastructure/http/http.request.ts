@@ -1,4 +1,3 @@
-import { randomUUID } from "crypto";
 import { IncomingMessage } from "http";
 import {
 	request as httpRequest,
@@ -10,7 +9,7 @@ import {
 } from "https";
 import { URL } from "url";
 
-import { Method, Request } from "../../../ports";
+import { Method, Request } from "../../ports";
 import { HTTPError } from "./http.error";
 
 export interface Headers {
@@ -38,7 +37,6 @@ export class HTTPRequest implements Request {
 
 	constructor(options: RequestParameters) {
 
-		const requestIdHeader = String(process.env.REQUEST_ID_HEADER ?? "X-Request-Id");
 		const urlParams = new URL(options.url);
 
 		this.protocol = urlParams.protocol as Protocols;
