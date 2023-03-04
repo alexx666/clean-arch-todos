@@ -16,7 +16,7 @@ export class CreateListHandler implements ICreateListHandler {
 
 		const newList = new List({ ...command.params, id: this.uuids.generate() });
 
-		const listCreated = new ListCreated(this.uuids.generate(), newList);
+		const listCreated = new ListCreated(this.uuids.generate(), newList.id, newList);
 
 		await this.publisher.send(listCreated);
 	}

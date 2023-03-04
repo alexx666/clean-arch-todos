@@ -26,6 +26,6 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 
 		list.add(todo);
 
-		await this.publisher.send(new TodoAdded(this.uuids.generate(), todo));
+		await this.publisher.send(new TodoAdded(this.uuids.generate(), list.id, todo));
 	}
 }

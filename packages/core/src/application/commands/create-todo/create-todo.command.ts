@@ -12,5 +12,8 @@ export interface CreateTodoParameters extends CommandParameters {
 export class CreateTodo implements Command {
 	public readonly name = CREATE_TODO;
 
-	constructor(public readonly id: string, public readonly params: CreateTodoParameters) { }
+	constructor(
+		public readonly id: string,
+		public readonly params: CreateTodoParameters
+	) { }
 }

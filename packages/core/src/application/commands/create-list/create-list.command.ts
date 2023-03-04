@@ -12,5 +12,8 @@ export interface CreateListParameters extends CommandParameters {
 export class CreateList implements Command {
 	public readonly name = CREATE_LIST;
 
-	constructor(public readonly id: string, public readonly params: Readonly<CreateListParameters>) { }
+	constructor(
+		public readonly id: string,
+		public readonly params: Readonly<CreateListParameters>
+	) { }
 }

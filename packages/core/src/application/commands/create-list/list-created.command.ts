@@ -1,5 +1,6 @@
 import { List } from "../../../domain";
 import { Command } from "../../command";
+import { Event } from "../../event";
 
 // FIXME: duplicated definition
 export interface ListDetails {
@@ -16,14 +17,18 @@ export const LIST_CREATED = "ListCreated";
  * {@link Command} emitted when a new list is created.
  * Holds the details of the {@link List} in a {@link ListDetails} object
  */
-export class ListCreated implements Command<ListDetails> {
+export class ListCreated implements Command<ListDetails>, Event {
 	public readonly name: string = LIST_CREATED;
 	public readonly params: ListDetails;
 
 	/**
 	 * @param list a {@link List} entity that was created
 	 */
-	constructor(public readonly id: string, list: List) {
+	constructor(
+		public readonly id: string,
+		public readonly stream: string,
+		list: List
+	) {
 		this.params = {
 			id: list.listName,
 			name: list.listName,

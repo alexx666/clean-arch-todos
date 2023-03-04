@@ -8,7 +8,6 @@ export class DynamoEventRepository implements EventRepository {
 
 	public async saveAll(commands: Command[]): Promise<void> {
 		const writeRequests = commands.map((command) => ({
-			// FIXME: map command to dynamo item by setting stream
 			PutRequest: { Item: command },
 		}));
 
