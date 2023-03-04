@@ -9,10 +9,13 @@ export const TODO_REMOVED = "TodoRemoved";
  */
 export class TodoRemoved implements Command<Todo>, Event {
 	public readonly name: string = TODO_REMOVED;
+	public readonly timestamp: number;
 
 	constructor(
 		public readonly id: string,
 		public readonly stream: string,
 		public readonly params: Todo
-	) { }
+	) {
+		this.timestamp = Date.now();
+	}
 }

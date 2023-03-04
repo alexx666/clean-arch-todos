@@ -20,6 +20,7 @@ export const LIST_CREATED = "ListCreated";
 export class ListCreated implements Command<ListDetails>, Event {
 	public readonly name: string = LIST_CREATED;
 	public readonly params: ListDetails;
+	public readonly timestamp: number;
 
 	/**
 	 * @param list a {@link List} entity that was created
@@ -36,5 +37,7 @@ export class ListCreated implements Command<ListDetails>, Event {
 			allowDuplicates: list.policy.allowDuplicates,
 			allowExpired: list.policy.allowExpired,
 		};
+
+		this.timestamp = Date.now();
 	}
 }

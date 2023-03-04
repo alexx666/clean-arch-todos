@@ -19,6 +19,7 @@ export const TODO_ADDED = "TodoAdded";
  */
 export class TodoAdded implements Command<TodoDetails>, Event {
 	public readonly name: string = TODO_ADDED;
+	public readonly timestamp: number;
 	public readonly params: TodoDetails;
 
 	constructor(
@@ -33,5 +34,6 @@ export class TodoAdded implements Command<TodoDetails>, Event {
 			endDate: todo.endDate.toISOString(),
 			description: todo.description,
 		};
+		this.timestamp = Date.now();
 	}
 }
