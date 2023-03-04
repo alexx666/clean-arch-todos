@@ -5,7 +5,7 @@ import {
 	IDeleteTodoHandler,
 } from "@todos/core";
 
-import { headers } from "../infrastructure/util";
+import headers from "./cors-headers.json";
 
 export class DeleteTodoController {
 	constructor(private interactor: IDeleteTodoHandler) { }

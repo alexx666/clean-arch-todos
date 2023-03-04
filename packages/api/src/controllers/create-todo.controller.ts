@@ -5,7 +5,7 @@ import {
 	ICreateTodoHandler,
 } from "@todos/core";
 
-import { headers } from "../infrastructure/util";
+import headers from "./cors-headers.json";
 
 export class CreateTodoController {
 	constructor(private interactor: ICreateTodoHandler) { }

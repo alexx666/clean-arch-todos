@@ -1,11 +1,11 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
-import { headers } from "../infrastructure/util";
-
 import { IListTodos, ListTodosRequest } from "@todos/core";
 
+import headers from "./cors-headers.json";
+
 export class ListTodosController {
-	constructor(private interactor: IListTodos) {}
+	constructor(private interactor: IListTodos) { }
 
 	public async handle(
 		event: APIGatewayProxyEvent

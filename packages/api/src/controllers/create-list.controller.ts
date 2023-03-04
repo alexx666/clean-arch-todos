@@ -6,7 +6,7 @@ import {
 	ICreateListHandler,
 } from "@todos/core";
 
-import { headers } from "../infrastructure/util";
+import headers from "./cors-headers.json";
 
 export class CreateListController {
 	constructor(private interactor: ICreateListHandler) { }

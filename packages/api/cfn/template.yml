@@ -175,6 +175,9 @@ Resources:
             Method: POST
     Metadata:
       BuildMethod: esbuild
+      BuildProperties:
+        External:
+          - aws-sdk
 
   CreateListLogGroup:
     Type: AWS::Logs::LogGroup
@@ -207,6 +210,9 @@ Resources:
             Method: POST
     Metadata:
       BuildMethod: esbuild
+      BuildProperties:
+        External:
+          - aws-sdk
 
   CreateTodoLogGroup:
     Type: AWS::Logs::LogGroup
@@ -239,6 +245,9 @@ Resources:
             Method: DELETE
     Metadata:
       BuildMethod: esbuild
+      BuildProperties:
+        External:
+          - aws-sdk
 
   DeleteTodoLogGroup:
     Type: AWS::Logs::LogGroup
@@ -270,6 +279,9 @@ Resources:
             Method: GET
     Metadata:
       BuildMethod: esbuild
+      BuildProperties:
+        External:
+          - aws-sdk
 
   ListTodosLogGroup:
     Type: AWS::Logs::LogGroup
@@ -323,6 +335,9 @@ Resources:
               MaximumConcurrency: !Ref MaximumConcurrency
     Metadata:
       BuildMethod: esbuild
+      BuildProperties:
+        External:
+          - aws-sdk
 
   StoreEventLogGroup:
     Type: AWS::Logs::LogGroup
