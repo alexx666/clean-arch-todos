@@ -1,4 +1,4 @@
 export * from "./util";
-export * from "./data-access";
+export * from "./config";
 export * from "./lambda";
 export * from "./aws"

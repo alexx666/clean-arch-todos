@@ -2,24 +2,14 @@ import { IMediator, Command } from "@todos/core";
 
 import { SNS } from "aws-sdk";
 
-import { SNSConfig } from "../../config";
-
 export class SNSMediator implements IMediator {
-	private readonly sns: SNS;
 
-	constructor(private readonly config: SNSConfig) {
-		console.log({ config });
-
-		this.sns = new SNS({
-			endpoint: config.endpoint,
-			sslEnabled: config.sslEnabled,
-		});
-	}
+	constructor(private readonly topicArn: string, private readonly sns: SNS) { }
 
 	public async send(command: Command): Promise<void> {
 		await this.sns
 			.publish({
-				TopicArn: this.config.topic,
+				TopicArn: this.topicArn,
 				Message: JSON.stringify(command),
 				MessageAttributes: {},
 			})

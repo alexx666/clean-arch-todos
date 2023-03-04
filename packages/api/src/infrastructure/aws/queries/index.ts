@@ -1,1 +1,1 @@
-export * from "./list-todos/dynamo-list-todos.query";
+export * from "./list-todos";

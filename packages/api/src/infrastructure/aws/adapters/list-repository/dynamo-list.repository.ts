@@ -2,24 +2,14 @@ import { Command, List, ListProjectionMapper, ListRepository } from "@todos/core
 
 import { DynamoDB } from "aws-sdk";
 
-import { DynamoConfig } from "../../config";
-
 export class DynamoListRepository implements ListRepository {
-	private readonly ddb: DynamoDB.DocumentClient;
 
-	constructor(private readonly config: DynamoConfig) {
-		console.log({ config });
-
-		this.ddb = new DynamoDB.DocumentClient({
-			endpoint: config.endpoint,
-			sslEnabled: config.sslEnabled,
-		});
-	}
+	constructor(private readonly tableName: string, private readonly ddb: DynamoDB.DocumentClient) { }
 
 	public async findByName(id: string): Promise<List | undefined> {
 		const { Items: events } = await this.ddb
 			.query({
-				TableName: this.config.table,
+				TableName: this.tableName,
 				KeyConditionExpression: "#stream = :stream",
 				ExpressionAttributeValues: { ":stream": `List:${id}` },
 				ExpressionAttributeNames: { "#stream": "stream" },

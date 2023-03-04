@@ -2,19 +2,9 @@ import { Command, EventRepository } from "@todos/core";
 
 import { DynamoDB } from "aws-sdk";
 
-import { DynamoConfig } from "../../config";
-
 export class DynamoEventRepository implements EventRepository {
-	private readonly ddb: DynamoDB.DocumentClient;
 
-	constructor(private readonly config: DynamoConfig) {
-		console.log({ config });
-
-		this.ddb = new DynamoDB.DocumentClient({
-			endpoint: config.endpoint,
-			sslEnabled: config.sslEnabled,
-		});
-	}
+	constructor(private readonly tableName: string, private readonly ddb: DynamoDB.DocumentClient) { }
 
 	public async saveAll(commands: Command[]): Promise<void> {
 		const writeRequests = commands.map((command) => ({
@@ -25,7 +15,7 @@ export class DynamoEventRepository implements EventRepository {
 		await this.ddb
 			.batchWrite({
 				RequestItems: {
-					[this.config.table]: writeRequests,
+					[this.tableName]: writeRequests,
 				},
 			})
 			.promise();

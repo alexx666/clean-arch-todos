@@ -2,24 +2,16 @@ import { Command, Commands, IListTodos, ListTodosRequest, ListTodosResponse, Tod
 
 import { DynamoDB } from "aws-sdk";
 
-import { DynamoConfig } from "../../config";
-
 export class DynamoListTodos implements IListTodos {
-	private readonly ddb: DynamoDB.DocumentClient;
 
-	constructor(private readonly config: DynamoConfig) {
-		this.ddb = new DynamoDB.DocumentClient({
-			endpoint: config.endpoint,
-			sslEnabled: config.sslEnabled,
-		});
-	}
+	constructor(private readonly tableName: string, private readonly ddb: DynamoDB.DocumentClient) { }
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
 		const listName = input.listName;
 
 		const { Items: sortedTodoEvents } = await this.ddb
 			.query({
-				TableName: this.config.table,
+				TableName: this.tableName,
 				KeyConditionExpression: "#stream = :stream",
 				FilterExpression: `begins_with(#name, :todo_events)`,
 				ExpressionAttributeValues: {

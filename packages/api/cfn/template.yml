@@ -12,7 +12,7 @@ Globals:
     Handler: index.handler
     Environment:
       Variables:
-        IDEMPOTENCY_TABLE_NAME: !Ref IdempotencyCache
+        DYNAMO_IDEMPOTENCY_TABLE_NAME: !Ref IdempotencyCache
         EVENT_STORE_TABLE_NAME: !Ref EventStore
         REQUEST_ID_HEADER: !Ref RequestIdHeader
         SNS_MEDIATOR_TOPIC_ARN: !Ref Mediator
