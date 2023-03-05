@@ -190,6 +190,40 @@ Resources:
         - Key: Environment
           Value: !Ref Environment
 
+  ShowLists:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-show-list
+      Timeout: 30
+      CodeUri: packages/api/src/infrastructure/lambda/show-lists/
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Events:
+        PostList:
+          Type: Api
+          Properties:
+            Auth:
+              Authorizer: NONE
+            RestApiId: !Ref TodosAPI
+            Path: /lists
+            Method: GET
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        External:
+          - aws-sdk
+
+  ShowListsLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${ShowLists}
+      RetentionInDays: 14
+      Tags:
+        - Key: Project
+          Value: !Ref Project
+        - Key: Environment
+          Value: !Ref Environment
+
   CreateTodo:
     Type: AWS::Serverless::Function
     Properties:

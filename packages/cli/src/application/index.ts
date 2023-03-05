@@ -5,3 +5,4 @@ export * from "./delete-todo.handler";
 
 // Queries
 export * from "./list-todos.query";
+export * from "./show-lists.query";
