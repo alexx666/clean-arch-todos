@@ -2,4 +2,8 @@ import { CommandHandler } from "../../handler";
 
 import { CreateList } from "./create-list.command";
 
-export type ICreateListHandler = CommandHandler<CreateList, Promise<void>>;
+export interface CreateListRespose {
+	id: string;
+}
+
+export type ICreateListHandler = CommandHandler<CreateList, CreateListRespose>;

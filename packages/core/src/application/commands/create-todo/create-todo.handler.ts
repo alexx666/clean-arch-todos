@@ -6,7 +6,4 @@ export interface CreateTodoResponse {
 	id: string;
 }
 
-export type ICreateTodoHandler = CommandHandler<
-	CreateTodo,
-	Promise<void>
->;
+export type ICreateTodoHandler = CommandHandler<CreateTodo, CreateTodoResponse>;

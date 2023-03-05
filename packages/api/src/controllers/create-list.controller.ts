@@ -39,7 +39,9 @@ export class CreateListController {
 				allowExpired: body.allowExpired ?? true,
 			});
 
-			await this.interactor.execute(request);
+			const result = await this.interactor.execute(request);
+
+			response.body = JSON.stringify(result);
 		} catch (error) {
 			console.error(error);
 

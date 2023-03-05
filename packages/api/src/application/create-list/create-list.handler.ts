@@ -7,7 +7,7 @@ export class CreateListHandler implements ICreateListHandler {
 		private readonly uuids: UuidGenerator,
 	) { }
 
-	public async execute(command: CreateList): Promise<void> {
+	public async execute(command: CreateList) {
 		const { name } = command.params;
 
 		const existingList = await this.repository.findByName(name);
@@ -19,5 +19,7 @@ export class CreateListHandler implements ICreateListHandler {
 		const listCreated = new ListCreated(this.uuids.generate(), newList.id, newList);
 
 		await this.publisher.send(listCreated);
+
+		return { id: newList.id };
 	}
 }

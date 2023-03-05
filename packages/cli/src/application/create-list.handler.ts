@@ -1,4 +1,4 @@
-import { CreateList, ICreateListHandler } from "@todos/core";
+import { CreateList, CreateListRespose, ICreateListHandler } from "@todos/core";
 
 import { RequestClient } from "../ports";
 
@@ -6,7 +6,7 @@ export class CreateListHandler implements ICreateListHandler {
 
 	constructor(private readonly client: RequestClient) { }
 
-	public execute(command: CreateList): Promise<void> {
+	public execute(command: CreateList): Promise<CreateListRespose> {
 		const request = this.client.getBuilder()
 			.setPath(`/lists`)
 			.setMethod("POST")

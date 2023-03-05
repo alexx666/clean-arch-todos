@@ -31,7 +31,7 @@ export class ListCreated implements Command<ListDetails>, Event {
 		list: List
 	) {
 		this.params = {
-			id: list.listName,
+			id: list.id,
 			name: list.listName,
 			maxTodos: list.policy.maxTodos,
 			allowDuplicates: list.policy.allowDuplicates,

@@ -2,11 +2,11 @@ import { Command, CommandHandler } from "../../application";
 import { RetryConfig } from "./config";
 import { Time } from "./time";
 
-export class RetriableCommandHandler implements CommandHandler {
+export class RetriableCommandHandler<C extends Command = Command, O = void> implements CommandHandler<C, O> {
 
-	constructor(private readonly handler: CommandHandler, private readonly config: RetryConfig) { }
+	constructor(private readonly handler: CommandHandler<C, O>, private readonly config: RetryConfig) { }
 
-	public async execute(command: Command) {
+	public async execute(command: C) {
 		const { maxRetries, backoffStrategy, decider } = this.config;
 
 		console.debug("Retry config:", { maxRetries });

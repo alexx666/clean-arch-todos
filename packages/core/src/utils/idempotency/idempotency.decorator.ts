@@ -2,11 +2,11 @@ import { Command, CommandHandler } from "../../application";
 
 import { IdempotencyCache } from "./idempotency.cache";
 
-export class IdempotentCommandHandler implements CommandHandler {
+export class IdempotentCommandHandler<C extends Command = Command, O = void> implements CommandHandler<C, O> {
 
-	constructor(private readonly handler: CommandHandler, private readonly cache: IdempotencyCache) { }
+	constructor(private readonly handler: CommandHandler<C, O>, private readonly cache: IdempotencyCache) { }
 
-	public async execute(command: Command): Promise<void> {
+	public async execute(command: C): Promise<O | undefined> {
 		const requestId = command.id;
 
 		console.debug("Received request:", requestId);
@@ -36,10 +36,12 @@ export class IdempotentCommandHandler implements CommandHandler {
 
 		console.debug("Handeling request:", requestId);
 
-		await this.handler.execute(command);
+		const response = await this.handler.execute(command);
 
-		console.debug("Caching response");
+		console.debug("Caching response:", response);
 
-		await this.cache.update(requestId, ""); // REVIEW: empty since handlers are return void
+		await this.cache.update(requestId, response);
+
+		return response;
 	};
 }

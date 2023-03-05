@@ -11,7 +11,7 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 		private readonly publisher: IMediator
 	) { }
 
-	public async execute(command: CreateTodo): Promise<void> {
+	public async execute(command: CreateTodo) {
 		const { description, start, end, listName } = command.params;
 
 		const startDate = new Date(start);
@@ -27,5 +27,7 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 		list.add(todo);
 
 		await this.publisher.send(new TodoAdded(this.uuids.generate(), list.id, todo));
+
+		return { id: todo.id };
 	}
 }
