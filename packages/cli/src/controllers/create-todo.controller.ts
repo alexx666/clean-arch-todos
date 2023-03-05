@@ -4,10 +4,10 @@ import { CreateTodo, ICreateTodoHandler, UuidGenerator } from "@todos/core";
 export class CreateTodoController {
 	constructor(private handler: ICreateTodoHandler, private uuids: UuidGenerator) { }
 
-	public async handle({ listName, description, start, end }: any) {
+	public async handle({ listId, description, start, end }: any) {
 
 		const request = new CreateTodo(this.uuids.generate(), {
-			listName: String(listName),
+			listId: String(listId),
 			description: String(description),
 			start: String(start),
 			end: String(end),

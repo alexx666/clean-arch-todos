@@ -8,7 +8,7 @@ export class DeleteTodoHandler implements IDeleteTodoHandler {
 
 	public execute(command: DeleteTodo) {
 		const request = this.client.getBuilder()
-			.setPath(`/lists/${command.params.listName}/todos/${command.params.id}`)
+			.setPath(`/lists/${command.params.listId}/todos/${command.params.id}`)
 			.setMethod("DELETE")
 			.setHeader("X-Request-Id", command.id)
 			.build();

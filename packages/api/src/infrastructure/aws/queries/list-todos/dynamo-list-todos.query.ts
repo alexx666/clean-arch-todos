@@ -7,7 +7,7 @@ export class DynamoListTodos implements IListTodos {
 	constructor(private readonly tableName: string, private readonly ddb: DynamoDB.DocumentClient) { }
 
 	public async execute(input: ListTodosRequest): Promise<ListTodosResponse> {
-		const listName = input.listName;
+		const listId = input.listId;
 
 		const { Items: sortedTodoEvents } = await this.ddb
 			.query({
@@ -15,7 +15,7 @@ export class DynamoListTodos implements IListTodos {
 				KeyConditionExpression: "#stream = :stream",
 				FilterExpression: `begins_with(#name, :todo_events)`,
 				ExpressionAttributeValues: {
-					":stream": `List:${listName}`,
+					":stream": listId,
 					":todo_events": "Todo",
 				},
 				ExpressionAttributeNames: {
@@ -42,7 +42,7 @@ export class DynamoListTodos implements IListTodos {
 		return {
 			items,
 			count: active.length,
-			listName,
+			listId,
 		};
 	}
 }

@@ -24,7 +24,7 @@ export class ListTodosController {
 			if (!params?.listId) throw new Error("Request has no path parameters!");
 
 			const request: ListTodosRequest = {
-				listName: String(params.listId),
+				listId: String(params.listId),
 			};
 
 			const result = await this.interactor.execute(request);

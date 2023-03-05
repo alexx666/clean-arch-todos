@@ -9,7 +9,7 @@ import { defaultConfig, defaultOptions, HTTPClient } from "../../../http";
 export default new Command("delete")
 	.alias("rm")
 	.description("Delete todo")
-	.requiredOption("-l, --list-name <list>", "List ID")
+	.requiredOption("-l, --list-id <listId>", "List ID")
 	.requiredOption("--id <id>", "todo ID")
 	.action((cmd) => {
 		const client = new HTTPClient(defaultConfig);

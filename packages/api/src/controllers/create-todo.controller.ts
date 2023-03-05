@@ -33,7 +33,7 @@ export class CreateTodoController {
 
 			const request = new CreateTodo(requestId, {
 				...JSON.parse(body),
-				listName: decodeURI(params.listId),
+				listId: decodeURI(params.listId),
 			});
 
 			const result = await this.interactor.execute(request);

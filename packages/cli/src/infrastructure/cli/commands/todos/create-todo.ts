@@ -9,7 +9,7 @@ import { defaultConfig, defaultOptions, HTTPClient } from "../../../http";
 export default new Command("create")
 	.alias("mk")
 	.description("Create todo")
-	.requiredOption("-l, --list-name <list>", "List ID")
+	.requiredOption("-l, --list-id <listId>", "List ID")
 	.requiredOption("-d, --description <description>", "todo description")
 	.requiredOption("-s, --start <start>", "todo start date in ISO format")
 	.requiredOption("-e, --end <end>", "todo end date in ISO format")

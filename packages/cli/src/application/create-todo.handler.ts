@@ -8,7 +8,7 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 
 	public async execute(command: CreateTodo): Promise<CreateTodoResponse> {
 		const request = this.client.getBuilder()
-			.setPath(`/lists/${command.params.listName}/todos`)
+			.setPath(`/lists/${command.params.listId}/todos`)
 			.setMethod("POST")
 			.setHeader("X-Request-Id", command.id)
 			.setBody(JSON.stringify(command.params))

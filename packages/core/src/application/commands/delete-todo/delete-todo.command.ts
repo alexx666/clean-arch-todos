@@ -3,7 +3,7 @@ import { Command, CommandParameters } from "../../command";
 export const DELETE_TODO = "DeleteTodo";
 
 export interface DeleteTodoParameters extends CommandParameters {
-	listName: string;
+	listId: string;
 	id: string;
 }
 

@@ -8,9 +8,9 @@ export class DeleteTodoHandler implements IDeleteTodoHandler {
 	) { }
 
 	public async execute(command: DeleteTodo): Promise<void> {
-		const { listName, id } = command.params;
+		const { listId, id } = command.params;
 
-		const list = await this.repository.findByName(listName);
+		const list = await this.repository.findById(listId);
 
 		if (!list) throw new Error("[DeleteTodo] Error: List does not exist!");
 

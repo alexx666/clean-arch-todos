@@ -31,7 +31,7 @@ export class DeleteTodoController {
 			if (!requestId) throw new Error(`${requestIdHeader} not provided`);
 
 			const request = new DeleteTodo(requestId, {
-				listName: params.listId,
+				listId: params.listId,
 				id: params.todoId,
 			});
 

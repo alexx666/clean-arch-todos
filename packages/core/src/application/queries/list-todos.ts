@@ -5,9 +5,9 @@ import { TodoItem } from "../../domain";
  */
 export interface ListTodosRequest {
 	/**
-	 * String value of the name of the list
+	 * String value of the id of the list
 	 */
-	listName: string;
+	listId: string;
 }
 
 /**
@@ -19,9 +19,9 @@ export interface ListTodosResponse {
 	 */
 	items: TodoItem[];
 	/**
-	 * List name to which the todos belong
+	 * List id to which the todos belong
 	 */
-	listName: string;
+	listId: string;
 	/**
 	 * Number of all todos found
 	 */

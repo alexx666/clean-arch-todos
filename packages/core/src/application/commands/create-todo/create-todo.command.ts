@@ -6,7 +6,7 @@ export interface CreateTodoParameters extends CommandParameters {
 	description: string;
 	start: string;
 	end: string;
-	listName: string;
+	listId: string;
 }
 
 export class CreateTodo implements Command {

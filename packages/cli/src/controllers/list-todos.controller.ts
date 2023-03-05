@@ -5,9 +5,9 @@ export const LIST_TODOS = "ListTodos";
 export class ListTodosController {
 	constructor(private interactor: IListTodos) { }
 
-	public async handle({ listName }: any) {
+	public async handle({ listId }: any) {
 		const request: ListTodosRequest = {
-			listName: String(listName),
+			listId: String(listId),
 		};
 
 		const response = await this.interactor.execute(request);

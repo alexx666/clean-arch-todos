@@ -12,15 +12,15 @@ export class CreateTodoHandler implements ICreateTodoHandler {
 	) { }
 
 	public async execute(command: CreateTodo) {
-		const { description, start, end, listName } = command.params;
+		const { description, start, end, listId } = command.params;
 
 		const startDate = new Date(start);
 		const endDate = new Date(end);
 		const id = this.uuids.generate();
 
-		const todo = new Todo({ id, description, startDate, endDate, listName });
+		const todo = new Todo({ id, description, startDate, endDate, listId });
 
-		const list = await this.repository.findByName(listName);
+		const list = await this.repository.findById(listId);
 
 		if (!list) throw new Error("[CreateTodo] Error: List does not exist!");
 

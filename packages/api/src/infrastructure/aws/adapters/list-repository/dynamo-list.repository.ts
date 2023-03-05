@@ -6,12 +6,12 @@ export class DynamoListRepository implements ListRepository {
 
 	constructor(private readonly tableName: string, private readonly ddb: DynamoDB.DocumentClient) { }
 
-	public async findByName(id: string): Promise<List | undefined> {
+	public async findById(id: string): Promise<List | undefined> {
 		const { Items: events } = await this.ddb
 			.query({
 				TableName: this.tableName,
 				KeyConditionExpression: "#stream = :stream",
-				ExpressionAttributeValues: { ":stream": `List:${id}` },
+				ExpressionAttributeValues: { ":stream": id },
 				ExpressionAttributeNames: { "#stream": "stream" },
 			})
 			.promise();

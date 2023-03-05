@@ -8,6 +8,7 @@ export class ListProjectionMapper {
 		for (const { name: type, params: details } of events) {
 			switch (true) {
 				case type === "ListCreated":
+					listParams.id = (details as ListDetails).id;
 					listParams.name = (details as ListDetails).name;
 					listParams.allowDuplicates = (details as ListDetails).allowDuplicates;
 					listParams.allowExpired = (details as ListDetails).allowExpired;

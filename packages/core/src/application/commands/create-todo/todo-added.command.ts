@@ -8,7 +8,7 @@ export interface TodoDetails {
 	description: string;
 	startDate: string;
 	endDate: string;
-	listName: string;
+	listId: string;
 }
 
 export const TODO_ADDED = "TodoAdded";
@@ -29,7 +29,7 @@ export class TodoAdded implements Command<TodoDetails>, Event {
 	) {
 		this.params = {
 			id: todo.id,
-			listName: todo.listName,
+			listId: todo.listId,
 			startDate: todo.startDate.toISOString(),
 			endDate: todo.endDate.toISOString(),
 			description: todo.description,

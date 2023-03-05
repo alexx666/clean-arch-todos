@@ -10,7 +10,7 @@ export class CreateListHandler implements ICreateListHandler {
 	public async execute(command: CreateList) {
 		const { name } = command.params;
 
-		const existingList = await this.repository.findByName(name);
+		const existingList = await this.repository.findById(name);
 
 		if (existingList) throw new Error("[CreateList] Error: List aleady exist!");
 

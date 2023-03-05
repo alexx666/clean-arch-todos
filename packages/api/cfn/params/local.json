@@ -2,6 +2,7 @@
 	"Parameters": {
 		"AWS_ENDPOINT_URL": "http://host.docker.internal:4566",
 		"DYNAMO_TABLE_NAME": "todo-api-event-store",
-		"SNS_TOPIC_ARN": "arn:aws:sns:us-east-1:000000000000:todo-api-mediator"
+		"SNS_TOPIC_ARN": "arn:aws:sns:us-east-1:000000000000:todo-api-mediator",
+		"DYNAMO_IDEMPOTENCY_TABLE_NAME": "todo-api-idempotency-cache"
 	}
 }
